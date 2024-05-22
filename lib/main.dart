@@ -28,9 +28,9 @@ void main() async {
 // Returns a ThemeData based on the provided BuildContext.
 ThemeData themeData(BuildContext context) {
   return ThemeData(
-    colorScheme: ColorScheme.fromSwatch(
-      brightness: Brightness.light,
-    ),
+    // colorScheme: ColorScheme.fromSwatch(
+    //   brightness: Brightness.light,
+    // ),
     scaffoldBackgroundColor: Colors.white,
     fontFamily: "Poppins",
     visualDensity: VisualDensity.adaptivePlatformDensity,

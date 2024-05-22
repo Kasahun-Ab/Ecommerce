@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,44 +7,38 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pazimo/app/modules/Components/Expantion_button.dart';
 import 'package:pazimo/app/modules/Components/short_button.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
+import 'package:pazimo/app/modules/home/views/Screen/review.dart';
 import '../../../Components/icon_button.dart';
 
 // ignore: must_be_immutable
 class ProductDetailView extends StatelessWidget {
-  ProductDetailView({super.key});
+  ProductDetailView({super.key, required this.productIndex});
+  final RxInt productIndex;
   RxInt itemNumber = 1.obs;
-  RxInt price_of_item = 78000.obs;
-  RxInt selectedIndex = 0.obs;
+  RxBool isAdded = false.obs;
 
-  Map<String, dynamic> detailsToAdd = {
-    'product_name': "",
-    'color': '',
-    'storage': '',
-    'price': 0,
-    'description': "",
-    'image': "",
-    'brand': "",
-    'rating': 0,
-    // Add more key-value pairs as needed
-  };
+  RxInt selectedIndex = 0.obs;
+  RxInt selectedColorIndex = 0.obs;
+  RxDouble price_of_item = 0.0.obs;
+  Map<String, dynamic> detailsToAdd = {};
   RxInt colorIndex = 0.obs;
+
   final HomeController controller = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
-    List<String> listStorage = [
-      "64 GB",
-      "128 GB",
-      " 256 GB",
-    ].obs;
-    Map<String, Color> listColor = {
-      'blue': Colors.blue,
-      'black': Colors.black,
-      'red': Colors.red,
-      'green': Colors.green,
-    };
+    RxBool isLiked = true.obs;
+    price_of_item.value = controller.products[productIndex.value].price;
+
+    var index = controller.products[productIndex.value].id;
+    if (controller.liked.contains(index)) {
+      isLiked.value = true;
+    } else {
+      isLiked.value = false;
+    }
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           "Product details",
           style: GoogleFonts.poppins(
@@ -54,6 +47,7 @@ class ProductDetailView extends StatelessWidget {
       ),
       body: Obx(
         () => Container(
+          height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +61,7 @@ class ProductDetailView extends StatelessWidget {
                       Stack(
                         children: [
                           Container(
-                            height: 350.h,
+                            height: 400.h,
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                               color: Color(0xFFE6E6E6),
@@ -76,24 +70,49 @@ class ProductDetailView extends StatelessWidget {
                             ),
                             child: Center(
                                 child: Padding(
-                              padding: const EdgeInsets.all(30.0),
-                              child: Image.asset("assets/images/phone.png"),
+                              padding: const EdgeInsets.all(0.0),
+                              child: PageView.builder(
+                                  itemCount: controller
+                                      .products[productIndex.value]
+                                      .photos
+                                      .length,
+                                  itemBuilder: (context, index) {
+                                    return Image.asset(
+                                      "${controller.products[productIndex.value].photos[index]}",
+                                    );
+                                  }),
                             )),
                           ),
                           Positioned(
-                              top: 34.h,
-                              right: 34.w,
+                              top: 12.h,
+                              right: 12.w,
                               child: InkWell(
-                                radius: 20.r,
+                                radius: 20.sp,
                                 onTap: () {
-                                  print("liked");
+                                  if (isLiked.value) {
+                                    controller.liked
+                                        .remove(productIndex.value - 1);
+                                    // controller.removeStorage(
+                                    //     controller.products[index]);
+                                    isLiked.value = false;
+                                  } else {
+                                    // controller
+                                    //     .addStorage(controller.products[index]);
+                                    isLiked.value = true;
+                                  }
                                 },
                                 child: Container(
+                                  width: 37.h,
+                                  height: 37.h,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(5)),
                                   child: Center(
-                                    child: SvgPicture.asset(
-                                        width: 46.h,
-                                        height: 46.w,
-                                        "assets/svg/like.svg"),
+                                    child: isLiked.value
+                                        ? SvgPicture.asset(
+                                            "assets/svg/liked.svg")
+                                        : SvgPicture.asset(
+                                            "assets/svg/like.svg"),
                                   ),
                                 ),
                               )),
@@ -111,7 +130,8 @@ class ProductDetailView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Apple",
+                            controller.products[productIndex.value].brand
+                                .toString(),
                             style: GoogleFonts.poppins(
                                 fontSize: 15.sp,
                                 fontWeight: FontWeight.w300,
@@ -119,7 +139,10 @@ class ProductDetailView extends StatelessWidget {
                           ),
                           RatingBar.builder(
                             itemSize: 18.sp,
-                            initialRating: 3,
+                            initialRating: controller
+                                .products[productIndex.value]
+                                .reviews[0]["rating"]
+                                .toDouble(),
                             minRating: 1,
                             direction: Axis.horizontal,
                             allowHalfRating: true,
@@ -154,11 +177,15 @@ class ProductDetailView extends StatelessWidget {
                           SizedBox(
                             height: 10.h,
                           ),
-                          listStorage.length > 0
-                              ? SizedBox(
-                                  height: 40.h,
+                          controller.products[productIndex.value].sizes.length >
+                                  0
+                              ? Container(
+                                  height: 40.h, // Provide a fixed height
                                   child: ListView.builder(
-                                    itemCount: listStorage.length,
+                                    itemCount: controller
+                                        .products[productIndex.value]
+                                        .sizes
+                                        .length,
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index) {
                                       return Padding(
@@ -166,7 +193,9 @@ class ProductDetailView extends StatelessWidget {
                                             const EdgeInsets.only(right: 8.0),
                                         child: Obx(
                                           () => SelectedBox(
-                                              listStorage[index],
+                                              controller
+                                                  .products[productIndex.value]
+                                                  .sizes[index],
                                               selectedIndex.value == index
                                                   ? Color(0XFFD9D9D9)
                                                   : Color(0XFF999999),
@@ -178,8 +207,7 @@ class ProductDetailView extends StatelessWidget {
                                         ),
                                       );
                                     },
-                                  ),
-                                )
+                                  ))
                               : Container(),
                           SizedBox(
                             height: 15.h,
@@ -192,22 +220,32 @@ class ProductDetailView extends StatelessWidget {
                           SizedBox(
                             height: 10.h,
                           ),
-                          Row(
-                            children: List.from(listColor.entries.mapIndexed(
-                              (index, e) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: SelectedBox(
-                                      e.key,
-                                      e.value,
-                                      Colors.white,
-                                      index, // Remove the extra comma here
-                                      colorIndex // Assuming colorIndex is defined elsewhere
-
-                                      ),
-                                );
-                              },
-                            ).toList()),
+                          Container(
+                            height: 40.h,
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: controller
+                                    .products[productIndex.value].colors.length,
+                                itemBuilder: (context, index) {
+                                  return Obx(
+                                    () => Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 8.0),
+                                      child: SelectedBox(
+                                          controller
+                                              .products[productIndex.value]
+                                              .colors[index],
+                                          selectedColorIndex.value == index
+                                              ? Color(0XFFD9D9D9)
+                                              : Color(0XFF999999),
+                                          selectedColorIndex.value == index
+                                              ? Colors.black
+                                              : Colors.white,
+                                          index,
+                                          selectedColorIndex),
+                                    ),
+                                  );
+                                }),
                           )
                         ],
                       ),
@@ -215,38 +253,44 @@ class ProductDetailView extends StatelessWidget {
                         height: 10.h,
                       ),
                       Text(
-                          "The iPhone 15 features a 6.1-inch (155 mm)  display with Super Retina XDR OLED technology at a resolution of 2556×1179 pixels and a pixel density of about 460 PPI with a refresh",
+                          controller.products[productIndex.value].description
+                              .toString(),
                           style: Theme.of(context).textTheme.bodyLarge),
                       SizedBox(
                         height: 10,
                       ),
                       ExpansionButton(
                         title: 'Product Details',
-                        description:
-                            'He moonlights difficult engrossed, sportsmen interested has all Devonshire difficulty gay assistance joy.For who thoroughly conviction.',
+                        description: controller
+                            .products[productIndex.value].description
+                            .toString(),
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       ExpansionButton(
                         title: 'Specifications',
-                        description:
-                            'He moonlights difficult engrossed, sportsmen interested has all Devonshire difficulty gay assistance joy.For who thoroughly conviction.',
+                        description: controller
+                            .products[productIndex.value].specifications
+                            .toString(),
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       ExpansionButton(
                         title: 'Material & Care',
-                        description:
-                            'He moonlights difficult engrossed, sportsmen interested has all Devonshire difficulty gay assistance joy.For who thoroughly conviction.',
+                        description: controller
+                            .products[productIndex.value].materialAndCare
+                            .toString(),
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       ExpansionButton(
                         title: 'Rating & Reviews',
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => ReviewsPage());
+                        },
                         buttonName: "See More",
                         totalReview: "10 reviews",
                         rating: RatingBar.builder(
@@ -263,10 +307,15 @@ class ProductDetailView extends StatelessWidget {
                           ),
                           onRatingUpdate: (double value) {},
                         ),
-                        description:
-                            'He moonlights difficult engrossed, sportsmen interested has all Devonshire difficulty gay assistance joy.For who thoroughly conviction.',
-                        name: "Abebe kenobi",
-                        dateofrating: "6 day ago",
+                        description: controller
+                            .products[productIndex.value].reviews[0]["comment"]
+                            .toString(),
+                        name: controller
+                            .products[productIndex.value].reviews[0]["name"]
+                            .toString(),
+                        dateofrating: controller
+                            .products[productIndex.value].reviews[0]["date"]
+                            .toString(),
                       ),
                       SizedBox(
                         height: 20.h,
@@ -341,27 +390,50 @@ class ProductDetailView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ShortButton(
-                              title: 'Buy now',
+                              title: "Buy Now",
                               onTap: () {},
                               color: Colors.amber),
-                          ShortButton(
-                              title: 'Add to cart',
-                              onTap: () {
-                                detailsToAdd = {
-                                  'title': "Iphone 15 pro max",
-                                  'price': controller.priceCalculation(
-                                      itemNumber, price_of_item),
-                                  'single_price': price_of_item,
-                                  'quantity': itemNumber,
-                                  'image': "assets/images/iphone.png",
-                                  'color': listColor[colorIndex.value],
-                                  'size': listStorage[selectedIndex.value],
-                                };
-                                controller.addtoCart(detailsToAdd);
-                                print(
-                                    "added to cart ${controller.carts.length}");
-                              },
-                              color: Colors.blue)
+                          Obx(
+                            () => ShortButton(
+                                title: isAdded.value == false
+                                    ? "Add to cart"
+                                    : "Remove from cart",
+                                onTap: isAdded.value == false
+                                    ? () {
+                                        isAdded.value = true;
+                                        detailsToAdd = {
+                                          "id": controller
+                                              .products[productIndex.value].id,
+                                          'total_price':
+                                              controller.priceCalculation(
+                                                  itemNumber, price_of_item),
+                                          'single_price': price_of_item,
+                                          'quantity': itemNumber,
+                                          'image': controller
+                                              .products[productIndex.value]
+                                              .photos[0],
+                                          'color': controller
+                                              .products[productIndex.value]
+                                              .colors[colorIndex.value],
+                                          'size': controller
+                                              .products[productIndex.value]
+                                              .sizes[selectedIndex.value],
+                                        };
+
+                                        controller.addtoCart(detailsToAdd);
+                                        Get.snackbar(
+                                            colorText: Colors.white,
+                                            backgroundColor: Colors.green,
+                                            "successfully",
+                                            "added to cart");
+                                      }
+                                    : () => {
+                                          isAdded.value = false,
+                                          controller
+                                              .removeFromCart(detailsToAdd),
+                                        },
+                                color: Colors.blue),
+                          ),
                         ],
                       )
                     ],
@@ -391,7 +463,6 @@ class ProductDetailView extends StatelessWidget {
     return InkWell(
       onTap: () {
         // Print the index of the box when it is tapped.
-        print(index);
 
         // Set the selected index to the index of the box tapped.
         selectedIndex.value = index;

@@ -9,9 +9,11 @@ class CardTitle_with_icon extends StatelessWidget {
     super.key,
     required this.title,
     this.subtitle = '',
+    required this.tap,
   });
   String title;
   String subtitle;
+  final Function() tap;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,9 +29,12 @@ class CardTitle_with_icon extends StatelessWidget {
             SizedBox(
               width: 10.w,
             ),
-            Icon(
-              Icons.arrow_forward,
-              color: Colors.blue,
+            InkWell(
+              onTap: tap,
+              child: Icon(
+                Icons.arrow_forward,
+                color: Colors.blue,
+              ),
             )
           ],
         ),

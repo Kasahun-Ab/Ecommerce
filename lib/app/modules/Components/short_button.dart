@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// ignore: must_be_immutable
 class ShortButton extends StatelessWidget {
-  ShortButton(
-      {super.key,
-      required this.title,
-      required this.onTap,
-      required this.color});
+  ShortButton({
+    super.key,
+    required this.title,
+    required this.onTap,
+    required this.color,
+  });
+
   final String title;
   final Function() onTap;
   final Color color;

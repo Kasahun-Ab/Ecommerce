@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pazimo/app/modules/Components/CardTitle_with%20Icon.dart';
 import 'package:pazimo/app/modules/Components/product_card.dart';
 import 'package:pazimo/app/modules/Components/search_textfield.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
+import 'package:pazimo/app/modules/home/views/Screen/saved_items_view.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({super.key});
-
+  HomeView({super.key});
+  final HomeController controller = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(title: search()),
       body: SingleChildScrollView(
@@ -73,25 +77,34 @@ class HomeView extends StatelessWidget {
             CardTitle_with_icon(
               title: 'Big Save',
               subtitle: 'Top brand’s, price slashed',
+              tap: () {
+                Get.to(savedItemsView());
+              },
             ),
             SizedBox(
               height: 12.h,
             ),
-            
             Container(
-              height: 255.h,
+              height: 290.h,
               width: MediaQuery.of(context).size.width,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
+                  itemCount: controller.products.length,
                   itemBuilder: (context, index) {
+                    print(controller.products[index].id);
                     return Container(
                       margin: EdgeInsets.only(right: 8.w),
                       child: ProductCard(
-                        ImageSource: 'assets/images/iphone.png',
-                        brand: 'Apple',
-                        description: 'iPhone 14 Pro 128 GB ',
-                        price: 'ETB 78,000 ',
+                        ImageSource: controller.products[index].photos[0],
+                        brand: controller.products[index].brand,
+                        description: controller.products[index].description,
+                        price: 'ETB ${controller.products[index].price} ',
                         oldprice: '80000',
+                        tap: () {
+                          controller.selectedProductIndex.value = index;
+                          controller.selectedIndex.value = 6;
+                        },
+                        index: "${controller.products[index].id}",
                       ),
                     );
                   }),
@@ -100,7 +113,12 @@ class HomeView extends StatelessWidget {
               height: 20.h,
             ),
             CardTitle_with_icon(
-                title: "Upcoming Events", subtitle: "Limited time offers")
+              title: "Upcoming Events",
+              subtitle: "Limited time offers",
+              tap: () {
+                controller.selectedIndex.value = 5;
+              },
+            )
           ]),
         ),
       ),
@@ -147,7 +165,7 @@ class _ImageListWithArrowsState extends State<ImageListWithArrows> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90,
+      height: 60,
       padding: EdgeInsets.zero,
       child: Row(
         children: [

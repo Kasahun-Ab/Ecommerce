@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:pazimo/app/modules/onbording/controllers/onbording_controller.dart';
+import 'package:pazimo/app/modules/onbording/views/SplashScreen.dart';
 import 'package:pazimo/app/routes/app_pages.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
-
+   SplashScreen({Key? key}) : super(key: key);
+final OnboardingController controller = Get.put(OnboardingController());
   @override
   Widget build(BuildContext context) {
+   
     Future.delayed(Duration(seconds: 3), () {
-      // Navigate to the home screen using Get.offAll to clear the navigation stack
-      Get.offNamed(Routes.HOME);
+      controller.onborging.value == "end"
+          ? Get.offNamed(Routes.AUTHENTICATION)
+          : Get.off(() => OnboardingScreen());
     });
     return Scaffold(
       body: SafeArea(

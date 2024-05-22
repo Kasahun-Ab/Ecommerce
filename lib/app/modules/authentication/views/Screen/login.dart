@@ -6,6 +6,7 @@ import 'package:pazimo/app/modules/Components/headersubtitle.dart';
 import 'package:pazimo/app/modules/Components/long_button.dart';
 import 'package:pazimo/app/modules/authentication/validator/validator.dart';
 import 'package:pazimo/app/modules/authentication/views/Screen/forgotpassword_view.dart';
+import 'package:pazimo/app/routes/app_pages.dart';
 
 import '../../../Components/header_title.dart';
 import 'register.dart';
@@ -36,7 +37,9 @@ class LoginView extends StatelessWidget {
                     label: 'Phone Number',
                     hint: 'Enter your phone number',
                     validator: (value) => validator[1](value),
-                    controller: _phoneNumberController, obscureText: false, textInputType: TextInputType.phone,
+                    controller: _phoneNumberController,
+                    obscureText: false,
+                    textInputType: TextInputType.phone,
                   ),
                   SizedBox(height: 10),
                   AuthTextField(
@@ -44,8 +47,8 @@ class LoginView extends StatelessWidget {
                     label: 'Password',
                     hint: 'Enter your password',
                     validator: (value) => validator[2](value),
-                    controller: _passwordController, 
-                    obscureText: true, 
+                    controller: _passwordController,
+                    obscureText: true,
                     textInputType: TextInputType.visiblePassword,
                   ),
                   SizedBox(height: 10),
@@ -53,23 +56,21 @@ class LoginView extends StatelessWidget {
                     text: "Forgot your password?",
                     textButton: "Reset your password",
                     onPressed: () {
-                      Get.to(()=>ForgotpasswordView());
-                    }, 
+                      Get.to(() => ForgotpasswordView());
+                    },
                   ),
                   SizedBox(height: 25),
                   Button(
                     title: 'Login',
                     color: Colors.blue,
                     onPressed: () {
-                   if (_formKey.currentState!.validate()) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(_passwordController.text+_phoneNumberController.text)),
-                    );
-                  }
+                      if (_formKey.currentState!.validate()) {
+                        Get.offNamed(Routes.HOME);
+                      }
                     },
                     hasBorder: false,
                     iconDirectionIsRight: true,
-                    hasIcon: false, 
+                    hasIcon: false,
                   ),
                   SizedBox(height: 10),
                   Row(
@@ -99,7 +100,7 @@ class LoginView extends StatelessWidget {
                     hasBorder: true,
                     iconDirectionIsRight: false,
                     iconSource: 'assets/svg/google_icons.svg',
-                    hasIcon: true, 
+                    hasIcon: true,
                   ),
                   SizedBox(height: 15),
                   Button(
@@ -109,14 +110,14 @@ class LoginView extends StatelessWidget {
                     hasBorder: false,
                     iconDirectionIsRight: false,
                     iconSource: 'assets/svg/facebook_icon.svg',
-                    hasIcon: true, 
+                    hasIcon: true,
                   ),
                   SizedBox(height: 20),
                   TextwithTextbutton(
                     text: 'Don’t have an account?',
                     textButton: 'Join',
                     onPressed: () {
-                      Get.to(()=>RegisterView());
+                      Get.to(() => RegisterView());
                     },
                   ),
                   SizedBox(height: 30),

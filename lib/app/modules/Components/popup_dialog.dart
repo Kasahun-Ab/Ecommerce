@@ -4,13 +4,16 @@ import 'package:lottie/lottie.dart';
 import 'package:pazimo/app/modules/components/long_button.dart';
 
 class popupDialogbox extends StatelessWidget {
-  const popupDialogbox(
-      {super.key,
-      required this.title,
-      required this.message,
-      required this.onPressed});
+  const popupDialogbox({
+    super.key,
+    required this.title,
+    required this.message,
+    required this.onPressed,
+    required this.buttontitle,
+  });
   final String title;
   final String message;
+  final String buttontitle;
   final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,7 @@ class popupDialogbox extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Button(
-                title: "Login",
+                title: buttontitle,
                 color: Colors.blue,
                 onPressed: onPressed,
                 hasBorder: false,

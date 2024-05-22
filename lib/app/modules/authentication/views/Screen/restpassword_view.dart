@@ -40,8 +40,8 @@ class ResetPassword extends StatelessWidget {
                       label: "Password",
                       hint: "Enter your Password",
                       validator: (value) => validator[1](value),
-                      controller: _passwordController, 
-                      obscureText: true, 
+                      controller: _passwordController,
+                      obscureText: true,
                       textInputType: TextInputType.visiblePassword,
                     ),
                     SizedBox(height: 10),
@@ -50,8 +50,8 @@ class ResetPassword extends StatelessWidget {
                       label: "Confirm Password",
                       hint: "Enter your Confirm password",
                       validator: (value) => validator[1](value),
-                      controller: _confirmPasswordController, 
-                      obscureText: true, 
+                      controller: _confirmPasswordController,
+                      obscureText: true,
                       textInputType: TextInputType.visiblePassword,
                     ),
                   ],
@@ -63,7 +63,13 @@ class ResetPassword extends StatelessWidget {
                     color: Colors.blue,
                     onPressed: () {
                       Get.dialog(
-                        popupDialogbox(title: 'Password Changed!', message: 'Your can now use your new \npassword to login to your account.', onPressed: () {  },),
+                        popupDialogbox(
+                          title: 'Password Changed!',
+                          message:
+                              'Your can now use your new \npassword to login to your account.',
+                          onPressed: () {},
+                          buttontitle: 'Login',
+                        ),
                       );
                     },
                     hasBorder: false,
@@ -71,7 +77,9 @@ class ResetPassword extends StatelessWidget {
                     hasIcon: false,
                   ),
                 ),
-                SizedBox(height: 30,)
+                SizedBox(
+                  height: 30,
+                )
               ],
             ),
           ),
@@ -80,4 +88,3 @@ class ResetPassword extends StatelessWidget {
     );
   }
 }
-
