@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
@@ -17,7 +18,7 @@ class HomePage extends GetView<HomeController> {
 
   final List<String> iconSource = [
     'assets/svg/home.svg',
-    'assets/svg/cart.svg',
+    'assets/svg/bag 1.svg',
     'assets/images/center_icon.png',
     'assets/svg/cart.svg',
     'assets/svg/profile.svg'
@@ -26,6 +27,7 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    RxInt _selectedIndex = 0.obs;
     List<Widget> Page = [
       HomeView(),
       SearchView(),
@@ -35,90 +37,91 @@ class HomePage extends GetView<HomeController> {
       CartView(),
       AccountScreen(),
       EventView(),
-   
     ];
 
     return Obx(
       () => Scaffold(
-          body: Page[controller.selectedIndex.value],
-          bottomNavigationBar: BottomNavigationBar(
-            elevation: 50,
-            type: BottomNavigationBarType.fixed,
-            onTap: (value) => {
-              controller.selectedIndex.value = value,
-            },
-            selectedItemColor: Colors.blue,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  iconSource[0],
-                  width: 20,
-
-                  // ignore: deprecated_member_use
-                  color: controller.selectedIndex.value <= 4
-                      ? controller.selectedIndex.value == 0
-                          ? Colors.blue
-                          : Colors.black
-                      : Colors.black,
-                  height: 20,
-                ),
-                label: label[0],
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  iconSource[1],
-                  width: 20,
-                  height: 20,
-                  // ignore: deprecated_member_use
-                  color: controller.selectedIndex.value <= 4
-                      ? controller.selectedIndex.value == 1
-                          ? Colors.blue
-                          : Colors.black
-                      : Colors.black,
-                ),
-                label: label[1],
-              ),
-              BottomNavigationBarItem(
-                  icon: Image.asset(
-                    iconSource[2],
-                    fit: BoxFit.fill,
-                    width: 50,
-                    height: 20,
+        body: Page[controller.selectedIndex.value],
+        bottomNavigationBar: BottomAppBar(
+          shape: CircularNotchedRectangle(),
+          notchMargin: 6.0,
+          child: Container(
+            height: 45.0.h,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                InkWell(
+                  onTap: () => {
+                    _selectedIndex.value = 0,
+                  },
+                  child: bottomnaveBarItem(
+                    iconSource: iconSource[0],
+                    index: 0,
+                    label: label[0],
                   ),
-                  label: ""),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  iconSource[3],
-                  width: 20,
-                  height: 20,
-                  // ignore: deprecated_member_use
-                  color: controller.selectedIndex.value <= 4
-                      ? controller.selectedIndex.value == 3
-                          ? Colors.blue
-                          : Colors.black
-                      : Colors.black,
                 ),
-                label: label[2],
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  iconSource[4],
-                  width: 20,
-                  height: 20,
-                  // ignore: deprecated_member_use
-                  color: controller.selectedIndex.value <= 4
-                      ? controller.selectedIndex.value == 4
-                          ? Colors.blue
-                          : Colors.black
-                      : Colors.black,
+                InkWell(
+                  onTap: () => {
+                    _selectedIndex.value = 1,
+                  },
+                  child: bottomnaveBarItem(
+                    iconSource: iconSource[1],
+                    index: 1,
+                    label: label[1],
+                  ),
                 ),
-                label: label[3],
-              ),
-            ],
-            currentIndex: controller.selectedIndex.value <= 4
-                ? controller.selectedIndex.value
-                : 0,
-          )),
+                InkWell(
+                    onTap: () => {
+                          _selectedIndex.value = 2,
+                        },
+                    child: Container(
+                      child: Image.asset(iconSource[2]),
+                    )),
+                InkWell(
+                  onTap: () => {
+                    _selectedIndex.value = 3,
+                  },
+                  child: bottomnaveBarItem(
+                    iconSource: iconSource[3],
+                    index: 3,
+                    label: label[2],
+                  ),
+                ),
+                InkWell(
+                  onTap: () => {
+                    _selectedIndex.value = 4,
+                  },
+                  child: bottomnaveBarItem(
+                    iconSource: iconSource[4],
+                    index: 4,
+                    label: label[3],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class bottomnaveBarItem extends StatelessWidget {
+  const bottomnaveBarItem(
+      {super.key,
+      required this.iconSource,
+      required this.index,
+      required this.label});
+
+  final String iconSource;
+  final int index;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [SvgPicture.asset(iconSource), Text(label)],
     );
   }
 }

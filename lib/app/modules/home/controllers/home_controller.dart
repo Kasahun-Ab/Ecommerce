@@ -5,17 +5,20 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pazimo/api/ApiConfig.dart';
 import 'package:pazimo/app/data/orderModel.dart';
 import 'package:pazimo/app/data/productModel.dart';
-import 'package:pazimo/app/routes/app_pages.dart';
 
 import '../../../data/LoginResponse.dart';
 
 class HomeController extends GetxController {
+  //intialize dio pacckage 
   final dio = Dio();
-  late LoginResponse userData;
 
+  // used for Store loged user data 
+  late LoginResponse userData;
+  //intionalize  the local  storage of 
   final storage = GetStorage();
 
   var orders = <Order>[].obs;
+
   RxInt selectedIndex = 0.obs;
   RxDouble sub_total = 0.0.obs;
   RxDouble total = 0.0.obs;
@@ -323,8 +326,7 @@ class HomeController extends GetxController {
   }
 
   Future Logout() async {
-    storage.remove("loginResponse");
-    Get.offNamed(Routes.AUTHENTICATION);
+  
 
     try {
       final response = await dio.post(
