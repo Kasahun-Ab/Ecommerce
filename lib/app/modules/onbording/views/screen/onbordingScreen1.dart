@@ -14,7 +14,7 @@ class OnboardingScreen1 extends StatelessWidget {
   final int positionOfSvgImage;
   final String pathSource;
   final Color textColor;
- 
+
   const OnboardingScreen1({
     Key? key,
     required this.index,
@@ -43,7 +43,8 @@ class OnboardingScreen1 extends StatelessWidget {
             ),
             Positioned(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 25),
                 child: Text(
                   hero,
                   style: GoogleFonts.poppins(

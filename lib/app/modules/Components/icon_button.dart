@@ -12,8 +12,9 @@ class Iconbutton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(color: Colors.black, width: 2.w),
+          borderRadius: BorderRadius.circular(4),
+          border:
+              Border.all(color: Color.fromARGB(214, 71, 70, 70), width: 2.w),
         ),
         child: Center(
           child: Icon(

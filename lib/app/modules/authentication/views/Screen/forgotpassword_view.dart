@@ -41,7 +41,7 @@ class ForgotpasswordView extends StatelessWidget {
                     validator: (value) => validator[1](value),
                     controller: _phoneNumberController,
                     obscureText: false,
-                    textInputType: TextInputType.phone,
+                    textInputType: TextInputType.phone, enabled: true,
                   ),
                 ],
               ),

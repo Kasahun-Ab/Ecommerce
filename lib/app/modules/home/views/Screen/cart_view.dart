@@ -3,41 +3,37 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pazimo/app/modules/Components/cart_price_list_text.dart';
 import 'package:pazimo/app/modules/Components/icon_button.dart';
 import 'package:pazimo/app/modules/Components/long_button.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
+import 'package:pazimo/app/modules/home/views/Screen/checkout.dart';
 
 class CartView extends StatelessWidget {
   CartView({super.key});
+
   final HomeController controller = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
-    RxInt price = 12345.obs;
-    RxInt vat = 1.obs;
-    RxInt shippingFee = 12345.obs;
-    RxInt total = 0.obs;
-    for (var element in controller.carts) {
-      total.value =
-          element['price'] + vat.value + shippingFee.value + price.value;
-    }
-
-    return Obx(
-      () => Scaffold(
-        appBar: AppBar(
-          elevation: 40,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {},
-          ),
-          centerTitle: true,
-          title: Text("My Cart"),
-          actions: [
-            SvgPicture.asset("assets/svg/Bell.svg"),
-            SizedBox(width: 20),
-          ],
+    controller.calculateSubTotal(controller.carts);
+    controller.calculateTotal(controller.carts);
+    return Scaffold(
+      appBar: AppBar(
+        leading: Container(),
+        elevation: 40,
+        centerTitle: true,
+        title: Text(
+          "My Cart",
+          style: GoogleFonts.poppins(),
         ),
-        body: Padding(
+        actions: [
+          SvgPicture.asset("assets/svg/Bell.svg"),
+          SizedBox(width: 20),
+        ],
+      ),
+      body: Obx(
+        () => Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -46,32 +42,31 @@ class CartView extends StatelessWidget {
                   ? Expanded(
                       child: ListView.builder(
                           itemBuilder: (context, index) {
-                            return Obx(
-                              () => Container(
-                                margin: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Color(0xFFE6E6E6)),
-                                ),
-                                padding: EdgeInsets.all(16),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      height: 83,
-                                      width: 79,
+                            int productId =
+                                int.parse(controller.carts[index]["id"]) - 1;
+                            return Container(
+                              margin: EdgeInsets.only(top: 10, bottom: 10),
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Color(0xFFE6E6E6)),
+                              ),
+                              padding: EdgeInsets.all(8),
+                              child: Row(
+                                children: [
+                                  Container(
+                                      height: 83.h,
+                                      width: 79.w,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: Color(0xFFE6E6E6),
                                       ),
                                       child: Image.asset(
-                                        "assets/images/tshirt.png",
-                                      ),
-                                    ),
-                                    SizedBox(width: 10),
-                                    Container(
-                                      width:
-                                          MediaQuery.of(context).size.width.w -
-                                              200.w,
+                                        "${controller.carts[index]["image"]}",
+                                        fit: BoxFit.cover,
+                                      )),
+                                  SizedBox(width: 15.w),
+                                  Flexible(
+                                    child: Container(
                                       child: Column(
                                         children: [
                                           Row(
@@ -86,8 +81,10 @@ class CartView extends StatelessWidget {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Text("T-Shirt"),
-                                                      Text("Size: 2XL"),
+                                                      Text(
+                                                          "${controller.products[productId].name}"),
+                                                      Text(
+                                                          "Size: ${controller.carts[index]["size"]}"),
                                                     ]),
                                                 InkWell(
                                                   radius: 20.sp,
@@ -112,11 +109,13 @@ class CartView extends StatelessWidget {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Text("ETB " +
-                                                          controller
-                                                              .carts[index]
-                                                                  ["price"]
-                                                              .toString()),
+                                                      Obx(
+                                                        () => Text("ETB " +
+                                                            controller
+                                                                .carts[index][
+                                                                    "total_price"]
+                                                                .toString()),
+                                                      ),
                                                     ]),
                                                 Row(
                                                   mainAxisAlignment:
@@ -125,20 +124,23 @@ class CartView extends StatelessWidget {
                                                     //icons to minimize
                                                     Iconbutton(
                                                       onTap: () {
-                                                        print(controller
-                                                            .carts[index]
-                                                                ["quantity"]
-                                                            .toString());
+                                                        if (controller
+                                                                .carts[index]
+                                                                    ["quantity"]
+                                                                .value >
+                                                            0) {
+                                                          controller.carts[
+                                                                      index]
+                                                                  ["quantity"] =
+                                                              controller.carts[
+                                                                          index]
+                                                                      [
+                                                                      "quantity"] -
+                                                                  1;
+                                                        }
 
-                                                        controller.carts[index]
-                                                                ["quantity"] =
-                                                            controller.carts[
-                                                                        index][
-                                                                    "quantity"] -
-                                                                1;
-
-                                                        controller.carts[index]
-                                                                ["price"] =
+                                                        controller.carts[index][
+                                                                "total_price"] =
                                                             controller.priceCalculation(
                                                                 controller.carts[
                                                                         index][
@@ -146,15 +148,27 @@ class CartView extends StatelessWidget {
                                                                 controller.carts[
                                                                         index][
                                                                     "single_price"]);
+
+                                                        controller
+                                                            .calculateSubTotal(
+                                                                controller
+                                                                    .carts);
+                                                        controller
+                                                            .calculateTotal(
+                                                                controller
+                                                                    .carts);
                                                       },
                                                       icon: Icons.remove,
                                                     ),
                                                     SizedBox(width: 5),
 
                                                     // price display text
-                                                    Text(controller.carts[index]
-                                                            ['quantity']
-                                                        .toString()),
+                                                    Obx(
+                                                      () => Text(controller
+                                                          .carts[index]
+                                                              ['quantity']
+                                                          .toString()),
+                                                    ),
                                                     SizedBox(
                                                       width: 5,
                                                     ),
@@ -168,8 +182,8 @@ class CartView extends StatelessWidget {
                                                                     "quantity"] +
                                                                 1;
 
-                                                        controller.carts[index]
-                                                                ["price"] =
+                                                        controller.carts[index][
+                                                                "total_price"] =
                                                             controller.priceCalculation(
                                                                 controller.carts[
                                                                         index][
@@ -177,6 +191,14 @@ class CartView extends StatelessWidget {
                                                                 controller.carts[
                                                                         index][
                                                                     "single_price"]);
+                                                        controller
+                                                            .calculateSubTotal(
+                                                                controller
+                                                                    .carts);
+                                                        controller
+                                                            .calculateTotal(
+                                                                controller
+                                                                    .carts);
                                                       },
                                                       icon: Icons.add,
                                                     )
@@ -186,8 +208,8 @@ class CartView extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             );
                           },
@@ -214,84 +236,52 @@ class CartView extends StatelessWidget {
                         )
                       ]),
                     ),
-              Container(
-                // height: 170,
-                padding: EdgeInsets.symmetric(vertical: 20),
-                width: double.infinity,
-                child: Column(
-                  children: [
-                    cart_price_text(
-                      Sub_total: 'Sub-total',
-                      price: price,
-                    ),
-                    SizedBox(height: 10.h),
-                    cart_price_text(
-                      Sub_total: 'Vat(%)',
-                      price: vat,
-                    ),
-                    SizedBox(height: 10.h),
-                    cart_price_text(
-                      Sub_total: 'Shipping fee',
-                      price: shippingFee,
-                    ),
-                    SizedBox(height: 10.h),
-                    Divider(
-                      color: Color(0Xff808080),
-                    ),
-                    SizedBox(height: 10),
-                    cart_price_text(
-                      Sub_total: 'Total',
-                      price: total,
-                    ),
-                    SizedBox(height: 20),
-                    Button(
-                        title: "Go to Checkout",
-                        color: Colors.blue,
-                        onPressed: () {},
-                        hasBorder: false,
-                        iconDirectionIsRight: true,
-                        hasIcon: true)
-                  ],
-                ),
-              )
+              controller.carts.length > 0
+                  ? Container(
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      width: double.infinity,
+                      child: Column(
+                        children: [
+                          cart_price_text(
+                            Sub_total: 'Sub-total',
+                            price: controller.sub_total,
+                          ),
+                          SizedBox(height: 10.h),
+                          cart_price_text(
+                            Sub_total: 'Vat(%)',
+                            price: controller.vat,
+                          ),
+                          SizedBox(height: 10.h),
+                          cart_price_text(
+                            Sub_total: 'Shipping fee',
+                            price: controller.shippingFee,
+                          ),
+                          SizedBox(height: 10.h),
+                          Divider(
+                            color: Color(0Xff808080),
+                          ),
+                          SizedBox(height: 10),
+                          cart_price_text(
+                            Sub_total: 'Total',
+                            price: controller.total,
+                          ),
+                          SizedBox(height: 20),
+                          Button(
+                              title: "Go to Checkout",
+                              color: Colors.blue,
+                              onPressed: () {
+                                Get.to(CheckoutView());
+                              },
+                              hasBorder: false,
+                              iconDirectionIsRight: true,
+                              hasIcon: true)
+                        ],
+                      ),
+                    )
+                  : Container()
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class cart_price_text extends StatelessWidget {
-  cart_price_text({
-    super.key,
-    required this.Sub_total,
-    required this.price,
-    this.color = Colors.white60,
-  });
-  final String Sub_total;
-  final RxInt price;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Obx(
-      () => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            Sub_total,
-            style: GoogleFonts.poppins(
-                fontSize: 16,
-                color: Color(0Xff808080),
-                fontWeight: FontWeight.w500),
-          ),
-          Text(
-            "ETB ${price}",
-            style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w500, color: Colors.blue),
-          ),
-        ],
       ),
     );
   }

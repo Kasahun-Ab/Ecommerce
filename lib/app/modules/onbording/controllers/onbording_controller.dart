@@ -6,27 +6,38 @@ import 'package:pazimo/app/modules/onbording/views/screen/onbordingScreen2.dart'
 import 'package:pazimo/app/modules/onbording/views/screen/onbordingScreen3.dart';
 import 'package:pazimo/app/routes/app_pages.dart';
 
-
 class OnboardingController extends GetxController {
-
   @override
-  void onInit() async{
-  //  await Future.delayed(Duration(seconds: 5), () {
-  //    Get.off(OnbordingScreen());
-  //   });
+  void onInit() async {
+    onborging.value = await _storage.read("onborging") ?? "start";
+    checkLogin();
     super.onInit();
   }
-  final PageController pageController = PageController();
+
+  Future<void> checkLogin() async {
+    var user = await _storage.read("loginResponse");
+    if (user != null) {
+      // User data is available, assign it to userData
+      userData = user;
+    } else {
+      // User data is not available, assign null to userData
+      userData = null;
+    }
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
+  RxString onborging = "".obs;
+  Map<String, dynamic>? userData;
   final RxInt pageIndex = 0.obs;
   final _storage = GetStorage();
 
-    List<String> buttonNames = [
-    "Get started",
-    "What else",
-    "Let's do it"
-  ];
+  List<String> buttonNames = ["Get started", "What else", "Let's do it"];
 
-    List<Widget> onboardingScreens = [
+  List<Widget> onboardingScreens = [
     OnboardingScreen1(
       index: 0,
       hero: 'Quality\nShopping\nat Your\nFingertips!',
@@ -50,29 +61,25 @@ class OnboardingController extends GetxController {
       postionOftext: 0,
       textColor: Colors.blue,
       imageSource: 'assets/images/bitcoin.png',
-      positionOfSvgImage: 0, 
+      positionOfSvgImage: 0,
     ),
   ];
-   
-  void SaveEndOnbording(){
- _storage.write("onborging", "end");
+
+  void SaveEndOnbording() {
+    _storage.write("onborging", "end");
   }
 
   void slidingOnboarding() {
-    if (pageIndex.value > 1) {
+    if (pageIndex.value == 2) {
       SaveEndOnbording();
       Get.offNamed(Routes.AUTHENTICATION);
     } else {
-      pageController.nextPage(
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.ease,
-      );
+      pageIndex.value++;
     }
   }
 
   @override
   void dispose() {
-    pageController.dispose();
     super.dispose();
   }
 }

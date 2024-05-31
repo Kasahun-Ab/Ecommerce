@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// ignore: must_be_immutable
 class AuthTextField extends StatefulWidget {
-  AuthTextField({
-    Key? key,
-    required GlobalKey<FormState> formKey,
-    required this.label,
-    required this.hint,
-    required this.validator,
-    required this.controller,
-    required this.obscureText,
-    required this.textInputType,
-  }) : super(key: key);
+  AuthTextField(
+      {Key? key,
+      required GlobalKey<FormState> formKey,
+      required this.label,
+      required this.hint,
+      required this.validator,
+      required this.controller,
+      required this.obscureText,
+      required this.textInputType,
+      required this.enabled})
+      : super(key: key);
 
   final String label;
   final String hint;
@@ -20,6 +22,7 @@ class AuthTextField extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType textInputType;
   final bool obscureText;
+  bool enabled;
 
   @override
   State<AuthTextField> createState() => _AuthTextFieldState();
@@ -62,6 +65,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
           () => Column(
             children: [
               TextFormField(
+                enabled: widget.enabled,
                 keyboardType: widget.textInputType,
                 obscureText: widget.obscureText == true
                     ? showpassword.value

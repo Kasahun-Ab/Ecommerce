@@ -28,7 +28,6 @@ class OnboardingScreen2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final onboardingController = Get.find<OnboardingController>();
-
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -42,7 +41,7 @@ class OnboardingScreen2 extends StatelessWidget {
             ),
             Positioned(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 25),
                 child: Text(
                   hero,
                   style: GoogleFonts.poppins(

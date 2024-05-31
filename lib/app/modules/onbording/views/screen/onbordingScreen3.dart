@@ -90,8 +90,8 @@ class OnboardingScreen3 extends StatelessWidget {
                     child: Button(
                       title: findController.buttonNames[index],
                       color: Colors.blue,
-                      onPressed: () =>
-                          findController.slidingOnboarding(), // Assuming slidingOnboarding method requires no arguments
+                      onPressed: () => findController
+                          .slidingOnboarding(), // Assuming slidingOnboarding method requires no arguments
                       hasBorder: false,
                       iconDirectionIsRight: true,
                       hasIcon: true,

@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
+import 'package:pazimo/app/modules/onbording/controllers/onbording_controller.dart';
+import 'package:pazimo/app/modules/onbording/views/SplashScreen.dart';
 import 'package:pazimo/app/routes/app_pages.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
-
+  SplashScreen({Key? key}) : super(key: key);
+  final OnboardingController controller = Get.put(OnboardingController());
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 3), () {
-      // Navigate to the home screen using Get.offAll to clear the navigation stack
-      Get.offNamed(Routes.HOME);
+    
+      controller.onborging.value == "end"
+          ? (controller.userData != null &&
+                  controller.userData!['data'] != null &&
+                  controller.userData!['data']['token'] != null &&
+                  controller.userData!['data']['token'] != "")
+              ? Get.offNamed(Routes.HOME)
+              : Get.offNamed(Routes.AUTHENTICATION)
+          : Get.off(() => OnboardingScreen());
     });
     return Scaffold(
       body: SafeArea(
@@ -51,12 +61,11 @@ class SplashScreen extends StatelessWidget {
               right: 0,
               child: Center(
                 child: SizedBox(
-                  width: 40,
-                  height: 40,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 6,
-                    color: Colors.blue,
-                    backgroundColor: Colors.amber,
+                  height: 100,
+                  width: 100,
+                  child: Lottie.asset(
+                    "assets/lottie/Animation - 1716568206381.json",
+                    repeat: true,
                   ),
                 ),
               ),
