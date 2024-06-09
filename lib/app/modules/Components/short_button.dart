@@ -21,8 +21,12 @@ class ShortButton extends StatelessWidget {
       child: Container(
         width: 154.w,
         height: 38.h,
-        decoration:
-            BoxDecoration(color: color, borderRadius: BorderRadius.circular(5)),
+        decoration: BoxDecoration(
+            border: Border.all(
+              width: 2,
+              color: color,
+            ),
+            borderRadius: BorderRadius.circular(30)),
         child: Center(
           child: Text(
             title,

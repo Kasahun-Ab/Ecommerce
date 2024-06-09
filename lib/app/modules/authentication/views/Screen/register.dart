@@ -170,10 +170,7 @@ class RegisterView extends StatelessWidget {
                         title: 'Sign Up with Google',
                         color: Colors.blue,
                         onPressed: () async {
-                          // final account = await controller.signInWithGoogle();
-                          // if (account != null) {
-                          //   // ...
-                          // }
+                          controller.signInGoogle();
                         },
                         hasBorder: true,
                         iconDirectionIsRight: false,
@@ -186,7 +183,9 @@ class RegisterView extends StatelessWidget {
                       Button(
                         title: 'Sign Up with Facebook',
                         color: Colors.blue,
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.signInWithFacebook();
+                        },
                         hasBorder: false,
                         iconDirectionIsRight: false,
                         iconSource: 'assets/svg/facebook_icon.svg',

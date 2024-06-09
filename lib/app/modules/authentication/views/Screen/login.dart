@@ -88,12 +88,23 @@ class LoginView extends StatelessWidget {
                                         _phoneNumberController.value.text);
 
                                     if (response.statusCode == 201) {
+                                      print(response);
                                       final loginResponse =
                                           LoginResponse.fromJson(
                                               json.decode(response.toString()));
-                                      Get.offNamed(Routes.HOME);
                                       await _getStorage.write('loginResponse',
                                           loginResponse.toJson());
+
+                                      final storedData =
+                                          _getStorage.read('loginResponse');
+                                      if (storedData != null &&
+                                          json.encode(storedData) ==
+                                              json.encode(
+                                                  loginResponse.toJson())) {
+                                        Get.offNamed(
+                                          Routes.HOME,
+                                        );
+                                      } else {}
                                     }
                                   } catch (e) {
                                   } finally {
@@ -148,11 +159,7 @@ class LoginView extends StatelessWidget {
                       title: 'Login with Google',
                       color: Colors.blue,
                       onPressed: () async {
-                        // final account = await controller.signInWithGoogle();
-                        // if (account != null) {
-                         
-                        // }
-                       
+                        controller.signInGoogle();
                       },
                       hasBorder: true,
                       iconDirectionIsRight: false,
@@ -163,7 +170,9 @@ class LoginView extends StatelessWidget {
                     Button(
                       title: 'Login with Facebook',
                       color: Colors.blue,
-                      onPressed: () {},
+                      onPressed: () {
+                        controller.signInWithFacebook();
+                      },
                       hasBorder: false,
                       iconDirectionIsRight: false,
                       iconSource: 'assets/svg/facebook_icon.svg',

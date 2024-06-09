@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,7 +22,6 @@ class CartView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: Container(),
-        elevation: 40,
         centerTitle: true,
         title: Text(
           "My Cart",
@@ -38,32 +38,42 @@ class CartView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              controller.carts.isNotEmpty
+              controller.carts.length > 0
                   ? Expanded(
                       child: ListView.builder(
                           itemBuilder: (context, index) {
-                            int productId =
-                                int.parse(controller.carts[index]["id"]) - 1;
+                            RxDouble price = 0.0.obs;
+                            price = controller.carts[index]['total_price'];
                             return Container(
-                              margin: EdgeInsets.only(top: 10, bottom: 10),
+                              margin: EdgeInsets.only(top: 5, bottom: 10),
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
                                 border: Border.all(color: Color(0xFFE6E6E6)),
                               ),
                               padding: EdgeInsets.all(8),
                               child: Row(
                                 children: [
                                   Container(
-                                      height: 83.h,
-                                      width: 79.w,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Color(0xFFE6E6E6),
+                                    height: 83.h,
+                                    width: 79.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Color(0xFFE6E6E6),
+                                    ),
+                                    child: CachedNetworkImage(
+                                      imageUrl: controller.carts[index]['image']
+                                              is List
+                                          ? controller.carts[index]['image'][0]
+                                          : controller.carts[index]['image'],
+                                      placeholder: (context, url) =>
+                                          CircularProgressIndicator(
+                                        color: Colors.blue,
                                       ),
-                                      child: Image.asset(
-                                        "${controller.carts[index]["image"]}",
-                                        fit: BoxFit.cover,
-                                      )),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
+                                    ),
+                                  ),
                                   SizedBox(width: 15.w),
                                   Flexible(
                                     child: Container(
@@ -82,7 +92,7 @@ class CartView extends StatelessWidget {
                                                             .start,
                                                     children: [
                                                       Text(
-                                                          "${controller.products[productId].name}"),
+                                                          "Name:${controller.carts[index]['name']}"),
                                                       Text(
                                                           "Size: ${controller.carts[index]["size"]}"),
                                                     ]),
@@ -110,44 +120,41 @@ class CartView extends StatelessWidget {
                                                             .start,
                                                     children: [
                                                       Obx(
-                                                        () => Text("ETB " +
-                                                            controller
-                                                                .carts[index][
-                                                                    "total_price"]
-                                                                .toString()),
+                                                        () => Text("ETB \$" +
+                                                            "${price.value}"),
                                                       ),
                                                     ]),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.end,
                                                   children: [
-                                                    //icons to minimize
                                                     Iconbutton(
                                                       onTap: () {
                                                         if (controller
-                                                                .carts[index]
-                                                                    ["quantity"]
+                                                                .carts[index][
+                                                                    'itemNumber']
                                                                 .value >
-                                                            0) {
+                                                            1) {
                                                           controller.carts[
-                                                                      index]
-                                                                  ["quantity"] =
+                                                                      index][
+                                                                  'itemNumber'] =
                                                               controller.carts[
                                                                           index]
                                                                       [
-                                                                      "quantity"] -
+                                                                      'itemNumber'] -
                                                                   1;
-                                                        }
 
-                                                        controller.carts[index][
-                                                                "total_price"] =
-                                                            controller.priceCalculation(
-                                                                controller.carts[
-                                                                        index][
-                                                                    "quantity"],
-                                                                controller.carts[
-                                                                        index][
-                                                                    "single_price"]);
+                                                          price.value =
+                                                              calculateTotalPrice(
+                                                                  index);
+                                                          controller.carts[
+                                                                      index][
+                                                                  'total_price'] =
+                                                              price;
+                                                        }
+                                                        print(controller
+                                                                .carts[index]
+                                                            ['total_price']);
 
                                                         controller
                                                             .calculateSubTotal(
@@ -162,35 +169,34 @@ class CartView extends StatelessWidget {
                                                     ),
                                                     SizedBox(width: 5),
 
-                                                    // price display text
                                                     Obx(
                                                       () => Text(controller
                                                           .carts[index]
-                                                              ['quantity']
+                                                              ['itemNumber']
                                                           .toString()),
                                                     ),
                                                     SizedBox(
                                                       width: 5,
                                                     ),
-                                                    //icons to minimize
+                                                    //icons to add
                                                     Iconbutton(
                                                       onTap: () {
                                                         controller.carts[index]
-                                                                ["quantity"] =
+                                                                ['itemNumber'] =
                                                             controller.carts[
                                                                         index][
-                                                                    "quantity"] +
+                                                                    'itemNumber'] +
                                                                 1;
 
+                                                        price.value =
+                                                            calculateTotalPrice(
+                                                                index);
                                                         controller.carts[index][
-                                                                "total_price"] =
-                                                            controller.priceCalculation(
-                                                                controller.carts[
-                                                                        index][
-                                                                    "quantity"],
-                                                                controller.carts[
-                                                                        index][
-                                                                    "single_price"]);
+                                                                'total_price'] =
+                                                            price;
+                                                        print(controller
+                                                                .carts[index]
+                                                            ['total_price']);
                                                         controller
                                                             .calculateSubTotal(
                                                                 controller
@@ -284,5 +290,10 @@ class CartView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  calculateTotalPrice(int index) {
+    return controller.priceCalculation(controller.carts[index]['itemNumber'],
+        controller.carts[index]['price']);
   }
 }

@@ -9,6 +9,7 @@ abstract class Routes {
   static const HOME = _Paths.HOME;
   static const ONBORDING = _Paths.ONBORDING;
   static const AUTHENTICATION = _Paths.AUTHENTICATION;
+  static const VENDOR = _Paths.VENDOR;
 }
 
 abstract class _Paths {
@@ -16,5 +17,5 @@ abstract class _Paths {
   static const HOME = '/home';
   static const ONBORDING = '/onbording';
   static const AUTHENTICATION = '/authentication';
-
+  static const VENDOR = '/vendor';
 }

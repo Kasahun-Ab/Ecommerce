@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class cart_price_text extends StatelessWidget {
   cart_price_text({
@@ -29,7 +29,7 @@ class cart_price_text extends StatelessWidget {
         ),
         Obx(
           () => Text(
-            "ETB ${price}",
+            "ETB ${NumberFormat.decimalPattern().format(price.value)}",
             style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w500, color: Colors.blue),
           ),

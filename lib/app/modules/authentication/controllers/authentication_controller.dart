@@ -1,25 +1,17 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
-import 'package:pazimo/app/data/LoginResponse.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../../../../api/ApiConfig.dart';
 
 class AuthenticationController extends GetxController {
   RxBool isvalidated = false.obs;
-  // final googleSignIn = GoogleSignIn();
+  var googleSignIn = GoogleSignIn(scopes: ['email']);
+  var googleAccount = Rx<GoogleSignInAccount?>(null);
 
   final _dio = Dio(BaseOptions(baseUrl: '${ApiConfig.baseUrl}'));
-
-  // Future<GoogleSignInAccount?> signInWithGoogle() async {
-  //   try {
-  //     final result = await googleSignIn.signIn();
-  //     return result;
-  //   } on Exception {
-  //     return null;
-  //   }
-  // }
 
   Future login(
     String password,
@@ -36,26 +28,33 @@ class AuthenticationController extends GetxController {
 
       return response;
     } on DioError catch (e) {
-      String errorMessage;
+      Map<String, dynamic>? errorMessage;
 
       if (e.response != null) {
-        // ${e.response?.statusCode} -
-        print(e.response!.data["data"].toString());
-        errorMessage = 'Error:  ${e.response?.data['data']}';
+        errorMessage = e.response?.data['data'];
         print(errorMessage);
-        Get.snackbar(
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
+        if (errorMessage != null && errorMessage['message'] != null) {
+          Get.snackbar(
             'Error',
-            '$errorMessage');
-      } else {
-        errorMessage = 'Error: ${e.message}';
-        print(errorMessage);
-        Get.snackbar(
+            '${errorMessage['message']}',
             backgroundColor: Colors.red,
             colorText: Colors.white,
-            'Error 2',
-            '$errorMessage');
+          );
+        } else {
+          Get.snackbar(
+            'Error',
+            'Unknown error occurred',
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+          );
+        }
+      } else {
+        Get.snackbar(
+          'Error',
+          'Network error occurred',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
       }
     } catch (e) {
       print(e);
@@ -65,7 +64,6 @@ class AuthenticationController extends GetxController {
 
   Future register(String name, String password, String phone) async {
     try {
-      
       final response = await _dio.post('${ApiConfig.registerEndpoint}', data: {
         "name": name,
         "password": password,
@@ -74,8 +72,7 @@ class AuthenticationController extends GetxController {
       });
 
       return response;
-    } 
-    on DioError catch (e) {
+    } on DioError catch (e) {
       String errorMessage;
       if (e.response != null) {
         errorMessage = 'Error: ${e.response?.statusCode} - ${e.response?.data}';
@@ -105,8 +102,38 @@ class AuthenticationController extends GetxController {
     _dio.post("", data: {});
   }
 
+  Future<void> signInGoogle() async {
+    try {
+      await googleSignIn.signIn();
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  Future<void> signOut() async {
+    await googleSignIn.signOut();
+  }
+
+  Future<void> signInWithFacebook() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+      final AccessToken accessToken = result.accessToken!;
+
+      final userData = await FacebookAuth.instance.getUserData();
+      print(userData['name']);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   @override
   void onInit() {
+  
+    googleSignIn.onCurrentUserChanged.listen((account) {
+      googleAccount.value = account;
+    });
+    googleSignIn.signInSilently();
+
     super.onInit();
   }
 }

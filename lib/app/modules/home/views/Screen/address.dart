@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pazimo/app/data/address.dart';
 
-class AddressController extends GetxController {
+class Addresscont extends GetxController {
   var addresses = [
     Address('Home', '925 S Chugach St #APT 10, Alaska', true),
     Address('Office', '2438 6th Ave, Ketchikan, Alaska', false),
@@ -22,7 +22,7 @@ class AddressController extends GetxController {
 
 class AddressPage extends StatelessWidget {
   AddressPage({super.key});
-  final AddressController addressController = Get.put(AddressController());
+  final Addresscont addressController = Get.put(Addresscont());
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,8 +53,7 @@ class AddressPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           border:
                               Border.all(width: 1, color: Color(0xffE6E6E6))),
-                      // padding:
-                      //     EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    
                       child: ListTile(
                         leading: SvgPicture.asset("assets/svg/Location.svg"),
                         title: Text(

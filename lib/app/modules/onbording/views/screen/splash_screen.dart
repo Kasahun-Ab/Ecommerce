@@ -12,16 +12,13 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 3), () {
-    
       controller.onborging.value == "end"
-          ? (controller.userData != null &&
-                  controller.userData!['data'] != null &&
-                  controller.userData!['data']['token'] != null &&
-                  controller.userData!['data']['token'] != "")
+          ? (controller.userData != null && controller.userData!.token != "")
               ? Get.offNamed(Routes.HOME)
               : Get.offNamed(Routes.AUTHENTICATION)
           : Get.off(() => OnboardingScreen());
     });
+
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -64,7 +61,9 @@ class SplashScreen extends StatelessWidget {
                   height: 100,
                   width: 100,
                   child: Lottie.asset(
-                    "assets/lottie/Animation - 1716568206381.json",
+                    height: 100,
+                    width: 100,
+                    "assets/lottie/loading.json",
                     repeat: true,
                   ),
                 ),
