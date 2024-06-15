@@ -1,11 +1,8 @@
-
 import 'package:dio/dio.dart' as dioClient;
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import '../../app/data/LoginResponse.dart';
+import '../../app/data/Customer.dart';
 import '../../app/data/productModel.dart';
-import '../../app/data/whishlist.dart';
-
 import '../../app/modules/home/controllers/home_controller.dart';
 import '../../app/modules/onbording/controllers/onbording_controller.dart';
 import '../../app/routes/app_pages.dart';
@@ -13,19 +10,17 @@ import '../ApiConfig.dart';
 
 class Api {
   GetStorage storage = GetStorage();
-  final OnboardingController controller = Get.find<OnboardingController>();
+  final OnboardingController onboardingController =
+      Get.find<OnboardingController>();
 
-  LoginResponse? userData;
+  Customerdata? userData;
   dioClient.Dio? dio;
 
-  dioClient.Dio? _dio =
-      dioClient.Dio(dioClient.BaseOptions(baseUrl: ApiConfig.baseurl));
-
-  Future<LoginResponse?> getLoginResponse() async {
+  Future<Customerdata?> getLoginResponse() async {
     try {
       final data = await storage.read('loginResponse');
       if (data != null) {
-        userData = LoginResponse.fromJson(Map<String, dynamic>.from(data));
+        userData = CustomerdataFromJson(data);
         return userData;
       }
     } catch (e) {
@@ -36,9 +31,10 @@ class Api {
 
   Future<void> initializeDio() async {
     await getLoginResponse();
+
     if (userData != null) {
       dio = dioClient.Dio(dioClient.BaseOptions(
-        baseUrl: ApiConfig.baseUrl,
+        baseUrl: ApiConfig.baseurl,
         headers: ApiConfig.getHeaders(userData!.token),
       ));
     } else {
@@ -46,42 +42,39 @@ class Api {
     }
   }
 
-  
-
-  Future<ProductResponse> fetchProducts() async {
-    // Ensure Dio is initialized
-    if (_dio == null) {
+  Future<Product> fetchProducts() async {
+    if (dio == null) {
       await initializeDio();
     }
     try {
-      final response = await _dio!.get("/${ApiConfig.product}");
-      if (response.statusCode == 200) {
-        var data = response.data;
-        ProductResponse productResponse = ProductResponse.fromJson(data);
-        print(productResponse.data[0].name);
-
+      final response =
+          await dio?.get("https://staging.mytestserver.space/api/v1/products");
+      if (response?.statusCode == 200) {
+        var data = response?.data;
+        Product productResponse = Product.fromJson(data);
         return productResponse;
       } else {
-        throw Exception('Failed to load products: ${response.statusCode}');
+        throw Exception('Failed to load products: ${response?.statusCode}');
       }
     } catch (e) {
       throw Exception('Failed to load products: $e');
     }
   }
 
-  Future feachBigSave() async {
-    RxList listofBigSales=[].obs;
-    if (_dio == null) {
+  Future<RxList> fetchBigSave() async {
+    RxList listOfBigSales = [].obs;
+    if (dio == null) {
       await initializeDio();
     }
     try {
-      final response = await _dio!.get("/${ApiConfig.product}");
+      final response = await dio!.get(ApiConfig.product);
       if (response.statusCode == 200) {
         var data = response.data;
-        ProductResponse productResponse = ProductResponse.fromJson(data);
-           listofBigSales.value=  productResponse.data.where((element) => element.isBigSale==true).toList();
-
-        return  listofBigSales;
+        Product productResponse = Product.fromJson(data);
+        listOfBigSales.value = productResponse.data
+            .where((element) => element.isNew == true)
+            .toList();
+        return listOfBigSales;
       } else {
         throw Exception('Failed to load products: ${response.statusCode}');
       }
@@ -89,43 +82,20 @@ class Api {
       throw Exception('Failed to load products: $e');
     }
   }
+
   Future<dioClient.Response> productDetails(int id) async {
-    dioClient.Dio dio = dioClient.Dio();
+    if (dio == null) {
+      await initializeDio();
+    }
     try {
-      var response = await dio
-          .get("https://staging.mytestserver.space/api/v1/products/164");
-      print(response.data);
-      return response; // Return the response if needed
+      var response = await dio!.get("${ApiConfig.product}/$id");
+      return response;
     } catch (error) {
-      print(error);
-      throw error; // Rethrow the error to handle it outside of this method if needed
+      throw error;
     }
   }
 
-  Future<List<whishlistmodel>> feachWhishlist() async {
-    if (dio == null) await initializeDio();
-
-    try {
-      final response = await dio!.get("${ApiConfig.wishlists}");
-      if (response.statusCode == 200) {
-        Map<String, dynamic> data = response.data['data'];
-        List<whishlistmodel> wishlists = (data['data'] as List)
-            .map((productJson) => whishlistmodel.fromJson(productJson))
-            .toList();
-        print(wishlists.length);
-        return wishlists;
-      } else {
-        throw Exception(
-            'Failed to load data: Unexpected status code ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Unexpected error: $e');
-      throw Exception('Failed to load data: Unexpected error $e');
-    }
-  }
-
-  Future<void> logout(HomeController controller) async {
-    controller.close();
+  Future<void> logout(HomeController homeController) async {
     if (dio == null) await initializeDio();
     removeLoginResponse();
     try {
@@ -133,7 +103,7 @@ class Api {
       if (response.statusCode == 201) {
         print(response.data);
       }
-
+      homeController.close();
       Get.offNamed(Routes.AUTHENTICATION);
     } catch (e) {
       print(e.toString());
@@ -145,11 +115,71 @@ class Api {
   }
 
   Future<dioClient.Response?> getCategories() async {
+    if (dio == null) await initializeDio();
     try {
-      final response = await _dio!.get('/categories');
+      final response = await dio!
+          .get('https://staging.mytestserver.space/api/v1/categories');
       return response;
     } catch (e) {
       print("Error fetching categories: $e");
+      return null;
+    }
+  }
+
+  Future<dioClient.Response?> getWishlist() async {
+    if (dio == null) await initializeDio();
+    try {
+      final response = await dio!
+          .get('https://staging.mytestserver.space/api/v1/customer/wishlist');
+      return response;
+    } catch (e) {
+      print("Error fetching wishlist: $e");
+      return null;
+    }
+  }
+
+  Future<dioClient.Response?> addToWishlist(var productId) async {
+    if (dio == null) await initializeDio();
+    try {
+      final response = await dio!.post(
+          'https://staging.mytestserver.space/api/v1/customer/wishlist/$productId');
+      print(response.data);
+      return response;
+    } catch (e) {
+      print("Error adding to wishlist: $e");
+      return null;
+    }
+  }
+
+  Future<dioClient.Response?> removeFromWishlist(var productId) async {
+    if (dio == null) await initializeDio();
+    try {
+      final response = await dio!.delete(
+          'https://staging.mytestserver.space/api/v1/customer/wishlist/$productId');
+      return response;
+    } catch (e) {
+      print("Error removing from wishlist: $e");
+      return null;
+    }
+  }
+
+  Future<dioClient.Response?> changeProfile(
+      Map<String, dynamic> formData) async {
+    if (dio == null) await initializeDio();
+    try {
+      final response = await dio!.put(
+          'https://staging.mytestserver.space/api/v1/customer/profile',
+          data: formData);
+      return response;
+    } catch (e) {
+      if (e is dioClient.DioError) {
+        print("Dio error occurred: ${e.message}");
+        if (e.response != null) {
+          print("Dio error response data: ${e.response?.data}");
+        }
+      } else {
+        print("Error updating profile: $e");
+      }
       return null;
     }
   }

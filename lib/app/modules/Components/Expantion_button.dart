@@ -48,6 +48,7 @@ class ExpansionButton extends StatelessWidget {
                       : Padding(
                           padding: const EdgeInsets.only(left: 8.0),
                           child: Text(totalReview!,
+                              textAlign: TextAlign.justify,
                               style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,

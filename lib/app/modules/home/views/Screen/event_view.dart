@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pazimo/app/modules/Components/CardTitle_with%20Icon.dart';
 import 'package:pazimo/app/modules/Components/search_textfield.dart';
@@ -95,14 +96,14 @@ class EventView extends StatelessWidget {
                                 eventName: "Art Exhibition",
                               ),
                               SizedBox(
-                                height: 5,
+                                height: 10,
                               ),
                               SmallEventCard(
                                 imagePath: "assets/images/event2.png",
                                 eventName: "Music Concert",
                               ),
                               SizedBox(
-                                height: 5,
+                                height: 10,
                               ),
                               SmallEventCard(
                                 imagePath: "assets/images/events.jpg",
@@ -141,94 +142,109 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white, // Set card color to white
-      elevation: 4,
-      margin: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-      child: SizedBox(
-        width: 161.w,
-        child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-              ),
-              child: Image.asset(
-                imagePath,
-                height: 174.h,
-                width: 161.w,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Positioned(
-                top: 12.h,
-                right: 12.w,
-                child: InkWell(
-                  radius: 20.r,
-                  onTap: () {
-                    print("liked");
-                  },
-                  child: Container(
-                    child: Center(
-                      child: SvgPicture.asset(
-                          width: 60.h, height: 60.w, "assets/svg/like.svg"),
-                    ),
-                  ),
-                )),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      location,
-                      style: GoogleFonts.poppins(
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                    SizedBox(height: 4.h),
-                    Text(
-                      description,
-                      style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15.sp,
-                        color: Colors.grey[700],
-                      ),
-                    ),
-                    SizedBox(height: 8.h),
-                    Row(
-                      children: [
-                        Text(
-                          '\$$price',
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff4D4D4D),
-                          ),
-                        ),
-                        SizedBox(width: 15),
-                        Text(
-                          '\$$canceledPrice',
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            color: Color(0xffB3B3B3),
-                            decoration: TextDecoration.lineThrough,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+    Rx isliked = false.obs;
+    return Obx(
+      () => Card(
+        color: Colors.white, // Set card color to white
+
+        margin: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+        child: SizedBox(
+          width: 161.w,
+          child: Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+                child: Image.asset(
+                  imagePath,
+                  height: 174.h,
+                  width: 161.w,
+                  fit: BoxFit.cover,
                 ),
               ),
-            ),
-          ],
+              Positioned(
+                  top: 12.h,
+                  right: 12.w,
+                  child: InkWell(
+                    radius: 20.r,
+                    onTap: () {
+                      isliked.value = !isliked.value;
+                    },
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Center(
+                        child: isliked.value == true
+                            ? SvgPicture.asset(
+                                width: 20.h,
+                                height: 20.w,
+                                "assets/svg/liked.svg")
+                            : SvgPicture.asset(
+                                width: 20.h,
+                                height: 20.w,
+                                "assets/svg/like.svg"),
+                      ),
+                    ),
+                  )),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        location,
+                        style: GoogleFonts.poppins(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      SizedBox(height: 4.h),
+                      Text(
+                        description,
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15.sp,
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                      SizedBox(height: 8.h),
+                      Row(
+                        children: [
+                          Text(
+                            '\$$price',
+                            style: GoogleFonts.poppins(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff4D4D4D),
+                            ),
+                          ),
+                          SizedBox(width: 15),
+                          Text(
+                            '\$$canceledPrice',
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              color: Color(0xffB3B3B3),
+                              decoration: TextDecoration.lineThrough,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -258,12 +274,15 @@ class SmallEventCard extends StatelessWidget {
       },
       child: Card(
         elevation: 4,
-        margin: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+        margin: EdgeInsets.symmetric(
+          vertical: 0,
+        ),
         child: Center(
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                color: Color(0xffE6E6E6),
+                borderRadius: BorderRadius.circular(10)),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -39,19 +39,21 @@ class AccountScreen extends StatelessWidget {
                 leading: SvgPicture.asset("assets/svg/liked.svg"),
                 title: Text('Wishlists'),
                 onTap: () {
-                  // Get.to(() => SavedItemsPage());
+                  Get.to(() => SavedItemsPage());
                 },
-                trailing: controller.wishlist.length == 0
+                trailing: controller.wishlist.value.data.length == 0
                     ? Icon(
                         Icons.navigate_next,
                         color: Color(0Xffb3b3b3),
                       )
-                    : CircleAvatar(
-                        radius: 10,
-                        backgroundColor: Colors.red,
-                        child: Text(
-                          "${controller.wishlist.length} ",
-                          style: TextStyle(fontSize: 13, color: Colors.white),
+                    : Obx(
+                        () => CircleAvatar(
+                          radius: 10,
+                          backgroundColor: Colors.red,
+                          child: Text(
+                            "${controller.wishlist.value.data.length} ",
+                            style: TextStyle(fontSize: 13, color: Colors.white),
+                          ),
                         ),
                       )),
             ListTile(

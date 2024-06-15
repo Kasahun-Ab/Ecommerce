@@ -1,24 +1,28 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import 'package:pazimo/app/data/productDetails.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
 import 'package:pazimo/app/modules/home/views/Screen/checkout.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../../api/Api_Methods/allmethodsapi.dart';
 import '../../../Components/Expantion_button.dart';
 import '../../../Components/icon_button.dart';
 import '../../../Components/short_button.dart';
+import 'review.dart';
 
-// ignore: must_be_immutable
 class ProductDetailView extends StatelessWidget {
   ProductDetailView({super.key, required this.id});
   int id;
@@ -49,20 +53,22 @@ class ProductDetailView extends StatelessWidget {
     downloadableSamples: [],
   ).obs;
   RxDouble totalPrice = 0.0.obs;
+
   Future<void> details() async {
     isloading.value = true;
-    var response = await _api.productDetails(1);
+    var response = await _api.productDetails(id);
     if (response.statusCode == 200) {
       var responseData = response.data;
       var productData = Product.fromJson(responseData['data']);
       product(productData);
       price.value = double.parse(product.value.price);
       if (price.value > 0.0) {
+        totalPrice.value = controller.priceCalculation(itemNumber, price);
         isloading.value = false;
       }
     }
 
-    // isloading.value = false;
+    isloading.value = false;
   }
 
   RxInt itemNumber = 1.obs;
@@ -70,11 +76,14 @@ class ProductDetailView extends StatelessWidget {
 
   RxBool isAdded = false.obs;
   final HomeController controller = Get.find<HomeController>();
-
+  PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
+    RxBool _isliked = false.obs;
+    var baseColor = Color.fromARGB(255, 230, 227, 227);
+    var highlightColor = Color.fromARGB(220, 204, 197, 197);
     details();
-
+    Map<String, dynamic> detailsToAdd = {};
     return Scaffold(
       appBar: AppBar(
         // toolbarHeight: 80,
@@ -87,9 +96,8 @@ class ProductDetailView extends StatelessWidget {
       ),
       body: Obx(
         () => isloading.value == true
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
+            ? productDetailsShimmer(
+                baseColor: baseColor, highlightColor: highlightColor)
             : Obx(
                 () => Container(
                   height: MediaQuery.of(context).size.height,
@@ -121,127 +129,100 @@ class ProductDetailView extends StatelessWidget {
                                       padding: const EdgeInsets.all(0.0),
                                       child: product.value.images?.length == 0
                                           ? CachedNetworkImage(
+                                              fit: BoxFit.cover,
                                               imageUrl:
-                                                  'https://m.media-amazon.com/images/I/51hJIsWMagL._AC_UF1000,1000_QL80_.jpg',
+                                                  'https://staging.mytestserver.space/public/storage/product/1/3HkD9EA1t2dXiFdfrrxyNvvfB6Ku5meZQ84rXfwp.webp',
                                             )
                                           : PageView.builder(
                                               itemCount:
                                                   product.value.images?.length,
+                                              controller: _pageController,
                                               itemBuilder: (context, index) {
-                                                return Container();
+                                                print(product
+                                                    .value.images![index]);
+                                                return Container(
+                                                  child: CachedNetworkImage(
+                                                    fit: BoxFit.cover,
+                                                    imageUrl: product
+                                                        .value
+                                                        .images![index]
+                                                            ["medium_image_url"]
+                                                        .toString(),
+                                                  ),
+                                                );
                                               }),
                                     )),
                                   ),
                                   Positioned(
-                                      child: Container(
-                                    color: Colors.red,
-                                    child: Text(
-                                      "New",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  )),
-                                  // Positioned(
-                                  //     top: 12.h,
-                                  //     right: 12.w,
-                                  //     child: InkWell(
-                                  //       radius: 20.sp,
-                                  //       onTap: _isliked.value
-                                  //           ? () async {
-                                  //               try {
-                                  //                 _isliked.value = false;
-                                  //                 final response = await dio.delete(
-                                  //                   "${ApiConfig.wishlists}/${result.id}",
-                                  //                   options: Options(
-                                  //                     headers: ApiConfig.getHeaders(
-                                  //                       '5|Un9WMgXaFpufTzyV5UQbzbeRQd2ICUpU3E5IkShO6b87533f',
-                                  //                     ),
-                                  //                   ),
-                                  //                 );
-                                  //                 if (response.statusCode == 200) {
-                                  //                   controller.wishlist.value =
-                                  //                       await api.feachWhishlist();
-
-                                  //                   print(response.data);
-                                  //                 } else {
-                                  //                   print(
-                                  //                       'Failed with status code: ${response.statusCode}');
-                                  //                 }
-                                  //               } on DioException catch (e) {
-                                  //                 if (e.response != null) {
-                                  //                   print(
-                                  //                       'DioException: ${e.response?.statusCode} - ${e.response?.data}');
-                                  //                 } else {
-                                  //                   print('DioException: ${e.message}');
-                                  //                 }
-                                  //               } catch (e) {
-                                  //                 print('Error: $e');
-                                  //               }
-                                  //             }
-                                  //           : () async {
-                                  //               _isliked.value = true;
-                                  //               try {
-                                  //                 final response = await dio.post(
-                                  //                   "${ApiConfig.wishlists}",
-                                  //                   data: {
-                                  //                     "product_id": product.id,
-                                  //                   },
-                                  //                   options: Options(
-                                  //                     headers: ApiConfig.getHeaders(
-                                  //                       '5|Un9WMgXaFpufTzyV5UQbzbeRQd2ICUpU3E5IkShO6b87533f',
-                                  //                     ),
-                                  //                   ),
-                                  //                 );
-
-                                  //                 if (response.statusCode == 201) {
-                                  //                   controller.wishlist.value =
-                                  //                       await api.feachWhishlist();
-                                  //                   print(controller.wishlist.length);
-                                  //                   print("like ${_isliked.value}");
-                                  //                   // return response;
-                                  //                 } else {
-                                  //                   throw Exception(
-                                  //                       'Failed to add to wishlist: Unexpected status code ${response.statusCode}');
-                                  //                 }
-                                  //               } on DioException catch (e) {
-                                  //                 // Handle Dio specific errors
-                                  //                 if (e.response != null) {
-                                  //                   print(
-                                  //                       'DioError: ${e.response?.statusCode} - ${e.response?.data}');
-                                  //                 } else {
-                                  //                   print('DioError: ${e.message}');
-                                  //                 }
-
-                                  //                 throw Exception(
-                                  //                     'Failed to add to wishlist: DioError - ${e.message}');
-                                  //               } catch (e) {
-                                  //                 // Handle other types of exceptions
-                                  //                 print('Unexpected error: $e');
-                                  //                 throw Exception(
-                                  //                     'Failed to add to wishlist: Unexpected error $e');
-                                  //               }
-                                  //             },
-                                  //       child: Container(
-                                  //         width: 37.h,
-                                  //         height: 37.h,
-                                  //         decoration: BoxDecoration(
-                                  //             color: Colors.white,
-                                  //             borderRadius: BorderRadius.circular(5)),
-                                  //         child: Center(
-                                  //           child: _isliked.value
-                                  //               ? SvgPicture.asset(
-                                  //                   "assets/svg/liked.svg")
-                                  //               : SvgPicture.asset(
-                                  //                   "assets/svg/like.svg"),
-                                  //         ),
-                                  //       ),
-                                  //     )),
-
+                                      top: -10,
+                                      left: -40,
+                                      child: Transform.rotate(
+                                        angle: -45 * 3.1415927 / 180,
+                                        child: Container(
+                                          width: 120,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 20),
+                                          color: Colors.red,
+                                          child: Center(
+                                            child: Text(
+                                              "New",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
+                                      )),
+                                  Positioned(
+                                      top: 12.h,
+                                      right: 12.w,
+                                      child: InkWell(
+                                        radius: 20.sp,
+                                        onTap: _isliked.isFalse
+                                            ? () async {
+                                                _isliked.value =
+                                                    !_isliked.value;
+                                                await _api.addToWishlist(
+                                                    product.value.id);
+                                              }
+                                            : () async {
+                                                _isliked.value =
+                                                    !_isliked.value;
+                                                await _api.removeFromWishlist(
+                                                    product.value.id);
+                                              },
+                                        child: Container(
+                                          width: 37.h,
+                                          height: 37.h,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(5)),
+                                          child: Center(
+                                            child: _isliked.value
+                                                ? SvgPicture.asset(
+                                                    "assets/svg/liked.svg")
+                                                : SvgPicture.asset(
+                                                    "assets/svg/like.svg"),
+                                          ),
+                                        ),
+                                      )),
                                   Positioned(
                                       bottom: 12.h,
                                       left: 0,
                                       right: 0,
-                                      child:
-                                          Center(child: Text("select color")))
+                                      child: Center(
+                                        child: SmoothPageIndicator(
+                                            controller: _pageController,
+                                            count: product.value.images!.length,
+                                            effect: ExpandingDotsEffect(
+                                              activeDotColor: Colors.blue,
+                                              dotColor: Colors.grey,
+                                              dotHeight: 12,
+                                              dotWidth: 12,
+                                              expansionFactor: 4,
+                                              spacing: 8,
+                                            )),
+                                      ))
                                 ],
                               ),
                               SizedBox(
@@ -395,6 +376,7 @@ class ProductDetailView extends StatelessWidget {
                                 height: 10.h,
                               ),
                               Text(product.value.shortDescription,
+                                  textAlign: TextAlign.justify,
                                   style: Theme.of(context).textTheme.bodyLarge),
                               SizedBox(
                                 height: 10,
@@ -426,31 +408,36 @@ class ProductDetailView extends StatelessWidget {
                               SizedBox(
                                 height: 10,
                               ),
-                              // ExpansionButton(
-                              //   title: 'Rating & Reviews',
-                              //   onTap: () {
-                              //     Get.to(() => ReviewsPage());
-                              //   },
-                              //   buttonName: "See More",
-                              //   totalReview: "10 reviews",
-                              //   rating: RatingBar.builder(
-                              //     itemSize: 18.sp,
-                              //     initialRating: 3,
-                              //     minRating: 1,
-                              //     direction: Axis.horizontal,
-                              //     allowHalfRating: true,
-                              //     itemCount: 5,
-                              //     itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                              //     itemBuilder: (context, _) => Icon(
-                              //       Icons.star,
-                              //       color: Colors.amber.withOpacity(0.9),
-                              //     ),
-                              //     onRatingUpdate: (double value) {},
-                              //   ),
-                              //   description: product.reviews[0].comment.toString(),
-                              //   name: product.reviews[0].user.toString(),
-                              //   dateofrating: "0/12/1202".toString(),
-                              // ),
+                              ExpansionButton(
+                                title: 'Rating & Reviews',
+                                onTap: () {
+                                  Get.to(() => ReviewsPage());
+                                },
+                                buttonName: "See More",
+                                totalReview:
+                                    "${product.value.reviews!['total']} reviews",
+                                rating: RatingBar.builder(
+                                  itemSize: 18.sp,
+                                  initialRating: double.parse(product
+                                      .value.reviews!['total_rating']
+                                      .toString()),
+                                  minRating: 1,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: true,
+                                  itemCount: 5,
+                                  itemPadding:
+                                      EdgeInsets.symmetric(horizontal: 4.0),
+                                  itemBuilder: (context, _) => Icon(
+                                    Icons.star,
+                                    color: Colors.amber.withOpacity(0.9),
+                                  ),
+                                  onRatingUpdate: (double value) {},
+                                ),
+                                description:
+                                    product.value.reviews![''].toString(),
+                                // name: product.reviews[0].user.toString(),
+                                dateofrating: "0/12/1202".toString(),
+                              ),
                               SizedBox(
                                 height: 90.h,
                               )
@@ -555,41 +542,39 @@ class ProductDetailView extends StatelessWidget {
                                     title: isAdded.value == false
                                         ? "Add to cart"
                                         : "Remove from cart",
-                                    //       onTap: isAdded.value == false
-                                    //           ? () {
-                                    //               isAdded.value = true;
-                                    //               detailsToAdd = {
-                                    //                 "id": product.id,
-                                    //                 "name": product.name,
-                                    //                 'price': (product.price).obs,
-                                    //                 'image': product
-                                    //                             .images.length ==
-                                    //                         0
-                                    //                     ? "https://via.placeholder.com/150"
-                                    //                     : product.images[0],
-                                    //                 "itemNumber": itemNumber,
-                                    //                 "total_price": totalPrice,
-                                    //                 "color": product.color is List
-                                    //                     ? product.color[
-                                    //                         selectedColorIndex]
-                                    //                     : product.color,
-                                    //                 "size": ""
-                                    //               };
+                                    onTap: isAdded.value == false
+                                        ? () {
+                                            isAdded.value = true;
+                                            detailsToAdd = {
+                                              "id": product.value.id,
+                                              "name": product.value.name,
+                                              'price': double.parse(
+                                                      product.value.price)
+                                                  .obs,
+                                              'image': product.value.images!
+                                                          .length ==
+                                                      0
+                                                  ? "https://via.placeholder.com/150"
+                                                  : product.value.images![0],
+                                              "itemNumber": itemNumber,
+                                              "total_price": totalPrice,
+                                              "color": "",
+                                              "size": ""
+                                            };
 
-                                    //               controller
-                                    //                   .addtoCart(detailsToAdd);
-                                    //               Get.snackbar(
-                                    //                   colorText: Colors.white,
-                                    //                   backgroundColor: Colors.green,
-                                    //                   "successfully",
-                                    //                   "added to cart");
-                                    //             }
-                                    //           : () => {
-                                    //                 isAdded.value = false,
-                                    //                 controller.removeFromCart(
-                                    //                     detailsToAdd),
-                                    //               },
-                                    color: Colors.blue, onTap: () {},
+                                            controller.addtoCart(detailsToAdd);
+                                            Get.snackbar(
+                                                colorText: Colors.white,
+                                                backgroundColor: Colors.green,
+                                                "successfully",
+                                                "added to cart");
+                                          }
+                                        : () => {
+                                              isAdded.value = false,
+                                              controller
+                                                  .removeFromCart(detailsToAdd),
+                                            },
+                                    color: Colors.blue,
                                   ),
                                 ),
                               ],
@@ -631,6 +616,250 @@ class ProductDetailView extends StatelessWidget {
               fontSize: 11.sp,
               fontWeight: FontWeight.w500,
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class productDetailsShimmer extends StatelessWidget {
+  const productDetailsShimmer({
+    super.key,
+    required this.baseColor,
+    required this.highlightColor,
+  });
+
+  final Color baseColor;
+  final Color highlightColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Shimmer.fromColors(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: baseColor,
+                      borderRadius:
+                          BorderRadius.circular(ScreenUtil().setWidth(10)),
+                    ),
+                    height: 400.h,
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                  baseColor: baseColor,
+                  highlightColor: highlightColor),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Shimmer.fromColors(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: baseColor,
+                          borderRadius:
+                              BorderRadius.circular(ScreenUtil().setWidth(10)),
+                        ),
+                        height: 8.h,
+                        width: 100,
+                      ),
+                      baseColor: baseColor,
+                      highlightColor: highlightColor),
+                  Shimmer.fromColors(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: baseColor,
+                          borderRadius:
+                              BorderRadius.circular(ScreenUtil().setWidth(10)),
+                        ),
+                        height: 8.h,
+                        width: 150,
+                      ),
+                      baseColor: baseColor,
+                      highlightColor: highlightColor)
+                ],
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Shimmer.fromColors(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: baseColor,
+                      borderRadius:
+                          BorderRadius.circular(ScreenUtil().setWidth(10)),
+                    ),
+                    height: 15.h,
+                    width: 300.w,
+                  ),
+                  baseColor: baseColor,
+                  highlightColor: highlightColor),
+              SizedBox(
+                height: 10,
+              ),
+              Shimmer.fromColors(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: baseColor,
+                      borderRadius:
+                          BorderRadius.circular(ScreenUtil().setWidth(10)),
+                    ),
+                    height: 10.h,
+                    width: 50,
+                  ),
+                  baseColor: baseColor,
+                  highlightColor: highlightColor),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Shimmer.fromColors(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: baseColor,
+                          borderRadius:
+                              BorderRadius.circular(ScreenUtil().setWidth(3)),
+                        ),
+                        height: 20.h,
+                        width: 50,
+                      ),
+                      baseColor: baseColor,
+                      highlightColor: highlightColor),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Shimmer.fromColors(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: baseColor,
+                          borderRadius:
+                              BorderRadius.circular(ScreenUtil().setWidth(3)),
+                        ),
+                        height: 20.h,
+                        width: 50,
+                      ),
+                      baseColor: baseColor,
+                      highlightColor: highlightColor),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Shimmer.fromColors(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: baseColor,
+                          borderRadius:
+                              BorderRadius.circular(ScreenUtil().setWidth(3)),
+                        ),
+                        height: 20.h,
+                        width: 50,
+                      ),
+                      baseColor: baseColor,
+                      highlightColor: highlightColor),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Shimmer.fromColors(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: baseColor,
+                      borderRadius:
+                          BorderRadius.circular(ScreenUtil().setWidth(10)),
+                    ),
+                    height: 10.h,
+                    width: 50,
+                  ),
+                  baseColor: baseColor,
+                  highlightColor: highlightColor),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Shimmer.fromColors(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: baseColor,
+                          borderRadius:
+                              BorderRadius.circular(ScreenUtil().setWidth(3)),
+                        ),
+                        height: 20.h,
+                        width: 50,
+                      ),
+                      baseColor: baseColor,
+                      highlightColor: highlightColor),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Shimmer.fromColors(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: baseColor,
+                          borderRadius:
+                              BorderRadius.circular(ScreenUtil().setWidth(3)),
+                        ),
+                        height: 20.h,
+                        width: 50,
+                      ),
+                      baseColor: baseColor,
+                      highlightColor: highlightColor),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Shimmer.fromColors(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: baseColor,
+                          borderRadius:
+                              BorderRadius.circular(ScreenUtil().setWidth(3)),
+                        ),
+                        height: 20.h,
+                        width: 50,
+                      ),
+                      baseColor: baseColor,
+                      highlightColor: highlightColor),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Shimmer.fromColors(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: baseColor,
+                      borderRadius:
+                          BorderRadius.circular(ScreenUtil().setWidth(3)),
+                    ),
+                    height: 70.h,
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                  baseColor: baseColor,
+                  highlightColor: highlightColor),
+              SizedBox(
+                height: 10,
+              ),
+              Shimmer.fromColors(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: baseColor,
+                      borderRadius:
+                          BorderRadius.circular(ScreenUtil().setWidth(3)),
+                    ),
+                    height: 70.h,
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                  baseColor: baseColor,
+                  highlightColor: highlightColor),
+            ],
           ),
         ),
       ),

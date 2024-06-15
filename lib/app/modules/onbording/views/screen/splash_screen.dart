@@ -53,19 +53,15 @@ class SplashScreen extends StatelessWidget {
             ),
             // Circular Progress Indicator
             Positioned(
-              bottom: 60,
+              bottom: 0,
               left: 0,
               right: 0,
               child: Center(
-                child: SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: Lottie.asset(
-                    height: 100,
-                    width: 100,
-                    "assets/lottie/loading.json",
-                    repeat: true,
-                  ),
+                child: Lottie.asset(
+                  height: 200,
+                  width: 200,
+                  "assets/lottie/loading.json",
+                  repeat: true,
                 ),
               ),
             ),

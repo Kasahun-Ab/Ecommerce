@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pazimo/app/data/LoginResponse.dart';
+import 'package:pazimo/app/data/Customer.dart';
 import 'package:pazimo/app/modules/onbording/views/screen/onbordingScreen1.dart';
 import 'package:pazimo/app/modules/onbording/views/screen/onbordingScreen2.dart';
 import 'package:pazimo/app/modules/onbording/views/screen/onbordingScreen3.dart';
@@ -9,7 +9,6 @@ import 'package:pazimo/app/routes/app_pages.dart';
 
 class OnboardingController extends GetxController {
   @override
-  
   void onInit() async {
     checkLogin();
     onborging.value = await _storage.read("onborging") ?? "start";
@@ -19,9 +18,7 @@ class OnboardingController extends GetxController {
   Future<void> checkLogin() async {
     var user = await _storage.read("loginResponse");
     if (user != null) {
-      // print(user);
-      userData = LoginResponse.fromJson(user);
-      print(userData!.token);
+      userData = CustomerdataFromJson(user);
     } else {
       userData = null;
     }
@@ -33,7 +30,7 @@ class OnboardingController extends GetxController {
   }
 
   RxString onborging = "".obs;
-  LoginResponse? userData;
+  Customerdata? userData;
   final RxInt pageIndex = 0.obs;
   final _storage = GetStorage();
 

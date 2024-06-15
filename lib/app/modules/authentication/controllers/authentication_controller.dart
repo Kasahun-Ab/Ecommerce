@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
@@ -11,32 +12,37 @@ class AuthenticationController extends GetxController {
   var googleSignIn = GoogleSignIn(scopes: ['email']);
   var googleAccount = Rx<GoogleSignInAccount?>(null);
 
-  final _dio = Dio(BaseOptions(baseUrl: '${ApiConfig.baseUrl}'));
+  final _dio = Dio(BaseOptions(headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  }, baseUrl: '${ApiConfig.baseurl}'));
 
   Future login(
     String password,
     String phone,
   ) async {
+    print('${ApiConfig.baseurl}${ApiConfig.loginEndpoint}');
     try {
       final response = await _dio.post(
         '${ApiConfig.loginEndpoint}',
         data: {
           'phone': phone,
           'password': password,
+          'device_name': "android1212"
         },
       );
 
       return response;
     } on DioError catch (e) {
-      Map<String, dynamic>? errorMessage;
+      Map<String, dynamic> errorMessage;
 
       if (e.response != null) {
-        errorMessage = e.response?.data['data'];
-        print(errorMessage);
-        if (errorMessage != null && errorMessage['message'] != null) {
+        errorMessage = e.response!.data;
+
+        if (errorMessage != null) {
           Get.snackbar(
             'Error',
-            '${errorMessage['message']}',
+            '${errorMessage["message"]}',
             backgroundColor: Colors.red,
             colorText: Colors.white,
           );
@@ -63,31 +69,34 @@ class AuthenticationController extends GetxController {
   }
 
   Future register(String name, String password, String phone) async {
+    List<String> names = name.split(' ');
     try {
       final response = await _dio.post('${ApiConfig.registerEndpoint}', data: {
-        "name": name,
+        "first_name": names[0],
+        'last_name': names[1],
         "password": password,
         "password_confirmation": password,
         "phone": phone
       });
-
+      print(response.data);
       return response;
     } on DioError catch (e) {
-      String errorMessage;
+      Map<String, dynamic> errorMessage;
+
       if (e.response != null) {
-        errorMessage = 'Error: ${e.response?.statusCode} - ${e.response?.data}';
+        errorMessage = e.response!.data;
         Get.snackbar(
             backgroundColor: Colors.red,
             colorText: Colors.white,
-            'Error',
-            '$errorMessage');
+            'Unable to Register',
+            '$errorMessage["message"]');
       } else {
-        errorMessage = 'Error: ${e.message}';
+        errorMessage = e.response!.data;
         Get.snackbar(
             backgroundColor: Colors.red,
             colorText: Colors.white,
-            'Error',
-            '$errorMessage');
+            'Unable to Register',
+            '$errorMessage["message"]');
       }
     } catch (e) {
       return Future.error("An unexpected error occurred");
@@ -128,7 +137,6 @@ class AuthenticationController extends GetxController {
 
   @override
   void onInit() {
-  
     googleSignIn.onCurrentUserChanged.listen((account) {
       googleAccount.value = account;
     });

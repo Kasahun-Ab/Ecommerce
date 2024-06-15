@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,8 +8,8 @@ import 'package:pazimo/app/modules/home/views/Screen/Cart_view.dart';
 import 'package:pazimo/app/modules/home/views/Screen/account_view.dart';
 import 'package:pazimo/app/modules/home/views/Screen/event_view.dart';
 import 'package:pazimo/app/modules/home/views/Screen/home_view.dart';
-import 'package:pazimo/app/modules/home/views/Screen/search_view.dart';
 
+import 'Screen/Deals.dart';
 import 'Screen/shop.dart';
 
 // ignore: must_be_immutable
@@ -27,20 +25,18 @@ class HomePage extends GetView<HomeController> {
     'assets/svg/cart.svg',
     'assets/svg/profile.svg'
   ];
-  List<String> label = ["Home", "Shop", "Cart", "Account"];
+  List<String> label = ["Home", "Shop", "Cart", "Me"];
   void ma(int x) {
     print(x);
   }
 
-  RxInt _selectedIndex = 0.obs;
+  // RxInt controller.selectedIndex = 0.obs;
   @override
   Widget build(BuildContext context) {
     List<Widget> Page = [
       HomeView(),
-      // Shop(),
-      Container(
-        child: Center(child: Text("DealsView")),
-      ),
+      Shop(),
+      Dealsview(),
       CartView(),
       AccountScreen(),
       EventView(),
@@ -48,7 +44,7 @@ class HomePage extends GetView<HomeController> {
 
     return Obx(
       () => Scaffold(
-        body: Page[_selectedIndex.value],
+        body: Page[controller.selectedIndex.value],
         bottomNavigationBar: BottomAppBar(
           shape: CircularNotchedRectangle(),
           notchMargin: 6.0,
@@ -59,7 +55,7 @@ class HomePage extends GetView<HomeController> {
               children: <Widget>[
                 InkWell(
                   onTap: () => {
-                    _selectedIndex.value = 0,
+                    controller.selectedIndex.value = 0,
                   },
                   child: bottomnaveBarItem(
                     iconSource[0],
@@ -69,14 +65,14 @@ class HomePage extends GetView<HomeController> {
                 ),
                 InkWell(
                   onTap: () => {
-                    _selectedIndex.value = 1,
+                    controller.selectedIndex.value = 1,
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         padding: EdgeInsets.only(bottom: 2),
-                        width: 50,
+                        width: 50.w,
                         child: Image.asset(
                           height: 22,
                           iconSource[1],
@@ -85,8 +81,8 @@ class HomePage extends GetView<HomeController> {
                       Text(
                         label[1],
                         style: GoogleFonts.poppins(
-                            fontSize: 13,
-                            color: _selectedIndex.value == 1
+                            fontSize: 13.sp,
+                            color: controller.selectedIndex.value == 1
                                 ? Colors.blue
                                 : Colors.black),
                       )
@@ -95,16 +91,16 @@ class HomePage extends GetView<HomeController> {
                 ),
                 InkWell(
                   onTap: () => {
-                    _selectedIndex.value = 2,
+                    controller.selectedIndex.value = 2,
                   },
                   child: Container(
                       padding: EdgeInsets.only(left: 4),
                       child: Center(
-                          child: Image.asset(width: 100, iconSource[2]))),
+                          child: Image.asset(width: 100.w, iconSource[2]))),
                 ),
                 InkWell(
                   onTap: () => {
-                    _selectedIndex.value = 3,
+                    controller.selectedIndex.value = 3,
                   },
                   child: Container(
                     padding: EdgeInsets.all(5),
@@ -139,7 +135,7 @@ class HomePage extends GetView<HomeController> {
                 ),
                 InkWell(
                   onTap: () => {
-                    _selectedIndex.value = 4,
+                    controller.selectedIndex.value = 4,
                   },
                   child: bottomnaveBarItem(
                     iconSource[4],
@@ -158,12 +154,12 @@ class HomePage extends GetView<HomeController> {
   Widget bottomnaveBarItem(String iconSource, int index, String label) {
     return Obx(
       () => Container(
-        width: 50,
+        width: 50.w,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(
-              height: 20,
+              height: 20.h,
               iconSource,
               // ignore: deprecated_member_use
               color: Color.fromARGB(206, 26, 25, 25),
@@ -171,10 +167,10 @@ class HomePage extends GetView<HomeController> {
             Text(
               label,
               style: GoogleFonts.poppins(
-                  color: _selectedIndex.value == index
+                  color: controller.selectedIndex.value == index
                       ? Colors.blue
                       : Colors.black,
-                  fontSize: 13),
+                  fontSize: 13.sp),
             )
           ],
         ),

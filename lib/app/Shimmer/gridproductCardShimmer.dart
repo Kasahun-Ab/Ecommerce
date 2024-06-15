@@ -2,24 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class gridproductCardShimmer extends StatelessWidget {
-  const gridproductCardShimmer({
-    super.key,
-  });
-
+  gridproductCardShimmer({super.key, this.length = 4});
+  int length;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 125 * 4,
+      height: 125 * length.toDouble(),
       child: GridView.builder(
         physics: NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 10.0,
           mainAxisSpacing: 8.0,
           childAspectRatio: 0.69,
         ),
-        itemCount: 4,
+        itemCount: length,
         itemBuilder: (context, index) {
           return Container(
             width: double.infinity,

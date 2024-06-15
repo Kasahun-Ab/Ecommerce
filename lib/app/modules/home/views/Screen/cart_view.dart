@@ -191,12 +191,14 @@ class CartView extends StatelessWidget {
                                                         price.value =
                                                             calculateTotalPrice(
                                                                 index);
+
                                                         controller.carts[index][
                                                                 'total_price'] =
                                                             price;
                                                         print(controller
                                                                 .carts[index]
                                                             ['total_price']);
+
                                                         controller
                                                             .calculateSubTotal(
                                                                 controller
@@ -292,7 +294,7 @@ class CartView extends StatelessWidget {
     );
   }
 
-  calculateTotalPrice(int index) {
+  double calculateTotalPrice(int index) {
     return controller.priceCalculation(controller.carts[index]['itemNumber'],
         controller.carts[index]['price']);
   }

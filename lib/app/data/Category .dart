@@ -6,8 +6,7 @@ class Categories {
   final String displayMode;
   final String description;
   final String status;
-  // final String createdAt;
-  // final String updatedAt;
+ 
   final List<Translation> translations;
 
   Categories({
@@ -17,8 +16,7 @@ class Categories {
     required this.displayMode,
     required this.description,
     required this.status,
-    // required this.createdAt,
-    // required this.updatedAt,
+
     required this.translations,
   });
 
@@ -32,8 +30,7 @@ class Categories {
       displayMode: json['display_mode'] ?? '',
       description: json['description'] ?? '',
       status: json['status'] ?? '',
-      // createdAt: json['created_at'] ?? '',
-      // updatedAt: json['updated_at'] ?? '',
+   
       translations: translations,
     );
   }
@@ -46,8 +43,7 @@ class Categories {
       'display_mode': displayMode,
       'description': description,
       'status': status,
-      // 'created_at': createdAt,
-      // 'updated_at': updatedAt,
+
       'translations': translations.map((v) => v.toJson()).toList(),
     };
   }

@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pazimo/app/data/LoginResponse.dart';
+import 'package:pazimo/app/data/Customer.dart';
 import 'package:pazimo/app/modules/Components/Auth_textfield.dart';
 import 'package:pazimo/app/modules/Components/Text_with_text_button.dart';
 import 'package:pazimo/app/modules/Components/headersubtitle.dart';
@@ -87,24 +87,28 @@ class LoginView extends StatelessWidget {
                                         _passwordController.value.text,
                                         _phoneNumberController.value.text);
 
-                                    if (response.statusCode == 201) {
-                                      print(response);
-                                      final loginResponse =
-                                          LoginResponse.fromJson(
-                                              json.decode(response.toString()));
-                                      await _getStorage.write('loginResponse',
-                                          loginResponse.toJson());
+                                    if (response.statusCode == 200) {
+                                      Customerdata customer =
+                                          Customerdata.fromJson(response.data);
 
-                                      final storedData =
-                                          _getStorage.read('loginResponse');
+                                      String _customerData =
+                                          CustomerdataToJson(customer);
+
+                                      await _getStorage.write(
+                                          'loginResponse', _customerData);
+
+                                      final storedData = await _getStorage
+                                          .read('loginResponse');
+                                      print(storedData);
                                       if (storedData != null &&
                                           json.encode(storedData) ==
-                                              json.encode(
-                                                  loginResponse.toJson())) {
+                                              json.encode(_customerData)) {
                                         Get.offNamed(
                                           Routes.HOME,
                                         );
-                                      } else {}
+                                      } else {
+                                       
+                                      }
                                     }
                                   } catch (e) {
                                   } finally {

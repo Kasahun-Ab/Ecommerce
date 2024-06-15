@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +11,7 @@ import '../../../Components/Text_with_text_button.dart';
 import '../../../Components/header_title.dart';
 import '../../../Components/headersubtitle.dart';
 import '../../../Components/long_button.dart';
+import '../../../home/views/Screen/conditions.dart';
 import '../../validator/validator.dart';
 
 // ignore: must_be_immutable
@@ -86,13 +88,63 @@ class RegisterView extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Text(
-                        "By signing up you agree to our Terms, Privacy Policy, and Cookie Use",
-                        style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.w500),
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          text: 'By signing up you agree to our ',
+                          style: GoogleFonts.poppins(
+                              fontSize: 16, color: Colors.blue),
+                          children: [
+                            TextSpan(
+                              text: 'Terms',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.blue,
+                                decoration: TextDecoration.underline,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => Get.to(() => ConditionsPage(
+                                      fromregister: true,
+                                    )),
+                            ),
+                            TextSpan(
+                              text: ', ',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16, color: Colors.blue),
+                            ),
+                            TextSpan(
+                              text: 'Privacy Policy',
+                              style: GoogleFonts.poppins(
+                                color: Colors.blue,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                decoration: TextDecoration.underline,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => Get.to(
+                                    () => ConditionsPage(fromregister: true)),
+                            ),
+                            TextSpan(
+                              text: ', and ',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16, color: Colors.blue),
+                            ),
+                            TextSpan(
+                              text: 'Cookie Use',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                color: Colors.blue,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '.',
+                              style: GoogleFonts.poppins(color: Colors.black),
+                            ),
+                          ],
+                        ),
                       ),
+                     
                       const SizedBox(
                         height: 10,
                       ),

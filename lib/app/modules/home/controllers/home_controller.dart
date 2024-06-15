@@ -1,27 +1,22 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:pazimo/api/ApiConfig.dart';
 
+import 'package:get_storage/get_storage.dart';
 import 'package:pazimo/app/data/orderModel.dart';
-import 'package:pazimo/app/data/productModel.dart';
+import 'package:pazimo/app/data/productModel.dart' as pro;
 import 'package:pazimo/app/data/whishlist.dart';
 
 import '../../../../api/Api_Methods/allmethodsapi.dart';
 import '../../../data/Category .dart';
-import '../../../data/LoginResponse.dart';
+import '../../../data/Customer.dart' as user;
 
 class HomeController extends GetxController {
-  dio.Dio _dio = dio.Dio(dio.BaseOptions(baseUrl: ApiConfig.baseurl));
   var categories = <Categories>[].obs;
   RxBool iscategories = false.obs;
   RxBool isLoading = true.obs;
-  late LoginResponse userData;
+  user.Customerdata? userData;
   RxBool isnew = false.obs;
-  var wishlist = <whishlistmodel>[].obs;
+  var wishlist = Wishlist(data: []).obs;
   Api _api = Api();
   RxList BigSave = [].obs;
   final storage = GetStorage();
@@ -37,7 +32,9 @@ class HomeController extends GetxController {
 
   RxInt selectedProductIndex = 2.obs;
 
-  var products = ProductResponse(data: []).obs;
+  var products = pro.Product(
+    data: [],
+  ).obs;
 
   RxMap<String, dynamic> productDetailData = <String, dynamic>{}.obs;
 
@@ -148,18 +145,27 @@ class HomeController extends GetxController {
           rating: 3.5,
           completed: true),
     ];
-
     orders.assignAll(orderList);
+  }
+
+  getWishlist() async {
+    final response = await _api.getWishlist();
+    if (response?.statusCode == 200) {
+      var data = response!.data;
+      wishlist.value = Wishlist.fromJson(data);
+    }
   }
 
   @override
   void onInit() async {
     getCategory();
     _api.initializeDio();
-    getLoginResponse();
-    // wishlist.value = await _api.feachWhishlist();
+    userData = await getLoginResponse();
+    getWishlist();
     products.value = await _api.fetchProducts();
-   
+    var x = await _api.fetchBigSave();
+    print("${x.length} hifidifdifdi");
+
     fetchOrders();
 
     super.onInit();
@@ -186,13 +192,14 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  Future<LoginResponse?> getLoginResponse() async {
+  Future<user.Customerdata?> getLoginResponse() async {
+    user.Customerdata userdata;
     try {
       final data = await storage.read('loginResponse');
       if (data != null) {
-        userData = LoginResponse.fromJson(Map<String, dynamic>.from(data));
+        userdata = user.CustomerdataFromJson(data);
 
-        return userData;
+        return userdata;
       }
     } catch (e) {
       print('Error reading loginResponse: $e');
@@ -200,11 +207,30 @@ class HomeController extends GetxController {
     return null;
   }
 
+  Future setLoginResponse(user.Data data) async {
+  
+    user.Customerdata userdata = user.Customerdata(
+        data: data, message: userData!.message, token: userData!.token);
+
+    // try {
+    //   final data = await storage.read('loginResponse');
+    //   if (data != null) {
+    //     userdata =user.CustomerdataFromJson(data);
+
+    //     return userdata;
+    //   }
+    // } catch (e) {
+    //   print('Error reading loginResponse: $e');
+    // }
+    // return null;
+  }
+
   Future getCategory() async {
     iscategories.value = true;
     final response = await Api().getCategories();
-    if (response!.statusCode == 200) {
-      var categoryList = (response.data['data'] as List)
+    print('${response?.data} hsdfsdfsdfsdfsdf');
+    if (response?.statusCode == 200) {
+      var categoryList = (response?.data['data'] as List)
           .map((i) => Categories.fromJson(i))
           .toList();
       categories.assignAll(categoryList);
