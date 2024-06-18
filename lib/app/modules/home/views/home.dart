@@ -8,8 +8,15 @@ import 'package:pazimo/app/modules/home/views/Screen/Cart_view.dart';
 import 'package:pazimo/app/modules/home/views/Screen/account_view.dart';
 import 'package:pazimo/app/modules/home/views/Screen/event_view.dart';
 import 'package:pazimo/app/modules/home/views/Screen/home_view.dart';
+import 'package:pazimo/app/modules/home/views/Screen/mydetails.dart';
 
 import 'Screen/Deals.dart';
+import 'Screen/address.dart';
+import 'Screen/help_view.dart';
+import 'Screen/myorders.dart';
+import 'Screen/mytickets.dart';
+import 'Screen/notficationSetings.dart';
+import 'Screen/saved_items_view.dart';
 import 'Screen/shop.dart';
 
 // ignore: must_be_immutable
@@ -40,6 +47,13 @@ class HomePage extends GetView<HomeController> {
       CartView(),
       AccountScreen(),
       EventView(),
+      SavedItemsPage(), //6
+      MyOrdersPage(), //7
+      MyTicketsPage(), //8
+      MyDetailsPage(), //9
+      AddressPage(), //10
+      NotificationsSeting(), //11
+      HelpCenter(), //12
     ];
 
     return Obx(

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -18,6 +19,7 @@ import 'package:pazimo/app/modules/home/views/Screen/checkout.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../../api/Api_Methods/allmethodsapi.dart';
+import '../../../../data/toCart.dart';
 import '../../../Components/Expantion_button.dart';
 import '../../../Components/icon_button.dart';
 import '../../../Components/short_button.dart';
@@ -131,15 +133,13 @@ class ProductDetailView extends StatelessWidget {
                                           ? CachedNetworkImage(
                                               fit: BoxFit.cover,
                                               imageUrl:
-                                                  'https://staging.mytestserver.space/public/storage/product/1/3HkD9EA1t2dXiFdfrrxyNvvfB6Ku5meZQ84rXfwp.webp',
+                                                  'https://staging.mytestserver.space/public/themes/shop/default/build/assets/medium-product-placeholder-3b1a7b7d.webp',
                                             )
                                           : PageView.builder(
                                               itemCount:
                                                   product.value.images?.length,
                                               controller: _pageController,
                                               itemBuilder: (context, index) {
-                                                print(product
-                                                    .value.images![index]);
                                                 return Container(
                                                   child: CachedNetworkImage(
                                                     fit: BoxFit.cover,
@@ -543,7 +543,14 @@ class ProductDetailView extends StatelessWidget {
                                         ? "Add to cart"
                                         : "Remove from cart",
                                     onTap: isAdded.value == false
-                                        ? () {
+                                        ? () async{
+                                           
+                                         final response= await   _api.addToCart({
+                                              "product_id":product.value.id,
+                                              "quantity":itemNumber.value
+                                            });
+                                            print(response!.data);
+
                                             isAdded.value = true;
                                             detailsToAdd = {
                                               "id": product.value.id,

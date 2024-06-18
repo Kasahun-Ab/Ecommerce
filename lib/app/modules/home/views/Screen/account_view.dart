@@ -39,7 +39,8 @@ class AccountScreen extends StatelessWidget {
                 leading: SvgPicture.asset("assets/svg/liked.svg"),
                 title: Text('Wishlists'),
                 onTap: () {
-                  Get.to(() => SavedItemsPage());
+                  controller.selectedIndex.value = 6;
+                  // Get.to(() => SavedItemsPage());
                 },
                 trailing: controller.wishlist.value.data.length == 0
                     ? Icon(
@@ -60,7 +61,8 @@ class AccountScreen extends StatelessWidget {
               leading: SvgPicture.asset("assets/svg/orders.svg"),
               title: Text('My Orders'),
               onTap: () {
-                Get.to(() => MyOrdersPage());
+                controller.selectedIndex.value = 7;
+                // Get.to(() => MyOrdersPage());
               },
               trailing: Icon(
                 Icons.navigate_next,
@@ -71,7 +73,8 @@ class AccountScreen extends StatelessWidget {
               leading: SvgPicture.asset("assets/svg/tickets.svg"),
               title: Text('My Tickets'),
               onTap: () {
-                Get.to(() => MyTicketsPage());
+                controller.selectedIndex.value = 8;
+                // Get.to(() => MyTicketsPage());
               },
               trailing: Icon(
                 Icons.navigate_next,
@@ -82,7 +85,8 @@ class AccountScreen extends StatelessWidget {
               leading: SvgPicture.asset("assets/svg/details.svg"),
               title: Text('My Details'),
               onTap: () {
-                Get.to(() => MyDetailsPage());
+                controller.selectedIndex.value = 9;
+                // Get.to(() => MyDetailsPage());
               },
               trailing: Icon(
                 Icons.navigate_next,
@@ -93,7 +97,8 @@ class AccountScreen extends StatelessWidget {
               leading: SvgPicture.asset("assets/svg/adress.svg"),
               title: Text('Delivery Addresses'),
               onTap: () {
-                Get.to(() => AddressPage());
+                controller.selectedIndex.value = 10;
+                // Get.to(() => AddressPage());
               },
               trailing: Icon(
                 Icons.navigate_next,
@@ -104,7 +109,8 @@ class AccountScreen extends StatelessWidget {
               leading: SvgPicture.asset("assets/svg/Bell.svg"),
               title: Text('Notifications'),
               onTap: () {
-                Get.to(() => NotificationsSeting());
+                controller.selectedIndex.value = 11;
+                // Get.to(() => NotificationsSeting());
               },
               trailing: Icon(
                 Icons.navigate_next,
@@ -115,7 +121,8 @@ class AccountScreen extends StatelessWidget {
               leading: SvgPicture.asset("assets/svg/Bell.svg"),
               title: Text('Help Center'),
               onTap: () {
-                Get.to(() => HelpCenter());
+                controller.selectedIndex.value = 12;
+                // Get.to(() => HelpCenter());
               },
               trailing: Icon(
                 Icons.navigate_next,

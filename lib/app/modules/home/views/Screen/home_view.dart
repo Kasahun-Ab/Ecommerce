@@ -246,9 +246,7 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
               ),
-              // SizedBox(
-              //   height: 10,
-              // ),
+
               controller.iscategories.isTrue
                   ? gridproductCardShimmer()
                   : Obx(
@@ -268,138 +266,6 @@ class HomeView extends StatelessWidget {
       ),
     );
   }
-
-  // Widget gridCard(List<Datum> product) {
-  //   return product.length == 0
-  //       ? gridproductCardShimmer()
-  //       : GridView.builder(
-  //           padding: EdgeInsets.only(
-  //             left: 16,
-  //             right: 16,
-  //             top: 16,
-  //           ),
-  //           shrinkWrap: true,
-  //           physics: NeverScrollableScrollPhysics(),
-  //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-  //             crossAxisCount: 2,
-  //             crossAxisSpacing: 15,
-  //             mainAxisSpacing: 2,
-  //             childAspectRatio: 0.75,
-  //           ),
-  //           itemCount: product.length,
-  //           itemBuilder: (ctx, index) {
-  //             RxBool isliked = false.obs;
-  //             isliked.value = product[index].isSaved;
-
-  //             return Obx(
-  //               () => Container(
-  //                 child: Column(
-  //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //                   children: [
-  //                     InkWell(
-  //                       onTap: () {
-  //                         Get.to(() => ProductDetailView(
-  //                               id: controller.products.value.data[index].id,
-  //                             ));
-  //                       },
-  //                       child: Stack(
-  //                         children: [
-  //                           Container(
-  //                             height: 190.h,
-  //                             width: double.infinity,
-  //                             decoration: BoxDecoration(
-  //                                 color: Color(0xffE6E6E6),
-  //                                 borderRadius: BorderRadius.circular(10)),
-  //                             child: CachedNetworkImage(
-  //                                 height: 190.h,
-  //                                 width: 160.w,
-  //                                 imageUrl:
-  //                                     "https://media.kingston.com/kingston/hero/ktc-articles-solutions-speed-up-your-mac-hero-lg.jpg",
-  //                                 placeholder: (context, url) => Center(
-  //                                       child: CircularProgressIndicator(
-  //                                         color: Colors.blue,
-  //                                       ),
-  //                                     )),
-  //                           ),
-  //                           Positioned(
-  //                               top: 12.h,
-  //                               right: 12.w,
-  //                               child: InkWell(
-  //                                 radius: 20.sp,
-  //                                 onTap: isliked.isFalse
-  //                                     ? () async {
-  //                                         isliked.value = !isliked.value;
-  //                                         final response =
-  //                                             await _api.Addtowishlist(
-  //                                                 product[index].id);
-  //                                         print(response!.data);
-  //                                       }
-  //                                     : () async {
-  //                                         isliked.value = !isliked.value;
-  //                                         final response =
-  //                                             await _api.Removetowishlist(
-  //                                                 product[index].id);
-  //                                         print(response);
-  //                                       },
-  //                                 child: Container(
-  //                                   width: 37.h,
-  //                                   height: 37.h,
-  //                                   decoration: BoxDecoration(
-  //                                       color: Colors.white,
-  //                                       borderRadius: BorderRadius.circular(5)),
-  //                                   child: Center(
-  //                                     child: isliked.isTrue
-  //                                         ? SvgPicture.asset(
-  //                                             "assets/svg/liked.svg")
-  //                                         : SvgPicture.asset(
-  //                                             "assets/svg/like.svg"),
-  //                                   ),
-  //                                 ),
-  //                               ))
-  //                         ],
-  //                       ),
-  //                     ),
-  //                     Text(
-  //                       '${controller.products.value.data[index].name}',
-  //                       overflow: TextOverflow.clip,
-  //                       maxLines: 1,
-  //                       style: GoogleFonts.poppins(
-  //                           fontSize: 14,
-  //                           fontWeight: FontWeight.w500,
-  //                           color: Color(0xff808080)),
-  //                     ),
-  //                     Row(
-  //                       children: [
-  //                         Text(
-  //                           'ETB ${controller.products.value.data[index].formattedPrice}',
-  //                           style: GoogleFonts.poppins(
-  //                               fontSize: 16.sp,
-  //                               fontWeight: FontWeight.w700,
-  //                               color: Color(0xff4D4D4D)),
-  //                         ),
-  //                         SizedBox(
-  //                           width: 10,
-  //                         ),
-  //                         Text(
-  //                           '1000',
-  //                           style: GoogleFonts.poppins(
-  //                               fontSize: 13.sp,
-  //                               decoration: TextDecoration.lineThrough,
-  //                               color: Color(0xff808080)),
-  //                         ),
-  //                       ],
-  //                     )
-  //                   ],
-  //                 ),
-  //               ),
-  //             );
-  //           });
-  // }
-
-  // Widget GridProductCard(int index) {
-  //   RxBool isliked = false.obs;
-  //   return ;
-  // }
 
   Widget productCard(
     List<Datum> product,
@@ -438,9 +304,10 @@ class HomeView extends StatelessWidget {
                           child: CachedNetworkImage(
                               height: 190.h,
                               width: 160.w,
-                              fit: BoxFit.cover,
-                              imageUrl:
-                                  "https://staging.mytestserver.space/public/storage/product/1/3HkD9EA1t2dXiFdfrrxyNvvfB6Ku5meZQ84rXfwp.webp",
+                              fit: BoxFit.fill,
+                              imageUrl: product[index].images.length != 0
+                                  ? product[index].images[0]["medium_image_url"]
+                                  : "https://staging.mytestserver.space/public/themes/shop/default/build/assets/medium-product-placeholder-3b1a7b7d.webp",
                               placeholder: (context, url) => Center(
                                     child: CircularProgressIndicator(
                                       color: Colors.blue,

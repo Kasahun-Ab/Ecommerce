@@ -59,8 +59,12 @@ Widget gridCard(List<Datum> product) {
                                   fit: BoxFit.cover,
                                   height: 190.h,
                                   width: 160.w,
-                                  imageUrl:
-                                      "https://staging.mytestserver.space/public/storage/product/1/3HkD9EA1t2dXiFdfrrxyNvvfB6Ku5meZQ84rXfwp.webp",
+                                  imageUrl: controller.products.value
+                                              .data[index].images.length !=
+                                          0
+                                      ? controller.products.value.data[index]
+                                          .images[0]['medium_image_url']
+                                      : "https://staging.mytestserver.space/public/themes/shop/default/build/assets/medium-product-placeholder-3b1a7b7d.webp",
                                   placeholder: (context, url) => Center(
                                         child: CircularProgressIndicator(
                                           color: Colors.blue,

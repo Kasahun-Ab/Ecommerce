@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:dio/dio.dart' as dioClient;
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -170,6 +172,154 @@ class Api {
       final response = await dio!.put(
           'https://staging.mytestserver.space/api/v1/customer/profile',
           data: formData);
+      return response;
+    } catch (e) {
+      if (e is dioClient.DioError) {
+        print("Dio error occurred: ${e.message}");
+        if (e.response != null) {
+          print("Dio error response data: ${e.response?.data}");
+        }
+      } else {
+        print("Error updating profile: $e");
+      }
+      return null;
+    }
+  }
+
+  Future<dioClient.Response?> addToCart(Map<String, dynamic> cattItem) async {
+    if (dio == null) await initializeDio();
+    try {
+      final response = await dio!.post(
+          'https://staging.mytestserver.space/api/v1/customer/cart/add/${cattItem['product_id']}',
+          data: {
+            "product_id": cattItem['product_id'],
+            'quantity': cattItem['quantity'],
+          });
+      return response;
+    } catch (e) {
+      if (e is dioClient.DioError) {
+        print("Dio error occurred: ${e.message}");
+        if (e.response != null) {
+          print("Dio error response data: ${e.response?.data}");
+        }
+      } else {
+        print("Error updating profile: $e");
+      }
+      return null;
+    }
+  }
+
+  Future<dynamic> getCart() async {
+    if (dio == null) await initializeDio();
+    try {
+      final response = await dio!.get(
+        'https://staging.mytestserver.space/api/v1/customer/cart',
+      );
+      if (response.data != null) {
+        return response;
+      } else {
+        print("No data in the response");
+        return null;
+      }
+    } catch (e) {
+      if (e is dioClient.DioError) {
+        print("Dio error occurred: ${e.message}");
+        if (e.response != null) {
+          print("Dio error response data: ${e.response?.data}");
+        }
+      } else {
+        print("Error updating profile: $e");
+      }
+      return null;
+    }
+  }
+
+  Future<dioClient.Response?> deleteFromCart(var cartitemId) async {
+    if (dio == null) await initializeDio();
+    try {
+      final response = await dio!.delete(
+        'https://staging.mytestserver.space/api/v1/customer/cart/remove/${cartitemId}',
+      );
+      return response;
+    } catch (e) {
+      if (e is dioClient.DioError) {
+        print("Dio error occurred: ${e.message}");
+        if (e.response != null) {
+          print("Dio error response data: ${e.response?.data}");
+        }
+      } else {
+        print("Error updating profile: $e");
+      }
+      return null;
+    }
+  }
+
+  Future<dioClient.Response?> updateCart(Map<String, dynamic> quntity) async {
+    if (dio == null) await initializeDio();
+    try {
+      final response = await dio!.post(
+          'https://staging.mytestserver.space/api/v1/customer/cart/update',
+          data: quntity);
+      return response;
+    } catch (e) {
+      if (e is dioClient.DioError) {
+        print("Dio error occurred: ${e.message}");
+        if (e.response != null) {
+          print("Dio error response data: ${e.response?.data}");
+        }
+      } else {
+        print("Error updating profile: $e");
+      }
+      return null;
+    }
+  }
+
+  Future<dioClient.Response?> ApplyCupon(var cartitemId) async {
+    if (dio == null) await initializeDio();
+    try {
+      final response = await dio!.post(
+        'https://staging.mytestserver.space/api/v1/customer/cart/coupon',
+      );
+      return response;
+    } catch (e) {
+      if (e is dioClient.DioError) {
+        print("Dio error occurred: ${e.message}");
+        if (e.response != null) {
+          print("Dio error response data: ${e.response?.data}");
+        }
+      } else {
+        print("Error updating profile: $e");
+      }
+      return null;
+    }
+  }
+
+  Future<dioClient.Response?> deleteCupon(var cartitemId) async {
+    if (dio == null) await initializeDio();
+    try {
+      final response = await dio!.delete(
+        'https://staging.mytestserver.space/api/v1/customer/cart/coupon',
+      );
+      return response;
+    } catch (e) {
+      if (e is dioClient.DioError) {
+        print("Dio error occurred: ${e.message}");
+        if (e.response != null) {
+          print("Dio error response data: ${e.response?.data}");
+        }
+      } else {
+        print("Error updating profile: $e");
+      }
+      return null;
+    }
+  }
+
+  Future<dioClient.Response?> getAddresses() async {
+    if (dio == null) await initializeDio();
+    try {
+      final response = await dio!.get(
+        'https://staging.mytestserver.space/api/v1/customer/addresses',
+      );
       return response;
     } catch (e) {
       if (e is dioClient.DioError) {

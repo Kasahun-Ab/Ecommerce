@@ -99,151 +99,142 @@ class SavedItemsPage extends StatelessWidget {
                                 ),
                               ],
                             ))
-                          : GridView.builder(
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 32.0,
-                                mainAxisSpacing: 16.0,
-                                childAspectRatio: 0.73,
-                              ),
-                              itemCount: _wishlist.value.data.length,
-                              itemBuilder: (context, index) {
-                                return InkWell(
-                                  onTap: () async {
-                                    Get.to(() => ProductDetailView(
-                                          id: controller
-                                              .products.value.data[index].id,
-                                        ));
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
+                          : Obx(
+                              () => GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 15,
+                                  mainAxisSpacing: 2,
+                                  childAspectRatio: 0.75,
+                                ),
+                                itemCount: _wishlist.value.data.length,
+                                itemBuilder: (context, index) {
+                                  print(_wishlist.value.data.length);
+                                  return Container(
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Expanded(
-                                          child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.vertical(
-                                                top: Radius.circular(10),
-                                                bottom: Radius.circular(10),
-                                              ),
-                                              child: Container(
-                                                height: 290,
-                                                color: Color.fromARGB(
-                                                    195, 105, 105, 105),
-                                                child: Stack(
-                                                  children: [
-                                                    // Image.network(
-                                                    //     width: 270,
-                                                    //     fit: BoxFit.cover,
-                                                    //     "https://p7.hiclipart.com/preview/364/581/66/airpods-apple-earbuds-headphones-iphone-apple.jpg"),
-                                                    CachedNetworkImage(
-                                                      height: 290,
-                                                      imageUrl:
-                                                          "https://p7.hiclipart.com/preview/364/581/66/airpods-apple-earbuds-headphones-iphone-apple.jpg",
+                                        InkWell(
+                                          onTap: () {
+                                            Get.to(() => ProductDetailView(
+                                                  id: _wishlist.value
+                                                      .data[index].product.id,
+                                                ));
+                                          },
+                                          child: Stack(
+                                            children: [
+                                              Container(
+                                                height: 190.h,
+                                                width: double.infinity,
+                                                decoration: BoxDecoration(
+                                                    color: Color(0xffE6E6E6),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  child: CachedNetworkImage(
+                                                      fit: BoxFit.cover,
+                                                      height: 190.h,
+                                                      width: 160.w,
+                                                      imageUrl: _wishlist
+                                                                  .value
+                                                                  .data[index]
+                                                                  .product
+                                                                  .images
+                                                                  .length !=
+                                                              0
+                                                          ? _wishlist
+                                                              .value
+                                                              .data[index]
+                                                              .product
+                                                              .images[0]
+                                                              .mediumImageUrl
+                                                          : "https://staging.mytestserver.space/public/themes/shop/default/build/assets/medium-product-placeholder-3b1a7b7d.webp",
                                                       placeholder: (context,
                                                               url) =>
-                                                          CircularProgressIndicator(),
-                                                      errorWidget: (context,
-                                                              url, error) =>
-                                                          Icon(Icons.error),
-                                                    ),
-
-                                                    Positioned(
-                                                        top: 12.h,
-                                                        right: 12.w,
-                                                        child: InkWell(
-                                                          radius: 20.sp,
-                                                          onTap: () async {
-                                                            EasyLoading.show(
-                                                                status:
-                                                                    'loading...');
-                                                            await _api
-                                                                .addToWishlist(
-                                                                    _wishlist
-                                                                        .value
-                                                                        .data[
-                                                                            index]
-                                                                        .product
-                                                                        .id);
-                                                            await getWish();
-                                                          },
-                                                          child: Container(
-                                                            width: 37.h,
-                                                            height: 37.h,
-                                                            decoration: BoxDecoration(
-                                                                color: Colors
-                                                                    .white,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5)),
-                                                            child: Center(
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                      "assets/svg/liked.svg"),
+                                                          Center(
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              color:
+                                                                  Colors.blue,
                                                             ),
-                                                          ),
-                                                        )),
-                                                  ],
-                                                ),
-                                              )),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                _wishlist.value.data[index]
-                                                    .product.name,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 14,
-                                                  color: Colors.grey[600],
+                                                          )),
                                                 ),
                                               ),
-                                              SizedBox(height: 4),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    '${_wishlist.value.data[index].product.formattedPrice}',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 16,
+                                              Positioned(
+                                                  top: 12.h,
+                                                  right: 12.w,
+                                                  child: InkWell(
+                                                    radius: 20.sp,
+                                                    onTap: () async {
+                                                      EasyLoading.show(
+                                                          status: 'loading...');
+                                                          
+                                                      await _api.addToWishlist(
+                                                          _wishlist
+                                                              .value
+                                                              .data[index]
+                                                              .product
+                                                              .id);
+                                                      await getWish();
+                                                    },
+                                                    child: Container(
+                                                      width: 37.h,
+                                                      height: 37.h,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5)),
+                                                      child: Center(
+                                                        child: SvgPicture.asset(
+                                                            "assets/svg/liked.svg"),
+                                                      ),
                                                     ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 30,
-                                                  ),
-                                                  Text(
-                                                    '${NumberFormat.decimalPattern().format(8000)}',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.grey,
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                      fontSize: 13,
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
+                                                  ))
                                             ],
                                           ),
                                         ),
+                                        Text(
+                                          '${_wishlist.value.data[index].product.name}',
+                                          overflow: TextOverflow.clip,
+                                          maxLines: 1,
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xff808080)),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              '${_wishlist.value.data[index].product.formattedPrice}',
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 16.sp,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Color(0xff4D4D4D)),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              '1000',
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 13.sp,
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                  color: Color(0xff808080)),
+                                            ),
+                                          ],
+                                        )
                                       ],
                                     ),
-                                  ),
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             ),
                     ),
             )));

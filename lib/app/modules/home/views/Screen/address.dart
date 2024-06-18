@@ -2,29 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pazimo/app/data/address.dart';
 
-class Addresscont extends GetxController {
-  var addresses = [
-    Address('Home', '925 S Chugach St #APT 10, Alaska', true),
-    Address('Office', '2438 6th Ave, Ketchikan, Alaska', false),
-    Address('Apartment', '2551 Vista Dr #B301, Juneau, Alaska', false),
-    Address('Parent\'s House', '4821 Ridge Top Cir, Anchorage, Alaska', false),
-  ].obs;
+import '../../../../../api/Api_Methods/allmethodsapi.dart';
+import '../../../../data/address.dart';
 
-  void setDefault(int index) {
-    for (var i = 0; i < addresses.length; i++) {
-      addresses[i].isDefault = i == index;
-    }
-    addresses.refresh();
-  }
-}
+
 
 class AddressPage extends StatelessWidget {
   AddressPage({super.key});
-  final Addresscont addressController = Get.put(Addresscont());
+  Api _api = Api();
+
+  deliverAddress? _address;
+  var addressof = <Datum>[].obs;
+  // void setDefault(int index) {
+  //   for (var i = 0; i < addressof.length; i++) {
+  //     // addressof[i] = i == index;
+  //   }
+  //   // addresses.refresh();
+  // }
 
   Widget build(BuildContext context) {
+    getAddresses() async {
+      try {
+        final response = await _api.getAddresses();
+        if (response!.data != null) {
+          print(response.data);
+          _address = await deliverAddress.fromJson(response.data);
+          addressof.value = _address!.data!;
+        } else {
+          _address = null;
+          addressof.value = [];
+        }
+      } catch (e) {
+        print(e.toString());
+      }
+    }
+
+    getAddresses();
+
+    setDefault(var index) {
+      
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text('Address', style: GoogleFonts.poppins(color: Colors.blue)),
@@ -44,32 +62,33 @@ class AddressPage extends StatelessWidget {
             Expanded(
               child: Obx(
                 () => ListView.builder(
-                  itemCount: addressController.addresses.length,
+                  itemCount: addressof.length,
                   itemBuilder: (context, index) {
-                    var address = addressController.addresses[index];
+                    var address = addressof[index];
+                    RxBool isDefault = address.isDefault!.obs;
+
                     return Container(
                       margin: EdgeInsets.only(top: 16),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border:
                               Border.all(width: 1, color: Color(0xffE6E6E6))),
-                    
                       child: ListTile(
                         leading: SvgPicture.asset("assets/svg/Location.svg"),
                         title: Text(
-                          address.title,
+                          "${address.city}",
                           style: GoogleFonts.poppins(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                               color: Colors.blue),
                         ),
-                        subtitle: Text(address.address,
+                        subtitle: Text("${address.companyName}",
                             style: GoogleFonts.poppins(
                                 fontSize: 14, color: Color(0xff808080))),
                         trailing: Container(
                           height: 20,
                           width: 20,
-                          child: address.isDefault
+                          child: isDefault.isFalse
                               ? Container(
                                   width: 13,
                                   height: 13,
@@ -85,7 +104,7 @@ class AddressPage extends StatelessWidget {
                                 color: Colors.blue,
                               )),
                         ),
-                        onTap: () => addressController.setDefault(index),
+                        onTap: () {},
                       ),
                     );
                   },

@@ -22,7 +22,13 @@ void main() async {
           title: "Pazimo",
           home: SplashScreen(),
           getPages: AppPages.routes,
-         builder: EasyLoading.init(),
+          builder: (context, widget) {
+            EasyLoading.init();
+            return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+              child: widget!,
+            );
+          },
         )),
   ));
   configLoading();
