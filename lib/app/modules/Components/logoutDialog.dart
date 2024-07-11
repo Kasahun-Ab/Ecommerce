@@ -31,7 +31,7 @@ class LogoutDialogbox extends StatelessWidget {
             Text(title,
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.bold,
-                    color: Colors.blue,
+                    color: Color(0xff115DB1),
                     fontSize: 17)),
             SizedBox(height: 10),
             Text(
@@ -64,7 +64,7 @@ class LogoutDialogbox extends StatelessWidget {
               onPressed: cancele,
               child: Text(
                 '$cancletext',
-                style: GoogleFonts.poppins(color: Colors.blue),
+                style: GoogleFonts.poppins(color: Color(0xff115DB1)),
               ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white, // Text and border color
@@ -72,7 +72,7 @@ class LogoutDialogbox extends StatelessWidget {
                 textStyle: GoogleFonts.poppins(fontSize: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  side: BorderSide(color: Colors.blue), // Blue border
+                  side: BorderSide(color: Color(0xff115DB1)), // Blue border
                 ),
                 minimumSize: Size(400, 48), // Adjust the width as needed
               ),

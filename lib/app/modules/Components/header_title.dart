@@ -16,7 +16,7 @@ class HeaderTitle extends StatelessWidget {
       style: GoogleFonts.poppins(
         fontSize: 32,
         fontWeight: FontWeight.w600,
-        color: Colors.blue,
+        color: Color(0xff115DB1),
       ),
     );
   }

@@ -4,16 +4,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pazimo/api/Api_Methods/allmethodsapi.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
-import 'package:pazimo/app/modules/home/views/Screen/address.dart';
 import 'package:pazimo/app/modules/home/views/Screen/conditions.dart';
-import 'package:pazimo/app/modules/home/views/Screen/help_view.dart';
-import 'package:pazimo/app/modules/home/views/Screen/mydetails.dart';
-import 'package:pazimo/app/modules/home/views/Screen/myorders.dart';
-import 'package:pazimo/app/modules/home/views/Screen/mytickets.dart';
-import 'package:pazimo/app/modules/home/views/Screen/notficationSetings.dart';
-
 import '../../../Components/logoutDialog.dart';
-import 'saved_items_view.dart';
 
 class AccountScreen extends StatelessWidget {
   final HomeController controller = Get.find<HomeController>();

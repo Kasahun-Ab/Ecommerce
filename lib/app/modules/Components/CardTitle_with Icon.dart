@@ -33,7 +33,7 @@ class CardTitle_with_icon extends StatelessWidget {
               onTap: tap,
               child: Icon(
                 Icons.arrow_forward,
-                color: Colors.blue,
+                color: Color(0xff115DB1),
               ),
             )
           ],

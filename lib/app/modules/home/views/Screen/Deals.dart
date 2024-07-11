@@ -8,6 +8,7 @@ import 'package:pazimo/app/data/productModel.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
 
 import '../../../../../api/Api_Methods/allmethodsapi.dart';
+import '../../../../../theme/themedata.dart';
 import 'product_details.dart';
 
 class DealsController extends GetxController {
@@ -33,12 +34,14 @@ class Dealsview extends StatelessWidget {
     ];
 
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
+        backgroundColor: primary_white,
         centerTitle: true,
         title: Text(
           "Deals",
           style: GoogleFonts.poppins(
-              color: Colors.blue, fontWeight: FontWeight.w500),
+              color: Color(0xff115DB1), fontWeight: FontWeight.w500),
         ),
       ),
       body: Obx(
@@ -142,8 +145,8 @@ class Dealsview extends StatelessWidget {
                                       horizontal: 10, vertical: 1),
                                   child: Text(
                                     "02:43:21",
-                                    style:
-                                        GoogleFonts.poppins(color: Colors.blue),
+                                    style: GoogleFonts.poppins(
+                                        color: Color(0xff115DB1)),
                                   )),
                             ],
                           ),
@@ -152,7 +155,7 @@ class Dealsview extends StatelessWidget {
                             child: Text(
                               "See all",
                               style: GoogleFonts.poppins(
-                                  fontSize: 16, color: Colors.blue),
+                                  fontSize: 16, color: Color(0xff115DB1)),
                             ),
                           )
                         ],
@@ -249,7 +252,7 @@ class Dealsview extends StatelessWidget {
                                   "https://staging.mytestserver.space/public/storage/product/1/3HkD9EA1t2dXiFdfrrxyNvvfB6Ku5meZQ84rXfwp.webp",
                               placeholder: (context, url) => Center(
                                     child: CircularProgressIndicator(
-                                      color: Colors.blue,
+                                      color: Color(0xff115DB1),
                                     ),
                                   )),
                         ),
@@ -266,8 +269,8 @@ class Dealsview extends StatelessWidget {
                                   }
                                 : () async {
                                     isliked.value = !isliked.value;
-                                    await _api.removeFromWishlist(
-                                        product[index].id);
+                                    await _api
+                                        .removeFromWishlist(product[index].id);
                                   },
                             child: Container(
                               width: 37.h,

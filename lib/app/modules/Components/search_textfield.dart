@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pazimo/app/modules/home/views/Screen/search_view.dart';
 
+import '../../../theme/themedata.dart';
+
 class search extends StatelessWidget {
   const search({
     super.key,
@@ -11,7 +13,7 @@ class search extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 48,
+      height: 45,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(50),
@@ -58,7 +60,7 @@ class search extends StatelessWidget {
               height: 32,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(17),
-                color: Colors.blue,
+                color: primary_blue,
                 border: Border.all(color: Colors.black, width: 1),
               ),
               child: Icon(

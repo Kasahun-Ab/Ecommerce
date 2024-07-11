@@ -15,8 +15,12 @@ import 'package:pazimo/app/modules/Components/long_button.dart';
 import 'package:pazimo/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:pazimo/app/modules/authentication/validator/validator.dart';
 import 'package:pazimo/app/modules/authentication/views/Screen/forgotpassword_view.dart';
+import 'package:pazimo/app/modules/home/views/Screen/affiliate.dart';
 import 'package:pazimo/app/routes/app_pages.dart';
+import '../../../../../theme/themedata.dart';
+import '../../../Affiliate/views/affiliate_view.dart';
 import '../../../Components/header_title.dart';
+import '../../../vendor/views/vendor_view.dart';
 import 'register.dart';
 
 // ignore: must_be_immutable
@@ -106,9 +110,7 @@ class LoginView extends StatelessWidget {
                                         Get.offNamed(
                                           Routes.HOME,
                                         );
-                                      } else {
-                                       
-                                      }
+                                      } else {}
                                     }
                                   } catch (e) {
                                   } finally {
@@ -171,16 +173,35 @@ class LoginView extends StatelessWidget {
                       hasIcon: true,
                     ),
                     SizedBox(height: 15),
-                    Button(
-                      title: 'Login with Facebook',
-                      color: Colors.blue,
-                      onPressed: () {
-                        controller.signInWithFacebook();
+                    GestureDetector(
+                      child: Text("Login to Vender",
+                          style: GoogleFonts.poppins(
+                              color: Colors.blue, fontSize: 18)),
+                      onTap: () {
+                        Get.to(() => VendorView());
                       },
-                      hasBorder: false,
-                      iconDirectionIsRight: false,
-                      iconSource: 'assets/svg/facebook_icon.svg',
-                      hasIcon: true,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    GestureDetector(
+                      child: Text("Login to Affilate",
+                          style: GoogleFonts.poppins(
+                              color: Colors.blue, fontSize: 18)),
+                      onTap: () {
+                        Get.to(() => AffiliateView());
+                      },
+                    ),
+                    SizedBox(height: 20),
+                    GestureDetector(
+                      child: Text("Login to Home",
+                          style: GoogleFonts.poppins(
+                              color: primary_blue, fontSize: 18)),
+                      onTap: () {
+                        Get.offNamed(
+                          Routes.HOME,
+                        );
+                      },
                     ),
                     SizedBox(height: 20),
                     TextwithTextbutton(

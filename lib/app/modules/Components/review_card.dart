@@ -34,7 +34,7 @@ class ratingwithProgressbar extends StatelessWidget {
             width: size.width / 1.7,
             child: LinearProgressIndicator(
               value: 4,
-              color: Colors.blue,
+              color: Color(0xff115DB1),
               backgroundColor: Color(0xffE5E5E5),
             )),
       ],

@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+
 deliverAddress deliverAddressFromJson(String str) =>
     deliverAddress.fromJson(json.decode(str));
 
@@ -78,7 +79,7 @@ class Datum {
         postcode: json["postcode"],
         phone: json["phone"],
         email: json["email"],
-        isDefault: json["is_default"],
+        isDefault: (json["is_default"]),
       );
 
   Map<String, dynamic> toJson() => {

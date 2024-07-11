@@ -10,6 +10,7 @@ import 'package:pazimo/app/modules/home/views/Screen/event_view.dart';
 import 'package:pazimo/app/modules/home/views/Screen/home_view.dart';
 import 'package:pazimo/app/modules/home/views/Screen/mydetails.dart';
 
+import '../../../../theme/themedata.dart';
 import 'Screen/Deals.dart';
 import 'Screen/address.dart';
 import 'Screen/help_view.dart';
@@ -27,7 +28,7 @@ class HomePage extends GetView<HomeController> {
 
   final List<String> iconSource = [
     'assets/svg/home.svg',
-    'assets/images/bag 1.png',
+    'assets/svg/bag 1.png',
     'assets/images/center_icon.png',
     'assets/svg/cart.svg',
     'assets/svg/profile.svg'
@@ -58,8 +59,10 @@ class HomePage extends GetView<HomeController> {
 
     return Obx(
       () => Scaffold(
+        backgroundColor: primary_white,
         body: Page[controller.selectedIndex.value],
         bottomNavigationBar: BottomAppBar(
+          color: primary_white,
           shape: CircularNotchedRectangle(),
           notchMargin: 6.0,
           child: Container(
@@ -97,7 +100,7 @@ class HomePage extends GetView<HomeController> {
                         style: GoogleFonts.poppins(
                             fontSize: 13.sp,
                             color: controller.selectedIndex.value == 1
-                                ? Colors.blue
+                                ? primary_blue
                                 : Colors.black),
                       )
                     ],
@@ -174,15 +177,18 @@ class HomePage extends GetView<HomeController> {
           children: [
             SvgPicture.asset(
               height: 20.h,
+
               iconSource,
               // ignore: deprecated_member_use
-              color: Color.fromARGB(206, 26, 25, 25),
+              color: controller.selectedIndex.value == index
+                  ? primary_blue
+                  : Colors.black,
             ),
             Text(
               label,
               style: GoogleFonts.poppins(
                   color: controller.selectedIndex.value == index
-                      ? Colors.blue
+                      ? primary_blue
                       : Colors.black,
                   fontSize: 13.sp),
             )

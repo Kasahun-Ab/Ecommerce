@@ -34,7 +34,7 @@ class filterButton extends StatelessWidget {
         Text(
           title,
           style: GoogleFonts.poppins(
-              fontSize: 16, fontWeight: FontWeight.w500, color: Colors.blue),
+              fontSize: 16, fontWeight: FontWeight.w500, color: Color(0xff115DB1)),
         ),
         SizedBox(
           height: 5.h,
@@ -61,11 +61,11 @@ class filterButton extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 25.w),
                       decoration: BoxDecoration(
                         border: selectedIndex == index
-                            ? Border.all(width: 1.w, color: Colors.blue)
+                            ? Border.all(width: 1.w, color: Color(0xff115DB1))
                             : Border.all(width: 1.w, color: Colors.black12),
                         borderRadius: BorderRadius.circular(5),
                         color: selectedIndex.value == index
-                            ? Colors.blue
+                            ? Color(0xff115DB1)
                             : Colors.white,
                       ),
                       child: Center(
@@ -75,7 +75,7 @@ class filterButton extends StatelessWidget {
                               fontSize: 14.sp,
                               color: selectedIndex.value == index
                                   ? Colors.white
-                                  : Colors.blue),
+                                  : Color(0xff115DB1)),
                         ),
                       ),
                     ),

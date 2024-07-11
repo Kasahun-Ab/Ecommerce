@@ -11,23 +11,29 @@
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
+
+
+
+
+
+
 //       appBar: AppBar(
 //         title: Text(
 //           'Account',
-//           style: TextStyle(color: Colors.blue), // Setting text color to blue
+//           style: TextStyle(color: Color(0xff115DB1)), // Setting text color to blue
 //         ),
 //         actions: [
 //           IconButton(
 //             icon: Icon(
 //               Icons.qr_code_scanner,
-//               color: Colors.blue, // Setting icon color to blue
+//               color: Color(0xff115DB1), // Setting icon color to blue
 //             ),
 //             onPressed: () {
 //               // Add onPressed action here
 //             },
 //           ),
 //         ],
-//         iconTheme: IconThemeData(color: Colors.blue), // Setting icon theme color to blue
+//         iconTheme: IconThemeData(color: Color(0xff115DB1)), // Setting icon theme color to blue
 //       ),
 //       body: Center(
 //         child: Column(
@@ -95,12 +101,12 @@
 //           onTap: onPressed,
 //           leading: Icon(
 //             icon,
-//             color: Colors.blue,
+//             color: Color(0xff115DB1),
 //           ),
 //           title: Text(title),
 //           trailing: Icon(
 //             Icons.keyboard_arrow_right,
-//             color: Colors.blue, // Set arrow icon color to blue
+//             color: Color(0xff115DB1), // Set arrow icon color to blue
 //           ),
 //         ),
 //         Divider(
@@ -117,11 +123,11 @@
 //         ListTile(
 //           title: Text(
 //             title,
-//             style: TextStyle(color: Colors.blue),
+//             style: TextStyle(color: Color(0xff115DB1)),
 //           ),
 //           trailing: Icon(
 //             Icons.keyboard_arrow_right,
-//             color: Colors.blue, // Set arrow icon color to blue
+//             color: Color(0xff115DB1), // Set arrow icon color to blue
 //           ),
 //         ),
 //         Divider(

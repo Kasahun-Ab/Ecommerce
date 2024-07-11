@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 
 // class myticketsDetails extends StatelessWidget {
 //   const myticketsDetails({super.key});
@@ -64,13 +63,13 @@ class myticketsDetails extends StatelessWidget {
               ],
             ),
             SizedBox(height: 32),
-            Container(
-              height: 80,
-              child: SfBarcodeGenerator(
-                value: 'www.syncfusion.com',
-                showValue: true,
-              ),
-            ),
+            // Container(
+            //   height: 80,
+            //   child: SfBarcodeGenerator(
+            //     value: 'www.syncfusion.com',
+            //     showValue: true,
+            //   ),
+            // ),
           ],
         ),
       ),

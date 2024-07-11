@@ -37,9 +37,9 @@ class _VendorPageState extends State<VendorPage> {
       appBar: AppBar(
         title: Text(
           'Become a Vendor',
-          style: GoogleFonts.poppins(color: Colors.blue),
+          style: GoogleFonts.poppins(color: Color(0xff115DB1)),
         ),
-        iconTheme: IconThemeData(color: Colors.blue),
+        iconTheme: IconThemeData(color: Color(0xff115DB1)),
       ),
       body: Center(
         child: Padding(
@@ -167,14 +167,14 @@ class _VendorPageState extends State<VendorPage> {
                         onPressed: () {
                           // Handle business location action
                         },
-                        icon: Icon(Icons.add, color: Colors.blue),
+                        icon: Icon(Icons.add, color: Color(0xff115DB1)),
                         label: Text(
                           'Business Location',
-                          style: GoogleFonts.poppins(color: Colors.blue),
+                          style: GoogleFonts.poppins(color: Color(0xff115DB1)),
                         ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          side: BorderSide(color: Colors.blue),
+                          side: BorderSide(color: Color(0xff115DB1)),
                           padding: EdgeInsets.symmetric(
                               vertical: 10, horizontal: 10),
                           textStyle: GoogleFonts.poppins(fontSize: 16),
@@ -192,14 +192,14 @@ class _VendorPageState extends State<VendorPage> {
                         onPressed: () {
                           // Handle trade license action
                         },
-                        icon: Icon(Icons.add, color: Colors.blue),
+                        icon: Icon(Icons.add, color: Color(0xff115DB1)),
                         label: Text(
                           'Trade Licence',
-                          style: GoogleFonts.poppins(color: Colors.blue),
+                          style: GoogleFonts.poppins(color: Color(0xff115DB1)),
                         ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          side: BorderSide(color: Colors.blue),
+                          side: BorderSide(color: Color(0xff115DB1)),
                           padding: EdgeInsets.symmetric(
                               vertical: 10, horizontal: 10),
                           textStyle: GoogleFonts.poppins(fontSize: 16),

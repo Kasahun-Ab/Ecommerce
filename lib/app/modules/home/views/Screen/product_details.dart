@@ -19,7 +19,6 @@ import 'package:pazimo/app/modules/home/views/Screen/checkout.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../../api/Api_Methods/allmethodsapi.dart';
-import '../../../../data/toCart.dart';
 import '../../../Components/Expantion_button.dart';
 import '../../../Components/icon_button.dart';
 import '../../../Components/short_button.dart';
@@ -93,7 +92,7 @@ class ProductDetailView extends StatelessWidget {
         title: Text(
           "Product details",
           style: GoogleFonts.poppins(
-              fontSize: 24, fontWeight: FontWeight.w400, color: Colors.blue),
+              fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xff115DB1)),
         ),
       ),
       body: Obx(
@@ -215,7 +214,7 @@ class ProductDetailView extends StatelessWidget {
                                             controller: _pageController,
                                             count: product.value.images!.length,
                                             effect: ExpandingDotsEffect(
-                                              activeDotColor: Colors.blue,
+                                              activeDotColor: Color(0xff115DB1),
                                               dotColor: Colors.grey,
                                               dotHeight: 12,
                                               dotWidth: 12,
@@ -581,7 +580,7 @@ class ProductDetailView extends StatelessWidget {
                                               controller
                                                   .removeFromCart(detailsToAdd),
                                             },
-                                    color: Colors.blue,
+                                    color: Color(0xff115DB1),
                                   ),
                                 ),
                               ],
@@ -982,7 +981,7 @@ class productDetailsShimmer extends StatelessWidget {
 //                     controller
 //                         .removeFromCart(detailsToAdd),
 //                   },
-//           color: Colors.blue),
+//           color: Color(0xff115DB1)),
 //     ),
 //   ],
 // )

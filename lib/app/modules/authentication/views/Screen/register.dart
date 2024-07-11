@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pazimo/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:pazimo/app/modules/authentication/views/Screen/otp_view.dart';
-
 import '../../../Components/Auth_textfield.dart';
 import '../../../Components/Text_with_text_button.dart';
 import '../../../Components/header_title.dart';
@@ -17,11 +16,13 @@ import '../../validator/validator.dart';
 // ignore: must_be_immutable
 class RegisterView extends StatelessWidget {
   final controller = Get.find<AuthenticationController>();
+  RxBool isLoading = false.obs;
+
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _phoneNumberController = TextEditingController();
   TextEditingController _fullNameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-  RxBool isLoading = false.obs;
+  TextEditingController _phoneNumberController = TextEditingController();
+
   // final GetStorage _getStorage = GetStorage();
   @override
   Widget build(BuildContext context) {
@@ -144,7 +145,6 @@ class RegisterView extends StatelessWidget {
                           ],
                         ),
                       ),
-                     
                       const SizedBox(
                         height: 10,
                       ),
@@ -231,17 +231,6 @@ class RegisterView extends StatelessWidget {
                       ),
                       const SizedBox(
                         height: 15,
-                      ),
-                      Button(
-                        title: 'Sign Up with Facebook',
-                        color: Colors.blue,
-                        onPressed: () {
-                          controller.signInWithFacebook();
-                        },
-                        hasBorder: false,
-                        iconDirectionIsRight: false,
-                        iconSource: 'assets/svg/facebook_icon.svg',
-                        hasIcon: true,
                       ),
                       const SizedBox(
                         height: 10,

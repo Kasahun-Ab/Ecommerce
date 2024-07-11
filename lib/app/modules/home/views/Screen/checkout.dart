@@ -13,7 +13,7 @@ import 'package:pazimo/app/modules/Components/long_button.dart';
 import 'package:pazimo/app/modules/Components/popup_dialog.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
 
-import '../../../../data/address.dart';
+// import '../../../../data/address.dart';
 import 'myorders.dart';
 // import '../../../Components/cart_price_text.dart';
 
@@ -88,7 +88,7 @@ class CheckoutView extends StatelessWidget {
               //               style: GoogleFonts.poppins(
               //                   fontSize: 16,
               //                   fontWeight: FontWeight.w600,
-              //                   color: Colors.blue),
+              //                   color: Color(0xff115DB1)),
               //             ),
               //             subtitle: Text(address.address,
               //                 style: GoogleFonts.poppins(
@@ -102,14 +102,14 @@ class CheckoutView extends StatelessWidget {
               //                       height: 13,
               //                       decoration: BoxDecoration(
               //                           shape: BoxShape.circle,
-              //                           color: Colors.blue))
+              //                           color: Color(0xff115DB1)))
               //                   : null,
               //               padding: EdgeInsets.all(2),
               //               decoration: BoxDecoration(
               //                   shape: BoxShape.circle,
               //                   border: Border.all(
               //                     width: 1,
-              //                     color: Colors.blue,
+              //                     color: Color(0xff115DB1),
               //                   )),
               //             ),
               //             onTap: () => addressController.setDefault(index),
@@ -212,7 +212,7 @@ class CheckoutView extends StatelessWidget {
                             height: 45,
                             width: 68,
                             decoration: BoxDecoration(
-                              color: Colors.blue,
+                              color: Color(0xff115DB1),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Center(
@@ -231,7 +231,7 @@ class CheckoutView extends StatelessWidget {
               ),
               Button(
                   title: "Place Order",
-                  color: Colors.blue,
+                  color: Color(0xff115DB1),
                   onPressed: () {
                     Get.dialog(
                       Center(
@@ -446,7 +446,7 @@ class CheckoutView extends StatelessWidget {
                                 ),
                                 Button(
                                     title: "Done",
-                                    color: Colors.blue,
+                                    color: Color(0xff115DB1),
                                     onPressed: () {
                                       Get.back();
                                       Get.dialog(popupDialogbox(
@@ -463,10 +463,12 @@ class CheckoutView extends StatelessWidget {
                                     hasIcon: false)
                               ],
                             ),
+                          
                           ),
                         ),
                       ),
                     );
+                  
                   },
                   hasBorder: false,
                   iconDirectionIsRight: true,
@@ -506,7 +508,7 @@ class CheckoutView extends StatelessWidget {
   //                   Text(
   //                     title,
   //                     style: GoogleFonts.poppins(
-  //                         color: Colors.blue,
+  //                         color: Color(0xff115DB1),
   //                         fontSize: 16,
   //                         fontWeight: FontWeight.w500),
   //                   ),

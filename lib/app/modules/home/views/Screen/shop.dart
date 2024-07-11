@@ -9,6 +9,7 @@ import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../api/Api_Methods/allmethodsapi.dart';
+import '../../../../../theme/themedata.dart';
 import '../../../../Shimmer/gridproductCardShimmer.dart';
 
 import '../../../../data/productModel.dart';
@@ -25,6 +26,7 @@ class Shop extends StatelessWidget {
     // var categories = ["All", "AirPods", "Cerave", "Laptops", "Clothes"];
     var selectedCatigories = 'aut'.obs;
     return Scaffold(
+      backgroundColor: primary_white,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -33,7 +35,9 @@ class Shop extends StatelessWidget {
               Text(
                 "Shop",
                 style: GoogleFonts.poppins(
-                    fontSize: 18, fontWeight: FontWeight.w600),
+                    color: primary_blue,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600),
               ),
               SizedBox(height: 10),
               Padding(
@@ -71,7 +75,7 @@ class Shop extends StatelessWidget {
                       child: Text(
                         "See all",
                         style: GoogleFonts.poppins(
-                            fontSize: 16, color: Colors.blue),
+                            fontSize: 16, color: Color(0xff115DB1)),
                       ),
                     ),
                   ],
@@ -193,7 +197,7 @@ class Shop extends StatelessWidget {
   //                                     "https://media.kingston.com/kingston/hero/ktc-articles-solutions-speed-up-your-mac-hero-lg.jpg",
   //                                 placeholder: (context, url) => Center(
   //                                       child: CircularProgressIndicator(
-  //                                         color: Colors.blue,
+  //                                         color: Color(0xff115DB1),
   //                                       ),
   //                                     )),
   //                           ),
@@ -294,7 +298,8 @@ class SearchBar extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(right: 10),
             decoration: BoxDecoration(
-                color: Colors.blue, borderRadius: BorderRadius.circular(30)),
+                color: Color(0xff115DB1),
+                borderRadius: BorderRadius.circular(30)),
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
             child: SvgPicture.asset(
               "assets/svg/search.svg",

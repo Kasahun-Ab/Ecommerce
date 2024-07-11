@@ -31,12 +31,12 @@ class EventDetailPage extends StatelessWidget {
         title: Text(
           'Event details',
           style: GoogleFonts.poppins(
-              color: Colors.blue), // Set app bar text color to blue
+              color: Color(0xff115DB1)), // Set app bar text color to blue
         ),
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.blue, // Set arrow color to blue
+            color: Color(0xff115DB1), // Set arrow color to blue
           ),
           onPressed: () {
             // Navigate back to the previous screen
@@ -174,7 +174,7 @@ class EventDetailPage extends StatelessWidget {
                           style: GoogleFonts.poppins(
                             fontSize: 16,
                             fontWeight: FontWeight.normal,
-                            color: Colors.blue,
+                            color: Color(0xff115DB1),
                           ),
                         ),
                         SizedBox(width: 12),
@@ -311,7 +311,7 @@ class EventDetailPage extends StatelessWidget {
                                         isAdded.value = false,
                                         controller.removeFromCart(detailsToAdd),
                                       },
-                              color: Colors.blue),
+                              color: Color(0xff115DB1)),
                         ),
                       ],
                     )

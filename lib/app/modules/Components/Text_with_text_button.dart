@@ -30,7 +30,7 @@ class TextwithTextbutton extends StatelessWidget {
           TextSpan(
             text: textButton,
             style: GoogleFonts.poppins(
-              color: Colors.blue,
+              color: Color(0xff115DB1),
               fontSize: 15.0,
             ),
             recognizer: TapGestureRecognizer()..onTap = onPressed,

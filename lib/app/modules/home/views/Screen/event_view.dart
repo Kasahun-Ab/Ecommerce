@@ -372,7 +372,7 @@ class SmallEventCard extends StatelessWidget {
                             Text(
                               "1000+",
                               style: GoogleFonts.poppins(
-                                  color: Colors.blue,
+                                  color: Color(0xff115DB1),
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500),
                             ),
@@ -411,7 +411,7 @@ class SmallEventCard extends StatelessWidget {
                           "Feb",
                           style: GoogleFonts.poppins(
                               fontSize: 12,
-                              color: Colors.blue,
+                              color: Color(0xff115DB1),
                               fontWeight: FontWeight.bold),
                         ),
                         Text("12",

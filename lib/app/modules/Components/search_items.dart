@@ -28,7 +28,7 @@ class searchItems extends StatelessWidget {
                     style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
-                      color: Colors.blue,
+                      color: Color(0xff115DB1),
                     )),
                 subtitle: Text("\$ 1,190"),
                 trailing: SvgPicture.asset(

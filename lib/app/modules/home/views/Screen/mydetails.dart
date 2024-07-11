@@ -177,7 +177,7 @@ class MyDetailsPage extends StatelessWidget {
                     style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                        color: Colors.blue),
+                        color: Color(0xff115DB1)),
                   ),
                   SizedBox(
                     height: 4,
@@ -199,7 +199,7 @@ class MyDetailsPage extends StatelessWidget {
                     style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                        color: Colors.blue),
+                        color: Color(0xff115DB1)),
                   ),
                   SizedBox(
                     height: 4,
@@ -221,7 +221,7 @@ class MyDetailsPage extends StatelessWidget {
                     style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                        color: Colors.blue),
+                        color: Color(0xff115DB1)),
                   ),
                   SizedBox(
                     height: 4,
@@ -261,7 +261,7 @@ class MyDetailsPage extends StatelessWidget {
                     style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                        color: Colors.blue),
+                        color: Color(0xff115DB1)),
                   ),
                   SizedBox(
                     height: 4,
@@ -300,14 +300,14 @@ class MyDetailsPage extends StatelessWidget {
                     style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                        color: Colors.blue),
+                        color: Color(0xff115DB1)),
                   ),
                   SizedBox(
                     height: 4,
                   ),
                   Obx(() => IntlPhoneField(
                         readOnly: true,
-                        style: GoogleFonts.poppins(color: Colors.blue),
+                        style: GoogleFonts.poppins(color: Color(0xff115DB1)),
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
                             vertical: 4,
@@ -320,11 +320,11 @@ class MyDetailsPage extends StatelessWidget {
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color:
-                                    Colors.blue), // Border color when enabled
+                                    Color(0xff115DB1)), // Border color when enabled
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Colors.blue,
+                                color: Color(0xff115DB1),
                                 width: 2), // Border color when focused
                           ),
                         ),
@@ -347,7 +347,7 @@ class MyDetailsPage extends StatelessWidget {
                     updateProfile();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue, // Background color
+                    backgroundColor: Color(0xff115DB1), // Background color
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(3), // Border radius
                     ),
@@ -369,22 +369,22 @@ class MyDetailsPage extends StatelessWidget {
       Function(String) onChanged) {
     return TextField(
       style: GoogleFonts.poppins(
-        color: Colors.blue,
+        color: Color(0xff115DB1),
       ),
       keyboardType: type,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
           border: OutlineInputBorder(
             borderSide:
-                BorderSide(color: Colors.blue), // Border color when not focused
+                BorderSide(color: Color(0xff115DB1)), // Border color when not focused
           ),
           enabledBorder: OutlineInputBorder(
             borderSide:
-                BorderSide(color: Colors.blue), // Border color when enabled
+                BorderSide(color: Color(0xff115DB1)), // Border color when enabled
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-                color: Colors.blue, width: 2), // Border color when focused
+                color: Color(0xff115DB1), width: 2), // Border color when focused
           ),
           hintText: hint),
       controller: TextEditingController(text: value),

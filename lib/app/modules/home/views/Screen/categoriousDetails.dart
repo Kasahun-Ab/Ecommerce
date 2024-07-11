@@ -112,14 +112,14 @@ class CategoryPage extends StatelessWidget {
                                 width: 13,
                                 height: 13,
                                 decoration: BoxDecoration(
-                                    shape: BoxShape.circle, color: Colors.blue))
+                                    shape: BoxShape.circle, color: Color(0xff115DB1)))
                             : null,
                         padding: EdgeInsets.all(2),
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(
                               width: 1,
-                              color: Colors.blue,
+                              color: Color(0xff115DB1),
                             )),
                       ),
                       onTap: () => controller.selectedIndex.value = index,

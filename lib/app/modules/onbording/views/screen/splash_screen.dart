@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(Duration(seconds: 3), () {
       controller.onborging.value == "end"
           ? (controller.userData != null && controller.userData!.token != "")
-              ? Get.offNamed(Routes.HOME)
+              ? Get.offNamed(Routes.VENDOR)
               : Get.offNamed(Routes.AUTHENTICATION)
           : Get.off(() => OnboardingScreen());
     });
@@ -23,7 +23,6 @@ class SplashScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            // Upper path SVG
             SizedBox(
               width: double.infinity,
               height: 260,
@@ -32,14 +31,12 @@ class SplashScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            // Logo
             Center(
               child: Image.asset(
                 "assets/images/pazimo_logo.png",
                 height: 100,
               ),
             ),
-            // Lower path SVG
             Positioned(
               bottom: 0,
               child: SizedBox(
@@ -51,7 +48,6 @@ class SplashScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // Circular Progress Indicator
             Positioned(
               bottom: 0,
               left: 0,

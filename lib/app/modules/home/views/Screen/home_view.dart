@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../api/Api_Methods/allmethodsapi.dart';
+import '../../../../../theme/themedata.dart';
 import '../../../../Shimmer/bannerShimmer.dart';
 import '../../../../Shimmer/categoryShimmer.dart';
 
@@ -31,15 +32,20 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primary_white,
       body: SafeArea(
         child: Obx(
           () => SingleChildScrollView(
             child: Column(children: [
-              // ,
+              SizedBox(
+                height: 30,
+              ),
               SizedBox(
                 width: double.infinity,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -132,7 +138,7 @@ class HomeView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CardTitle_with_icon(
-                  title: 'Big Save',
+                  title: 'Recommended for You',
                   subtitle: 'Top brand’s, price slashed',
                   tap: () {},
                 ),
@@ -166,7 +172,6 @@ class HomeView extends StatelessWidget {
                   child: controller.iscategories.isTrue
                       ? productCardShimmer()
                       : productCard(controller.products.value.data)),
-
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Align(
@@ -186,7 +191,7 @@ class HomeView extends StatelessWidget {
                           Text(
                             "Deals",
                             style: GoogleFonts.poppins(
-                                color: Colors.blue,
+                                color: Color(0xff115DB1),
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w700),
                           ),
@@ -246,7 +251,6 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
               ),
-
               controller.iscategories.isTrue
                   ? gridproductCardShimmer()
                   : Obx(
@@ -310,7 +314,7 @@ class HomeView extends StatelessWidget {
                                   : "https://staging.mytestserver.space/public/themes/shop/default/build/assets/medium-product-placeholder-3b1a7b7d.webp",
                               placeholder: (context, url) => Center(
                                     child: CircularProgressIndicator(
-                                      color: Colors.blue,
+                                      color: Color(0xff115DB1),
                                     ),
                                   )),
                         ),

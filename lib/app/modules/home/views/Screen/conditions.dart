@@ -16,10 +16,10 @@ class ConditionsPage extends StatelessWidget {
           title: Text(
             'Terms of use',
             style: GoogleFonts.poppins(
-                color: Colors.blue), // Setting text color to blue
+                color: Color(0xff115DB1)), // Setting text color to blue
           ),
           iconTheme: IconThemeData(
-              color: Colors.blue), // Setting icon theme color to blue
+              color: Color(0xff115DB1)), // Setting icon theme color to blue
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -169,7 +169,7 @@ class ConditionsPage extends StatelessWidget {
                       width: 150.0,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue, // Background color
+                          backgroundColor: Color(0xff115DB1), // Background color
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
                           ),

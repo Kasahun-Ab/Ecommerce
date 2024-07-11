@@ -21,7 +21,7 @@ class ReviewsPage extends StatelessWidget {
           style: GoogleFonts.poppins(
             fontSize: 24,
             fontWeight: FontWeight.w500,
-            color: Colors.blue,
+            color: Color(0xff115DB1),
           ),
         ),
       ),
@@ -36,7 +36,7 @@ class ReviewsPage extends StatelessWidget {
                     "4.0",
                     style: GoogleFonts.poppins(
                         fontSize: 64.sp,
-                        color: Colors.blue,
+                        color: Color(0xff115DB1),
                         fontWeight: FontWeight.w500),
                   ),
                   Column(
@@ -105,7 +105,7 @@ class ReviewsPage extends StatelessWidget {
                     "45 Reviews",
                     style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w500,
-                        color: Colors.blue,
+                        color: Color(0xff115DB1),
                         fontSize: 16.sp),
                   ),
                   Obx(
@@ -239,7 +239,7 @@ class Review_component extends StatelessWidget {
               Text(
                 name,
                 style: GoogleFonts.poppins(
-                    color: Colors.blue,
+                    color: Color(0xff115DB1),
                     fontSize: 12,
                     fontWeight: FontWeight.w600),
               ),

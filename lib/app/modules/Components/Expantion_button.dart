@@ -24,8 +24,8 @@ class ExpansionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-        backgroundColor: Colors.blue,
-        collapsedBackgroundColor: Colors.blue,
+        backgroundColor: Color(0xff115DB1),
+        collapsedBackgroundColor: Color(0xff115DB1),
         iconColor: Colors.white,
         collapsedIconColor: Colors.white,
         textColor: Colors.white,

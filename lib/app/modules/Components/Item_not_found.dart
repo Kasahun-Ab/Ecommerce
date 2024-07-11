@@ -28,7 +28,7 @@ class ItemNotFound extends StatelessWidget {
                 style: GoogleFonts.poppins(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
-                    color: Colors.blue)),
+                    color: Color(0xff115DB1))),
             SizedBox(
               height: 7,
             ),

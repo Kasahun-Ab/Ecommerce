@@ -21,14 +21,14 @@ class seggestion extends StatelessWidget {
               Text(
                 "Recent Searches",
                 style: GoogleFonts.poppins(
-                    color: Colors.blue,
+                    color: Color(0xff115DB1),
                     fontSize: 18,
                     fontWeight: FontWeight.w600),
               ),
               Text(
                 "Clear all",
                 style:
-                    GoogleFonts.poppins(color: Colors.blue),
+                    GoogleFonts.poppins(color: Color(0xff115DB1)),
               ),
             ],
           ),
@@ -50,7 +50,7 @@ class seggestion extends StatelessWidget {
                             suggestion[index],
                             style: GoogleFonts.poppins(
                                 fontSize: 16,
-                                color: Colors.blue,
+                                color: Color(0xff115DB1),
                                 fontWeight:
                                     FontWeight.normal),
                           ),

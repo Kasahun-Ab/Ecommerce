@@ -53,7 +53,7 @@ class MyTicketsPage extends StatelessWidget {
                               "Ongoing",
                               style: GoogleFonts.poppins(
                                   color: _isselected.value == 0
-                                      ? Colors.blue
+                                      ? Color(0xff115DB1)
                                       : Color(0xFF999999)),
                             ),
                           ),
@@ -73,7 +73,7 @@ class MyTicketsPage extends StatelessWidget {
                               "Completed",
                               style: GoogleFonts.poppins(
                                   color: _isselected.value == 1
-                                      ? Colors.blue
+                                      ? Color(0xff115DB1)
                                       : Color(0xFF999999)),
                             ),
                           ),

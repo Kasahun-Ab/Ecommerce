@@ -101,7 +101,7 @@ class SearchView extends StatelessWidget {
                   width: 58,
                   height: 39,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Color(0xff115DB1),
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Center(
@@ -143,7 +143,7 @@ class SearchView extends StatelessWidget {
                         SearchButton(
                           size: size,
                           title: "Filter",
-                          bg: Colors.blue,
+                          bg: Color(0xff115DB1),
                           textcolor: Colors.white,
                           icon: "assets/svg/filter.svg",
                           tap: () {
@@ -203,7 +203,7 @@ class SearchView extends StatelessWidget {
               ),
               Icon(
                 Icons.close,
-                color: Colors.blue,
+                color: Color(0xff115DB1),
               ),
             ],
           ),
@@ -306,12 +306,12 @@ class SearchView extends StatelessWidget {
                 "Filters",
                 style: GoogleFonts.poppins(
                     fontSize: 20.sp,
-                    color: Colors.blue,
+                    color: Color(0xff115DB1),
                     fontWeight: FontWeight.w500),
               ),
               Icon(
                 Icons.close,
-                color: Colors.blue,
+                color: Color(0xff115DB1),
               ),
             ],
           ),
@@ -359,7 +359,7 @@ class SearchView extends StatelessWidget {
                     style: GoogleFonts.poppins(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
-                        color: Colors.blue),
+                        color: Color(0xff115DB1)),
                   ),
                   Row(
                     children: [
@@ -391,7 +391,7 @@ class SearchView extends StatelessWidget {
                     min: 0,
                     max: 100,
                     divisions: 100,
-                    activeColor: Colors.blue,
+                    activeColor: Color(0xff115DB1),
                     onChanged: (RangeValues values) {
                       controller.updateValues(values.start, values.end);
                     },
@@ -410,7 +410,7 @@ class SearchView extends StatelessWidget {
                     style: GoogleFonts.poppins(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
-                        color: Colors.blue),
+                        color: Color(0xff115DB1)),
                   ),
                   DropdownButton<String>(
                     alignment: AlignmentDirectional.center,
@@ -431,7 +431,7 @@ class SearchView extends StatelessWidget {
               ),
               Button(
                   title: "Apply Filters",
-                  color: Colors.blue,
+                  color: Color(0xff115DB1),
                   onPressed: () {},
                   hasBorder: false,
                   iconDirectionIsRight: true,

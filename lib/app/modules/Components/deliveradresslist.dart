@@ -37,7 +37,7 @@ class deliverAdressList extends StatelessWidget {
                     Text(
                       title,
                       style: GoogleFonts.poppins(
-                          color: Colors.blue,
+                          color: Color(0xff115DB1),
                           fontSize: 16,
                           fontWeight: FontWeight.w500),
                     ),

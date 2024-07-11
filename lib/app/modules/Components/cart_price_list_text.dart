@@ -31,7 +31,7 @@ class cart_price_text extends StatelessWidget {
           () => Text(
             "ETB ${NumberFormat.decimalPattern().format(price.value)}",
             style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w500, color: Colors.blue),
+                fontWeight: FontWeight.w500, color: Color(0xff115DB1)),
           ),
         ),
       ],

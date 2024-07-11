@@ -252,7 +252,7 @@ class Categories extends StatelessWidget {
                                                       shape: BoxShape.circle,
                                                       border: Border.all(
                                                         width: 1,
-                                                        color: Colors.blue,
+                                                        color: Color(0xff115DB1),
                                                       )),
                                                 ),
                                                 onTap: () => controller
@@ -376,7 +376,7 @@ class ElectronicsGrid extends StatelessWidget {
   //                                     "https://media.kingston.com/kingston/hero/ktc-articles-solutions-speed-up-your-mac-hero-lg.jpg",
   //                                 placeholder: (context, url) => Center(
   //                                       child: CircularProgressIndicator(
-  //                                         color: Colors.blue,
+  //                                         color: Color(0xff115DB1),
   //                                       ),
   //                                     )),
   //                           ),

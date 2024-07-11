@@ -85,7 +85,7 @@ class SavedItemsPage extends StatelessWidget {
                                   style: GoogleFonts.poppins(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
-                                      color: Colors.blue),
+                                      color: Color(0xff115DB1)),
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -160,7 +160,7 @@ class SavedItemsPage extends StatelessWidget {
                                                             child:
                                                                 CircularProgressIndicator(
                                                               color:
-                                                                  Colors.blue,
+                                                                  Color(0xff115DB1),
                                                             ),
                                                           )),
                                                 ),

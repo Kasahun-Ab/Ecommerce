@@ -57,7 +57,7 @@ class HelpCenterItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(width: 1, color: Colors.blue)),
+          border: Border.all(width: 1, color: Color(0xff115DB1))),
       margin: EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
         leading: SvgPicture.asset(icon),

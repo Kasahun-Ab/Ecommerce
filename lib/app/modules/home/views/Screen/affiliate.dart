@@ -30,9 +30,9 @@ class _AffiliatePageState extends State<AffiliatePage> {
       appBar: AppBar(
         title: Text(
           'Become an Affiliate',
-          style: GoogleFonts.poppins(color: Colors.blue),
+          style: GoogleFonts.poppins(color: Color(0xff115DB1)),
         ),
-        iconTheme: IconThemeData(color: Colors.blue),
+        iconTheme: IconThemeData(color: Color(0xff115DB1)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -145,7 +145,7 @@ class _AffiliatePageState extends State<AffiliatePage> {
                         child: Text('Submit',
                             style: GoogleFonts.poppins(color: Colors.white)),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
+                          backgroundColor: Color(0xff115DB1),
                           padding: EdgeInsets.symmetric(vertical: 16),
                           textStyle: GoogleFonts.poppins(fontSize: 16),
                           shape: RoundedRectangleBorder(

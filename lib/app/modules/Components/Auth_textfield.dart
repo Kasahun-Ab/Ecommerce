@@ -57,7 +57,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
           style: GoogleFonts.poppins(
             fontSize: 16,
             fontWeight: FontWeight.w700,
-            color: Colors.blue,
+            color: Color(0xff115DB1),
           ),
         ),
         SizedBox(height: 8),
@@ -116,14 +116,14 @@ class _AuthTextFieldState extends State<AuthTextField> {
                                 "Show password",
                                 style: GoogleFonts.poppins(
                                     fontSize: 16,
-                                    color: Colors.blue,
+                                    color: Color(0xff115DB1),
                                     fontWeight: FontWeight.w400),
                               )
                             : Text(
                                 "Hide password",
                                 style: GoogleFonts.poppins(
                                     fontSize: 16,
-                                    color: Colors.blue,
+                                    color: Color(0xff115DB1),
                                     fontWeight: FontWeight.w400),
                               ),
                       ),

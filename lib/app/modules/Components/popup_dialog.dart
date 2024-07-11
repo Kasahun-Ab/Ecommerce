@@ -31,7 +31,7 @@ class popupDialogbox extends StatelessWidget {
             Text(title,
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.bold,
-                    color: Colors.blue,
+                    color: Color(0xff115DB1),
                     fontSize: 17)),
             SizedBox(height: 10),
             Text(
@@ -45,7 +45,7 @@ class popupDialogbox extends StatelessWidget {
             SizedBox(height: 20),
             Button(
                 title: buttontitle,
-                color: Colors.blue,
+                color: Color(0xff115DB1),
                 onPressed: onPressed,
                 hasBorder: false,
                 iconDirectionIsRight: true,

@@ -67,7 +67,7 @@ Widget gridCard(List<Datum> product) {
                                       : "https://staging.mytestserver.space/public/themes/shop/default/build/assets/medium-product-placeholder-3b1a7b7d.webp",
                                   placeholder: (context, url) => Center(
                                         child: CircularProgressIndicator(
-                                          color: Colors.blue,
+                                          color: Color(0xff115DB1),
                                         ),
                                       )),
                             ),

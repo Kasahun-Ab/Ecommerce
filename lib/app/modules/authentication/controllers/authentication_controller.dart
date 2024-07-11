@@ -21,17 +21,18 @@ class AuthenticationController extends GetxController {
     String password,
     String phone,
   ) async {
-    print('${ApiConfig.baseurl}${ApiConfig.loginEndpoint}');
+   
     try {
       final response = await _dio.post(
         '${ApiConfig.loginEndpoint}',
         data: {
           'phone': phone,
           'password': password,
-          'device_name': "android1212"
+          'device_name': "android12"
         },
       );
 
+   print(response);
       return response;
     } on DioError catch (e) {
       Map<String, dynamic> errorMessage;
@@ -39,21 +40,12 @@ class AuthenticationController extends GetxController {
       if (e.response != null) {
         errorMessage = e.response!.data;
 
-        if (errorMessage != null) {
-          Get.snackbar(
-            'Error',
-            '${errorMessage["message"]}',
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
-          );
-        } else {
-          Get.snackbar(
-            'Error',
-            'Unknown error occurred',
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
-          );
-        }
+        Get.snackbar(
+          'Error',
+          '${errorMessage["message"]}',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
       } else {
         Get.snackbar(
           'Error',
@@ -125,8 +117,8 @@ class AuthenticationController extends GetxController {
 
   Future<void> signInWithFacebook() async {
     try {
-      final LoginResult result = await FacebookAuth.instance.login();
-      final AccessToken accessToken = result.accessToken!;
+      // final LoginResult result = await FacebookAuth.instance.login();
+      // final AccessToken accessToken = result.accessToken!;
 
       final userData = await FacebookAuth.instance.getUserData();
       print(userData['name']);

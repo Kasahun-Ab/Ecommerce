@@ -123,7 +123,7 @@ class CartView extends StatelessWidget {
                                                       .mediumImageUrl!,
                                               placeholder: (context, url) =>
                                                   CircularProgressIndicator(
-                                                color: Colors.blue,
+                                                color: Color(0xff115DB1),
                                               ),
                                               errorWidget:
                                                   (context, url, error) =>
@@ -310,7 +310,7 @@ class CartView extends StatelessWidget {
                                   style: GoogleFonts.poppins(
                                     fontSize: 20.sp,
                                     fontWeight: FontWeight.w700,
-                                    color: Colors.blue,
+                                    color: Color(0xff115DB1),
                                   ),
                                 ),
                                 Text(
@@ -357,7 +357,7 @@ class CartView extends StatelessWidget {
                                 SizedBox(height: 20),
                                 Button(
                                     title: "Go to Checkout",
-                                    color: Colors.blue,
+                                    color: Color(0xff115DB1),
                                     onPressed: () {
                                       Get.to(CheckoutView());
                                     },

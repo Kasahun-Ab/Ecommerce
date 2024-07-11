@@ -50,7 +50,7 @@ Widget productCard(
                               "https://media.kingston.com/kingston/hero/ktc-articles-solutions-speed-up-your-mac-hero-lg.jpg",
                           placeholder: (context, url) => Center(
                                 child: CircularProgressIndicator(
-                                  color: Colors.blue,
+                                  color: Color(0xff115DB1),
                                 ),
                               )),
                     ),
