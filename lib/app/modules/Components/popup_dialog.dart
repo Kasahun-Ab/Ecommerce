@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pazimo/app/modules/components/long_button.dart';
+
+import 'long_button.dart';
+
 
 class popupDialogbox extends StatelessWidget {
   const popupDialogbox({

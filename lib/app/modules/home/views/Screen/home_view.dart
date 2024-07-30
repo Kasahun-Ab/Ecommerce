@@ -18,11 +18,12 @@ import '../../../../Shimmer/gridproductCardShimmer.dart';
 import '../../../../data/productModel.dart';
 import '../../../Components/gridProductCard.dart';
 import 'categories.dart';
-import 'categoriousDetails.dart';
 import 'product_details.dart';
 
 // ignore: must_be_immutable
 class HomeView extends StatelessWidget {
+
+  
   HomeView({super.key});
   final HomeController controller = Get.find<HomeController>();
 
@@ -46,25 +47,33 @@ class HomeView extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                   ),
-                  child: Column(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Good morning,",
-                        style: GoogleFonts.poppins(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xff999999)),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Good morning,",
+                            style: GoogleFonts.poppins(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff999999)),
+                          ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          Text(
+                              "${controller.userData?.data.firstName} ${controller.userData?.data.lastName} 👋",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xff333333)))
+                        ],
+                        
                       ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      Text(
-                          "${controller.userData?.data.firstName} ${controller.userData?.data.lastName} 👋",
-                          style: GoogleFonts.poppins(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff333333)))
+                      Center(child: SvgPicture.asset("assets/svg/Bell.svg"))
                     ],
                   ),
                 ),
@@ -140,7 +149,7 @@ class HomeView extends StatelessWidget {
                 child: CardTitle_with_icon(
                   title: 'Recommended for You',
                   subtitle: 'Top brand’s, price slashed',
-                  tap: () {},
+                  tap: () {}, iconshow: false,
                 ),
               ),
               SizedBox(
@@ -160,7 +169,7 @@ class HomeView extends StatelessWidget {
                   subtitle: "Limited time offers",
                   tap: () {
                     controller.selectedIndex.value = 5;
-                  },
+                  }, iconshow: true,
                 ),
               ),
               SizedBox(
@@ -169,7 +178,7 @@ class HomeView extends StatelessWidget {
               Container(
                   height: 290.h,
                   width: MediaQuery.of(context).size.width,
-                  child: controller.iscategories.isTrue
+                  child: controller.products.value.data.isEmpty
                       ? productCardShimmer()
                       : productCard(controller.products.value.data)),
               Padding(
@@ -310,7 +319,7 @@ class HomeView extends StatelessWidget {
                               width: 160.w,
                               fit: BoxFit.fill,
                               imageUrl: product[index].images.length != 0
-                                  ? product[index].images[0]["medium_image_url"]
+                                  ? product[index].images[0].mediumImageUrl
                                   : "https://staging.mytestserver.space/public/themes/shop/default/build/assets/medium-product-placeholder-3b1a7b7d.webp",
                               placeholder: (context, url) => Center(
                                     child: CircularProgressIndicator(

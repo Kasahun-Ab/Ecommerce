@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pazimo/app/modules/Components/headersubtitle.dart';
 
-import 'package:pazimo/app/modules/components/header_title.dart';
-import 'package:pazimo/app/modules/components/long_button.dart';
+
 import 'package:pazimo/app/modules/authentication/views/Screen/restpassword_view.dart';
 import 'package:pazimo/app/modules/authentication/validator/validator.dart';
 
 import '../../../Components/Auth_textfield.dart';
+import '../../../Components/header_title.dart';
+import '../../../Components/long_button.dart';
 
 class ForgotpasswordView extends StatelessWidget {
   ForgotpasswordView({Key? key}) : super(key: key);

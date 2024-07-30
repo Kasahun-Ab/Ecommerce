@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pazimo/app/modules/home/views/Screen/notficationDetails_view.dart';
+import 'package:pazimo/theme/themedata.dart';
 
 class NotificationController extends GetxController {
   var generalNotifications = true.obs;
@@ -25,8 +26,14 @@ class NotificationsSeting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
-        title: Text('Notifications', style: GoogleFonts.poppins()),
+         backgroundColor: primary_white,
+         centerTitle: true,
+        title: Text('Notifications', style: GoogleFonts.poppins( 
+          color: primary_blue,
+          fontSize: 24,fontWeight: FontWeight.w500
+        )),
         actions: [
           InkWell(
             onTap: (){

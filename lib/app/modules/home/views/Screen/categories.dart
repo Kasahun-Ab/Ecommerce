@@ -1,20 +1,15 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
+import 'package:pazimo/theme/themedata.dart';
 
 import '../../../../../api/Api_Methods/allmethodsapi.dart';
-import '../../../../Shimmer/gridproductCardShimmer.dart';
-import '../../../../data/productModel.dart';
 import '../../../Components/gridProductCard.dart';
 import '../../../Components/search_textfield.dart';
 
-import 'product_details.dart';
+
 
 class CategoryController extends GetxController {
   var mostUsed = [
@@ -50,8 +45,14 @@ class Categories extends StatelessWidget {
       'Free Shipping',
     ];
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
-        title: Text('Electronics'),
+        backgroundColor: primary_white,
+        leading: IconButton(icon: Icon(Icons.arrow_back,color: primary_blue,),onPressed: (){},),
+        centerTitle: true,
+        title: Text(
+          
+          'Electronics',style: GoogleFonts.poppins(color: primary_blue),),
         // actions: [
         //   PopupMenuButton<String>(
         //     onSelected: (value) {},
@@ -74,6 +75,68 @@ class Categories extends StatelessWidget {
         //     icon: Icon(Icons.filter_list),
         //     onPressed: () {},
         //   ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // ],
       ),
       body: Column(

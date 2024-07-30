@@ -11,6 +11,7 @@ abstract class Routes {
   static const AUTHENTICATION = _Paths.AUTHENTICATION;
   static const VENDOR = _Paths.VENDOR;
   static const AFFILIATE = _Paths.AFFILIATE;
+  static const EVENT_ORGANIZER = _Paths.EVENT_ORGANIZER;
 }
 
 abstract class _Paths {
@@ -20,4 +21,5 @@ abstract class _Paths {
   static const AUTHENTICATION = '/authentication';
   static const VENDOR = '/vendor';
   static const AFFILIATE = '/affiliate';
+  static const EVENT_ORGANIZER = '/event-organizer';
 }

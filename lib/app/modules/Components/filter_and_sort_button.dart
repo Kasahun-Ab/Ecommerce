@@ -28,7 +28,7 @@ class SearchButton extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(width: 1, color: Colors.amber),
           color: bg,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(30),
         ),
         child: Center(
           child: Row(

@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pazimo/theme/themedata.dart';
 
 class checkout_page_text extends StatelessWidget {
   const checkout_page_text({
@@ -14,7 +15,7 @@ class checkout_page_text extends StatelessWidget {
       title,
       style: GoogleFonts.poppins(
           fontSize: 17,
-          color: CupertinoColors.activeBlue,
+          color: primary_blue,
           fontWeight: FontWeight.w600),
     );
   }

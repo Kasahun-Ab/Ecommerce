@@ -4,42 +4,30 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pazimo/app/modules/vendor/views/screen/products.dart';
-import 'package:pazimo/app/modules/vendor/views/screen/withdrawal.dart';
+import 'package:pazimo/app/modules/vendor/views/screen/DashboardScreen.dart';
 import 'package:pazimo/theme/themedata.dart';
 
-import '../controllers/vendor_controller.dart';
-import 'screen/DashboardScreen.dart';
-import 'screen/account.dart';
+import '../controllers/event_organizer_controller.dart';
+import 'screen/EventDashbord.dart';
 
-class VendorView extends GetView<VendorController> {
-  final DashboardController dashboardController =
-      Get.put(DashboardController());
-  VendorView({Key? key}) : super(key: key);
-  RxInt _selectedIndex = 0.obs;
+class EventOrganizerView extends GetView<EventOrganizerController> {
+ 
   @override
+ final  _selectedIndex =0.obs;
   Widget build(BuildContext context) {
-    List<Widget> pages = [
-      DashboardPage(),
-      ProductsPage(),
-      WithdrawPage(),
-      BusinessDetailsScreen(),
-    ];
-
-    return SafeArea(
     
-        child: Obx(() => Scaffold(
-          
-
-            body: pages[_selectedIndex.value],
-            bottomNavigationBar: BottomAppBar(
-              shadowColor: primary_back,
-              elevation: 10,
-              surfaceTintColor: primary_white,
-              color: primary_white,
+    return Scaffold(
+     backgroundColor: primary_white,
+      body:  Dashbord(),
+      bottomNavigationBar:BottomAppBar(
+        color: primary_white,
+        
+            elevation: 10,
+            shadowColor: primary_back,
                 shape: CircularNotchedRectangle(),
                 notchMargin: 6.0,
                 child: Container(
+                
                   height: 30.0.h,
                   padding: EdgeInsets.only(top: 10),
                   child: Row(
@@ -55,10 +43,10 @@ class VendorView extends GetView<VendorController> {
                           3, "Account", "assets/svg/vendor_account.svg"),
                     ],
                   ),
-                )))));
+                )),
+    );
   }
-
-  Widget itemsOfBottom(int index, String title, String icons) {
+   Widget itemsOfBottom(int index, String title, String icons) {
     return Obx(
       () => GestureDetector(
         onTap: () {

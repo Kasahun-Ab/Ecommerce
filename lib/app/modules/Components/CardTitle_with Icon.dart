@@ -10,7 +10,10 @@ class CardTitle_with_icon extends StatelessWidget {
     required this.title,
     this.subtitle = '',
     required this.tap,
+    required this.iconshow
+
   });
+  bool iconshow;
   String title;
   String subtitle;
   final Function() tap;
@@ -19,24 +22,30 @@ class CardTitle_with_icon extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Text(
-              title,
-              style: GoogleFonts.poppins(
-                  fontSize: 20.sp, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              width: 10.w,
-            ),
-            InkWell(
-              onTap: tap,
-              child: Icon(
-                Icons.arrow_forward,
-                color: Color(0xff115DB1),
+        GestureDetector(
+        
+        onTap: tap,
+          child: Row(
+            children: [
+              Text(
+                title,
+                style: GoogleFonts.poppins(
+                    fontSize: 20.sp, fontWeight: FontWeight.bold),
               ),
-            )
-          ],
+              SizedBox(
+                width: 10.w,
+              ),
+          iconshow==true? Row(
+            children: [
+           Icon(
+                      Icons.arrow_forward,
+                      color: Color(0xff115DB1),
+                    ),
+             
+            ],
+          ):Container()
+            ],
+          ),
         ),
         Text(
           subtitle,

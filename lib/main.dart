@@ -4,34 +4,34 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'app/modules/onbording/views/screen/splash_screen.dart';
-
 import 'app/routes/app_pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
-
   runApp(
     ScreenUtilInit(
-    useInheritedMediaQuery: true,
-    minTextAdapt: true,
-    splitScreenMode: true,
-    ensureScreenSize: true,
-    designSize: Size(390, 844),
-    builder: ((context, child) => GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: "Pazimo",
-          home: SplashScreen(),
-          getPages: AppPages.routes,
+      useInheritedMediaQuery: true,
+      minTextAdapt: true,
+      splitScreenMode: true,
+      ensureScreenSize: true,
+      designSize: Size(390, 844),
+      builder: (context, child) => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "Pazimo",
+        home: SplashScreen(),
+        getPages: AppPages.routes,
+        builder: EasyLoading.init(
           builder: (context, widget) {
-            EasyLoading.init();
             return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+              data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
               child: widget!,
             );
           },
-        )),
-  ));
+        ),
+      ),
+    ),
+  );
   configLoading();
 }
 

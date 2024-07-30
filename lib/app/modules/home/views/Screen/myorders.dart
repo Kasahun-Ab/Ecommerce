@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
 import 'package:pazimo/app/modules/home/views/Screen/myorderd_Or_myticketcard.dart';
+import 'package:pazimo/theme/themedata.dart';
 
 class MyOrdersPage extends StatelessWidget {
   final HomeController controller = Get.find<HomeController>();
@@ -14,13 +15,16 @@ class MyOrdersPage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: primary_white,
         appBar: AppBar(
-          title: Text('My Orders'),
+          centerTitle: true,
+            backgroundColor: primary_white,
+          title: Text('My Orders',style: GoogleFonts.poppins( color: primary_blue,fontSize: 24.sp,fontWeight: FontWeight.w500),),
         ),
         body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding:  EdgeInsets.symmetric(horizontal: 16.0.w),
               child: Obx(
                 () => Container(
                   decoration: BoxDecoration(
@@ -36,8 +40,8 @@ class MyOrdersPage extends StatelessWidget {
                     tabs: [
                       Tab(
                         child: Container(
-                          height: 30,
-                          width: 230,
+                          height: 30.h,
+                          width: 230.w,
                           decoration: BoxDecoration(
                               color: _isselected.value == 0
                                   ? Colors.white
@@ -56,13 +60,13 @@ class MyOrdersPage extends StatelessWidget {
                       ),
                       Tab(
                         child: Container(
-                          height: 30,
-                          width: 230,
+                          height: 30.h,
+                          width: 230.w,
                           decoration: BoxDecoration(
                               color: _isselected.value == 1
                                   ? Colors.white
                                   : Colors.transparent,
-                              borderRadius: BorderRadius.circular(10)),
+                              borderRadius: BorderRadius.circular(10.sp)),
                           child: Center(
                             child: Text(
                               "Completed",
@@ -82,7 +86,7 @@ class MyOrdersPage extends StatelessWidget {
             Expanded(
               flex: 14,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding:  EdgeInsets.symmetric(horizontal: 16.0.w),
                 child: TabBarView(
                   children: [
                     Obx(() => Column(

@@ -89,7 +89,6 @@ class CommissionItem extends StatelessWidget {
     required this.amount,
     required this.imageUrl,
   });
-  final _selectedIndex = 0.obs;
   Color secondaryBlue = Color(0xff0A4B93);
   Color primaryBlue = Color(0xff115DB1);
   Color black = Color.fromARGB(255, 0, 0, 0);

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OrderCard extends StatelessWidget {
@@ -24,12 +25,12 @@ class OrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 120,
+      height: 120.h,
       margin: EdgeInsets.only(
         bottom: 10,
         top: 10,
       ),
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
@@ -38,7 +39,7 @@ class OrderCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(height: 100, "assets/images/tshirt.png"),
+          Image.asset(height: 100.h, "assets/images/tshirt.png"),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,24 +47,39 @@ class OrderCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-               itemName,
-                    style: GoogleFonts.poppins(
-                        fontSize: 14, fontWeight: FontWeight.w600),
+                  Container(
+                 
+                    width: 120.w,
+                    child: Text(
+                                   "${itemName}",
+                                 
+                      style: GoogleFonts.poppins(
+                          fontSize: 14.sp, fontWeight: FontWeight.w600),
+                           maxLines: 2, // Allow the text to span up to 2 lines
+            overflow: TextOverflow.ellipsis, // Add ellipsis if text exceeds 2 lines
+            softWrap: true, 
+                    ),
                   ),
                   Text(
                     'Size ${itemSize}',
                     style: GoogleFonts.poppins(
-                        fontSize: 12, color: Color(0xff808080)),
+                        fontSize: 12.sp, color: Color(0xff808080)),
                   ),
                 ],
               ),
-              Text(
-                '\$${itemPrice}',
-                style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0Xff333333)),
+              Container(
+                width: 120,
+                child: Text(
+                  'ETB:${itemPrice}',
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.poppins(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0Xff333333)),
+                      maxLines: 1, // Allow the text to span up to 2 lines
+           // Add ellipsis if text exceeds 2 lines
+            softWrap: true, 
+                ),
               ),
             ],
           ),
@@ -72,22 +88,22 @@ class OrderCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Container(
-                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(5.sp),
                     color: Color.fromARGB(190, 183, 216, 218),
                   ),
                   child: Center(
                     child: Text(
                       "Completed",
                       style: GoogleFonts.poppins(
-                          fontSize: 10, color: Colors.green),
+                          fontSize: 10.sp, color: Colors.green),
                     ),
                   )),
               Container(
                 decoration: BoxDecoration(
                     color: Color(0xff115DB1), borderRadius: BorderRadius.circular(7)),
-                padding: EdgeInsets.symmetric(vertical: 7, horizontal: 10),
+                padding: EdgeInsets.symmetric(vertical: 7.h, horizontal: 10.w),
                 child: Center(
                     child: Text(
                   "Leave Review",

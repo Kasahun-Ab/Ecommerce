@@ -34,10 +34,12 @@ class EventView extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                        
+                        /////////////////////////////////
                           CardTitle_with_icon(
                             title: 'Event’s this month',
                             subtitle: "Event’s happening this month",
-                            tap: () {},
+                            tap: () {}, iconshow: false,
                           ),
                         ],
                       ),
@@ -81,10 +83,12 @@ class EventView extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 20),
+                       
+                        /////////////////////////////////
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: CardTitle_with_icon(
-                              title: "Upcoming events", tap: () {}),
+                              title: "Upcoming events", tap: () {}, iconshow: false,),
                         ),
                         SizedBox(height: 10),
                         Padding(

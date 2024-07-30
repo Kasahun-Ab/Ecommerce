@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,7 +36,6 @@ class AffiliateDashbord extends StatelessWidget {
       "date": '2/4/2024',
     },
   ];
-  final _selectedIndex = 0.obs;
   Color secondaryBlue = Color(0xff0A4B93);
   Color primaryBlue = Color(0xff115DB1);
   Color black = Color.fromARGB(255, 0, 0, 0);

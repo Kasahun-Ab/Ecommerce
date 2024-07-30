@@ -16,6 +16,7 @@ class OnboardingController extends GetxController {
   }
 
   Future<void> checkLogin() async {
+   
     var user = await _storage.read("loginResponse");
     if (user != null) {
       userData = CustomerdataFromJson(user);

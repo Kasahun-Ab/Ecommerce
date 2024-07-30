@@ -41,7 +41,7 @@ class Dealsview extends StatelessWidget {
         title: Text(
           "Deals",
           style: GoogleFonts.poppins(
-              color: Color(0xff115DB1), fontWeight: FontWeight.w500),
+              color: Color(0xff115DB1),fontSize: 24, fontWeight: FontWeight.w500),
         ),
       ),
       body: Obx(

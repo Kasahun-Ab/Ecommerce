@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pazimo/theme/themedata.dart';
 
 // class myticketsDetails extends StatelessWidget {
 //   const myticketsDetails({super.key});
@@ -18,7 +19,7 @@ class myticketsDetails extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'My Ticket',
-          style: GoogleFonts.poppins(),
+          style: GoogleFonts.poppins(color: primary_blue, fontSize: 24,fontWeight: FontWeight.w500),
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

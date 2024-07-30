@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pazimo/app/modules/Components/review_card.dart';
 
+import '../../../../../theme/themedata.dart';
+
 class ReviewsPage extends StatelessWidget {
   const ReviewsPage({super.key});
 
@@ -21,7 +23,7 @@ class ReviewsPage extends StatelessWidget {
           style: GoogleFonts.poppins(
             fontSize: 24,
             fontWeight: FontWeight.w500,
-            color: Color(0xff115DB1),
+            color: primary_blue,
           ),
         ),
       ),
@@ -36,7 +38,7 @@ class ReviewsPage extends StatelessWidget {
                     "4.0",
                     style: GoogleFonts.poppins(
                         fontSize: 64.sp,
-                        color: Color(0xff115DB1),
+                        color: primary_blue,
                         fontWeight: FontWeight.w500),
                   ),
                   Column(
@@ -105,7 +107,7 @@ class ReviewsPage extends StatelessWidget {
                     "45 Reviews",
                     style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w500,
-                        color: Color(0xff115DB1),
+                        color: primary_blue,
                         fontSize: 16.sp),
                   ),
                   Obx(
@@ -239,7 +241,7 @@ class Review_component extends StatelessWidget {
               Text(
                 name,
                 style: GoogleFonts.poppins(
-                    color: Color(0xff115DB1),
+                    color: primary_blue,
                     fontSize: 12,
                     fontWeight: FontWeight.w600),
               ),

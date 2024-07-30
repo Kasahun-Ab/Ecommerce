@@ -1,8 +1,7 @@
-import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +15,7 @@ import 'package:intl/intl.dart';
 import 'package:pazimo/app/data/productDetails.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
 import 'package:pazimo/app/modules/home/views/Screen/checkout.dart';
+import 'package:pazimo/theme/themedata.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../../api/Api_Methods/allmethodsapi.dart';
@@ -86,8 +86,12 @@ class ProductDetailView extends StatelessWidget {
     details();
     Map<String, dynamic> detailsToAdd = {};
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
-        // toolbarHeight: 80,
+        surfaceTintColor: primary_white,
+        backgroundColor: primary_white,
+          shadowColor: Colors.black,
+        elevation:1,
         centerTitle: true,
         title: Text(
           "Product details",
@@ -341,34 +345,8 @@ class ProductDetailView extends StatelessWidget {
                                   SizedBox(
                                     height: 10.h,
                                   ),
-                                  // product.value.color is List
-                                  //     ? Container(
-                                  //         height: 40.h,
-                                  //         child: ListView.builder(
-                                  //             scrollDirection: Axis.horizontal,
-                                  //             itemCount: product.color.length,
-                                  //             itemBuilder: (context, index) {
-                                  //               return Obx(
-                                  //                 () => Padding(
-                                  //                   padding: const EdgeInsets.only(
-                                  //                       right: 8.0),
-                                  //                   child: SelectedBox(
-                                  //                       product.color[index],
-                                  //                       selectedColorIndex.value ==
-                                  //                               index
-                                  //                           ? Color(0XFFD9D9D9)
-                                  //                           : Color(0XFF999999),
-                                  //                       selectedColorIndex.value ==
-                                  //                               index
-                                  //                           ? Colors.black
-                                  //                           : Colors.white,
-                                  //                       index,
-                                  //                       selectedColorIndex),
-                                  //                 ),
-                                  //               );
-                                  //             }),
-                                  //       )
-                                  //     : Text(product.color)
+                                 
+                             
                                 ],
                               ),
                               SizedBox(
@@ -445,19 +423,16 @@ class ProductDetailView extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: 100,
+                        height: 120,
+                        
                         padding: EdgeInsets.symmetric(
-                            vertical: 10,
+                            vertical: 15,
                             horizontal: ScreenUtil().setWidth(16)),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12,
-                                offset: Offset(2, 2),
-                                spreadRadius: 2,
-                              )
-                            ],
+                           border: Border(
+                            top: BorderSide(color: Color.fromARGB(53, 0, 0, 0),width: 1)
+                           ),
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(5),
@@ -543,12 +518,17 @@ class ProductDetailView extends StatelessWidget {
                                         : "Remove from cart",
                                     onTap: isAdded.value == false
                                         ? () async{
+                                            EasyLoading.show(
+                                                          status: 'loading...');
                                            
                                          final response= await   _api.addToCart({
                                               "product_id":product.value.id,
                                               "quantity":itemNumber.value
                                             });
-                                            print(response!.data);
+                                          print(response!.data);
+                                           if(response.statusCode==200){
+                                              EasyLoading.dismiss();
+                                           }
 
                                             isAdded.value = true;
                                             detailsToAdd = {
@@ -575,10 +555,31 @@ class ProductDetailView extends StatelessWidget {
                                                 "successfully",
                                                 "added to cart");
                                           }
-                                        : () => {
-                                              isAdded.value = false,
+                                        : () async{
+                                              isAdded.value = false;
                                               controller
-                                                  .removeFromCart(detailsToAdd),
+                                                  .removeFromCart(detailsToAdd);
+EasyLoading.show(
+                                                                status:
+                                                                    'loading...');
+                                                            try {
+                                                              final response = await _api
+                                                                  .deleteFromCart(product.value.id);
+                                                                  
+                                                              if (response!
+                                                                      .statusCode ==
+                                                                  200) {
+                                                               
+                                                                  EasyLoading
+                                                                      .dismiss();
+                                                                } else {
+                                                                 
+                                                              }
+                                                            } catch (e) {
+                                                            
+                                                              EasyLoading
+                                                                  .dismiss();
+                                                            }
                                             },
                                     color: Color(0xff115DB1),
                                   ),

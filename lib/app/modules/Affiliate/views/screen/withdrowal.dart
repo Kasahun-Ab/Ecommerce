@@ -3,14 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 
+import '../../../Components/long_button.dart';
 import '../../../Components/popup_dialog.dart';
-import '../../../components/long_button.dart';
 
+
+// ignore: must_be_immutable
 class WithdrawPage extends StatelessWidget {
-  TextEditingController _ammountController =
-      TextEditingController(text: 'ETB 14000');
 
   @override
   Widget build(BuildContext context) {

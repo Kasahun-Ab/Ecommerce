@@ -1,7 +1,10 @@
 // vendor.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../../theme/themedata.dart';
 
 class VendorPage extends StatefulWidget {
   @override
@@ -37,9 +40,9 @@ class _VendorPageState extends State<VendorPage> {
       appBar: AppBar(
         title: Text(
           'Become a Vendor',
-          style: GoogleFonts.poppins(color: Color(0xff115DB1)),
+          style: GoogleFonts.poppins(color: primary_blue),
         ),
-        iconTheme: IconThemeData(color: Color(0xff115DB1)),
+        iconTheme: IconThemeData(color: primary_blue),
       ),
       body: Center(
         child: Padding(
@@ -52,12 +55,12 @@ class _VendorPageState extends State<VendorPage> {
                 Text(
                   'Tell us more about you and what you do',
                   style: GoogleFonts.poppins(
-                      fontSize: 22, fontWeight: FontWeight.bold),
+                      fontSize: 22.sp, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 10),
                 Text(
                   'Leave your information about your company’s details so that we can accept you into the vendor program',
-                  style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey),
+                  style: GoogleFonts.poppins(fontSize: 14.sp, color: Colors.grey),
                 ),
                 SizedBox(height: 10),
                 Form(
@@ -167,19 +170,19 @@ class _VendorPageState extends State<VendorPage> {
                         onPressed: () {
                           // Handle business location action
                         },
-                        icon: Icon(Icons.add, color: Color(0xff115DB1)),
+                        icon: Icon(Icons.add, color: primary_blue),
                         label: Text(
                           'Business Location',
-                          style: GoogleFonts.poppins(color: Color(0xff115DB1)),
+                          style: GoogleFonts.poppins(color: primary_blue),
                         ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          side: BorderSide(color: Color(0xff115DB1)),
+                          side: BorderSide(color: primary_blue),
                           padding: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
-                          textStyle: GoogleFonts.poppins(fontSize: 16),
+                              vertical: 10.sp, horizontal: 10.sp),
+                          textStyle: GoogleFonts.poppins(fontSize: 16.sp),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
+                            borderRadius: BorderRadius.circular(8.0.sp),
                           ),
                           minimumSize: Size(double.infinity,
                               48), // Set the height to match the input fields
@@ -192,14 +195,14 @@ class _VendorPageState extends State<VendorPage> {
                         onPressed: () {
                           // Handle trade license action
                         },
-                        icon: Icon(Icons.add, color: Color(0xff115DB1)),
+                        icon: Icon(Icons.add, color: primary_blue),
                         label: Text(
                           'Trade Licence',
-                          style: GoogleFonts.poppins(color: Color(0xff115DB1)),
+                          style: GoogleFonts.poppins(color: primary_blue),
                         ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          side: BorderSide(color: Color(0xff115DB1)),
+                          side: BorderSide(color: primary_blue),
                           padding: EdgeInsets.symmetric(
                               vertical: 10, horizontal: 10),
                           textStyle: GoogleFonts.poppins(fontSize: 16),

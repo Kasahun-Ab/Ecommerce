@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pazimo/theme/themedata.dart';
 
 class HeaderTitle extends StatelessWidget {
   final String title;
@@ -11,12 +12,14 @@ class HeaderTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: GoogleFonts.poppins(
-        fontSize: 32,
-        fontWeight: FontWeight.w600,
-        color: Color(0xff115DB1),
+    return Center(
+      child: Text(
+        title,
+        style: GoogleFonts.poppins(
+          fontSize: 32,
+          fontWeight: FontWeight.w600,
+          color: primary_blue,
+        ),
       ),
     );
   }

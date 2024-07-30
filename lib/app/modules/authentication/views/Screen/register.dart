@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pazimo/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:pazimo/app/modules/authentication/views/Screen/otp_view.dart';
+import 'package:pazimo/theme/themedata.dart';
 import '../../../Components/Auth_textfield.dart';
 import '../../../Components/Text_with_text_button.dart';
 import '../../../Components/header_title.dart';
@@ -34,13 +35,13 @@ class RegisterView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
-                height: 10,
+                height: 30,
               ),
               HeaderTitle(
                 title: 'Create an account',
               ),
               HeaderSubtitle(
-                title: 'Let’s create your account.',
+                title: '',
               ),
               const SizedBox(
                 height: 15,
@@ -94,14 +95,14 @@ class RegisterView extends StatelessWidget {
                         text: TextSpan(
                           text: 'By signing up you agree to our ',
                           style: GoogleFonts.poppins(
-                              fontSize: 16, color: Colors.blue),
+                              fontSize: 16, color: primary_blue),
                           children: [
                             TextSpan(
                               text: 'Terms',
                               style: GoogleFonts.poppins(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.blue,
+                                color: primary_blue,
                                 decoration: TextDecoration.underline,
                               ),
                               recognizer: TapGestureRecognizer()
@@ -112,12 +113,12 @@ class RegisterView extends StatelessWidget {
                             TextSpan(
                               text: ', ',
                               style: GoogleFonts.poppins(
-                                  fontSize: 16, color: Colors.blue),
+                                  fontSize: 16, color: primary_blue),
                             ),
                             TextSpan(
                               text: 'Privacy Policy',
                               style: GoogleFonts.poppins(
-                                color: Colors.blue,
+                                color: primary_blue,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 decoration: TextDecoration.underline,
@@ -129,13 +130,13 @@ class RegisterView extends StatelessWidget {
                             TextSpan(
                               text: ', and ',
                               style: GoogleFonts.poppins(
-                                  fontSize: 16, color: Colors.blue),
+                                  fontSize: 16, color: primary_blue),
                             ),
                             TextSpan(
                               text: 'Cookie Use',
                               style: GoogleFonts.poppins(
                                 fontSize: 16,
-                                color: Colors.blue,
+                                color: primary_blue,
                               ),
                             ),
                             TextSpan(
@@ -182,12 +183,12 @@ class RegisterView extends StatelessWidget {
                                   color: Colors.white,
                                 ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
+                            backgroundColor: primary_blue,
                             padding: EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 10),
                             textStyle: GoogleFonts.poppins(fontSize: 16),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(2.0),
+                              borderRadius: BorderRadius.circular(30),
                             ),
                             minimumSize: Size(double.infinity, 48),
                           ),
@@ -218,9 +219,13 @@ class RegisterView extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Button(
-                        title: 'Sign Up with Google',
-                        color: Colors.blue,
+                     
+Row (
+   mainAxisAlignment: MainAxisAlignment.spaceAround,
+  children: [
+   Button(
+                        title: 'Sign Up',
+                        color: primary_blue,
                         onPressed: () async {
                           controller.signInGoogle();
                         },
@@ -229,6 +234,19 @@ class RegisterView extends StatelessWidget {
                         iconSource: 'assets/svg/google_icons.svg',
                         hasIcon: true,
                       ),
+                       Button(
+                        title: 'Sign Up',
+                        color: primary_blue,
+                        onPressed: () async {
+                          controller.signInGoogle();
+                        },
+                        hasBorder: true,
+                        iconDirectionIsRight: false,
+                        iconSource: 'assets/svg/google_icons.svg',
+                        hasIcon: true,
+                      ),
+],),
+
                       const SizedBox(
                         height: 15,
                       ),

@@ -5,8 +5,9 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:pazimo/app/modules/Components/headersubtitle.dart';
 
 // Import custom components and controller
+import '../../../Components/Text_with_text_button.dart';
 import '../../../Components/header_title.dart';
-import '../../../Components/text_with_text_button.dart';
+
 import '../../../Components/long_button.dart';
 
 // View for OTP Screen

@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +12,7 @@ import 'package:pazimo/app/modules/Components/icon_button.dart';
 import 'package:pazimo/app/modules/Components/long_button.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
 import 'package:pazimo/app/modules/home/views/Screen/checkout.dart';
+import 'package:pazimo/theme/themedata.dart';
 
 import '../../../../../api/Api_Methods/allmethodsapi.dart';
 
@@ -24,19 +24,25 @@ class CartView extends StatelessWidget {
   Cart? _cart;
   @override
   Widget build(BuildContext context) {
-    getCart() async {
+    getCart() async { 
       items.value = [];
       isloading.value = true;
+     
       try {
         final response = await _api.getCart();
-        if (response!.statusCode == 200) {
+   
+        if (response.statusCode == 200) {
+        
           if (response.data != null) {
          
             _cart = await Cart.fromJson(response.data);
+           
             items.value = _cart!.data!.items!;
+     
             isloading.value = false;
+
           } else {
-          
+           
             _cart = null;
             items.value = [];
             isloading.value = false;
@@ -44,28 +50,26 @@ class CartView extends StatelessWidget {
         }
         isloading.value = false;
       } catch (e) {
-        print("object");
+       print(e);
         isloading.value = false;
       }
     }
 
     getCart();
 
-    print('${items.length}');
-    // controller.calculateSubTotal(controller.carts);
-    // controller.calculateTotal(controller.carts);
-
+  
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
-        leading: Container(),
+        backgroundColor: primary_white,
+       
         centerTitle: true,
         title: Text(
           "My Cart",
-          style: GoogleFonts.poppins(),
+          style: GoogleFonts.poppins(color: primary_blue,fontSize: 24.sp,fontWeight: FontWeight.w500),
         ),
         actions: [
-          SvgPicture.asset("assets/svg/Bell.svg"),
-          SizedBox(width: 20),
+     
         ],
       ),
       body: Obx(
@@ -84,10 +88,9 @@ class CartView extends StatelessWidget {
                               child: ListView.builder(
                                   itemBuilder: (context, index) {
                                     RxDouble price = 0.0.obs;
-                                    RxInt quantity =
-                                        int.parse(items[index].quantity!).obs;
-                                    price = double.parse(
-                                            items[index].product!.price!)
+                                    Rx<int?> quantity =
+                                        items[index].quantity.obs;
+                                     price = double.parse(items[index].product!.price!)
                                         .obs;
 
                                     return Container(
@@ -102,6 +105,7 @@ class CartView extends StatelessWidget {
                                       padding: EdgeInsets.all(8),
                                       child: Row(
                                         children: [
+
                                           Container(
                                             height: 83.h,
                                             width: 79.w,
@@ -123,7 +127,7 @@ class CartView extends StatelessWidget {
                                                       .mediumImageUrl!,
                                               placeholder: (context, url) =>
                                                   CircularProgressIndicator(
-                                                color: Color(0xff115DB1),
+                                                color: primary_blue,
                                               ),
                                               errorWidget:
                                                   (context, url, error) =>
@@ -148,8 +152,15 @@ class CartView extends StatelessWidget {
                                                                 CrossAxisAlignment
                                                                     .start,
                                                             children: [
-                                                              Text(
-                                                                  "Name:${items[index].product!.name}"),
+                                                              Container(
+                                                              width:170,
+                                                              
+                                                                child: Text(
+                                                                    "Name:${items[index].product!.name}",style: GoogleFonts.poppins(
+                                                                    ),
+                                                                    overflow: TextOverflow.fade,
+                                                                    ),
+                                                              ),
                                                               Text(
                                                                   "Size: ${100}"),
                                                             ]),
@@ -225,24 +236,24 @@ class CartView extends StatelessWidget {
                                                             Iconbutton(
                                                               onTap: () async {
                                                                 if (quantity
-                                                                        .value ==
-                                                                    1) {
-                                                                } else {
+                                                                        .value ==1)
+                                                                        { } 
+                                                                else {
                                                                   quantity.value =
-                                                                      quantity.value -
-                                                                          1;
-
-                                                                  final response =
+                                                                      (quantity.value! -
+                                                                          1);
+                                                                    final response =
                                                                       await _api
-                                                                          .updateCart({
-                                                                    "qty": {
-                                                                      "${items[index].id}":
-                                                                          " ${quantity.value}"
+                                                                          .updateCart(
+                                                                            {
+                                                                              "qty": {
+                                                                          "${items[index].id}":
+                                                                          quantity.value
                                                                     }
-                                                                  });
+                                                                    
+                                                                             }
+                                                                          );
 
-                                                                  print(response!
-                                                                      .data);
                                                                 }
                                                               },
                                                               icon:
@@ -259,33 +270,20 @@ class CartView extends StatelessWidget {
                                                             ),
                                                             //icons to add
                                                             Iconbutton(
-                                                              onTap: () {
-                                                                // controller.carts[index]
-                                                                //         ['itemNumber'] =
-                                                                //     controller.carts[
-                                                                //                 index][
-                                                                //             'itemNumber'] +
-                                                                //         1;
+                                                              onTap: () async{
+                                                                     quantity.value =
+                                                                      quantity.value! +
+                                                                          1;
+                                                                    final response =
+                                                                      await _api
+                                                                          .updateCart({
+                                                                    "qty": {
+                                                                      "${items[index].id}":
+                                                                          " ${quantity.value}"
+                                                                    }
+                                                                  });
 
-                                                                // price.value =
-                                                                //     calculateTotalPrice(
-                                                                //         index);
-
-                                                                // controller.carts[index][
-                                                                //         'total_price'] =
-                                                                //     price;
-                                                                // print(controller
-                                                                //         .carts[index]
-                                                                //     ['total_price']);
-
-                                                                // controller
-                                                                //     .calculateSubTotal(
-                                                                //         controller
-                                                                //             .carts);
-                                                                // controller
-                                                                //     .calculateTotal(
-                                                                //         controller
-                                                                //             .carts);
+                                                                  
                                                               },
                                                               icon: Icons.add,
                                                             )
@@ -296,6 +294,7 @@ class CartView extends StatelessWidget {
                                               ),
                                             ),
                                           ),
+                                         RSizedBox(width: 10,)
                                         ],
                                       ),
                                     );
@@ -317,7 +316,7 @@ class CartView extends StatelessWidget {
                                   "When you add products, they’ll \nappear here.",
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.poppins(
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       letterSpacing: 1.2,
                                       color: Color(0Xff808080)),
                                 )
@@ -330,29 +329,15 @@ class CartView extends StatelessWidget {
                             width: double.infinity,
                             child: Column(
                               children: [
-                                cart_price_text(
-                                  Sub_total: 'Sub-total',
-                                  price: _cart!.data!.subTotal!.obs,
-                                ),
-                                SizedBox(height: 10.h),
-                                cart_price_text(
-                                  Sub_total: 'Vat(%)',
-                                  price: _cart!.data!.taxTotal!.toDouble().obs,
-                                ),
-                                SizedBox(height: 10.h),
-                                cart_price_text(
-                                  Sub_total: 'Shipping fee',
-                                  price: _cart!.data!.taxTotal!.toDouble().obs,
-                                ),
-                                SizedBox(height: 10.h),
+
+
                                 Divider(
                                   color: Color(0Xff808080),
                                 ),
                                 SizedBox(height: 10),
                                 cart_price_text(
                                   Sub_total: 'Total',
-                                  price:
-                                      _cart!.data!.baseTaxTotal!.toDouble().obs,
+                                  price: _cart!.data!.subTotal!.obs,
                                 ),
                                 SizedBox(height: 20),
                                 Button(

@@ -10,11 +10,17 @@ import '../../../../api/Api_Methods/allmethodsapi.dart';
 import '../../../data/Category .dart';
 import '../../../data/Customer.dart' as user;
 
-class HomeController extends GetxController {
+class HomeController extends GetxController with GetSingleTickerProviderStateMixin  {
+  late AnimationController animationController;
+  late Animation<double> animation;
+
   var categories = <Categories>[].obs;
   RxBool iscategories = false.obs;
+   RxBool isproductFeach = false.obs;
   RxBool isLoading = true.obs;
+
   user.Customerdata? userData;
+  
   RxBool isnew = false.obs;
   var wishlist = Wishlist(data: []).obs;
   Api _api = Api();
@@ -156,26 +162,32 @@ class HomeController extends GetxController {
     }
   }
 
+
   @override
   void onInit() async {
-    getCategory();
-    _api.initializeDio();
-    userData = await getLoginResponse();
-    getWishlist();
-    products.value = await _api.fetchProducts();
-    var x = await _api.fetchBigSave();
-    print("${x.length} hifidifdifdi");
+    animationController=AnimationController(vsync: this,duration: Duration(milliseconds: 500))
+    ; 
+   animation = Tween<double>(begin: -5.0, end: 0.0).chain(CurveTween(curve: Curves.elasticIn)).animate(animationController);
 
+
+
+     _api.initializeDio();
+     userData = await getLoginResponse();
+    getCategory();
+    getWishlist();
+    
+getProduct();
+await _api.fetchBigSave();
+  
     fetchOrders();
 
     super.onInit();
   }
+void startShakeAnimation(){
+  print("clicked");
+animationController.forward(from: 0.0);
+}
 
-  // SelectBigSave() {
-  //   return products.value.data
-
-  //       .obs;
-  // }
 //0933681528
 
   @override
@@ -207,35 +219,42 @@ class HomeController extends GetxController {
     return null;
   }
 
+ getProduct() async{
+  
+  products.value = await _api.fetchProducts();
+
+ }
+ 
   Future setLoginResponse(user.Data data) async {
   
     user.Customerdata userdata = user.Customerdata(
         data: data, message: userData!.message, token: userData!.token);
 
-    // try {
-    //   final data = await storage.read('loginResponse');
-    //   if (data != null) {
-    //     userdata =user.CustomerdataFromJson(data);
+    try {
+      final data = await storage.read('loginResponse');
+      if (data != null) {
+        userdata =user.CustomerdataFromJson(data);
 
-    //     return userdata;
-    //   }
-    // } catch (e) {
-    //   print('Error reading loginResponse: $e');
-    // }
-    // return null;
+        return userdata;
+      }
+    } catch (e) {
+      print('Error reading loginResponse: $e');
+    }
+    return null;
   }
 
   Future getCategory() async {
     iscategories.value = true;
     final response = await Api().getCategories();
-    print('${response?.data} hsdfsdfsdfsdfsdf');
+
     if (response?.statusCode == 200) {
       var categoryList = (response?.data['data'] as List)
           .map((i) => Categories.fromJson(i))
           .toList();
+          print(categoryList.length);
       categories.assignAll(categoryList);
       iscategories.value = false;
     }
-    print(categories.length);
+ 
   }
 }

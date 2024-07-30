@@ -1,7 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:dio/dio.dart' as dioClient;
-import 'package:get/get.dart';
+
+
+
+import 'package:dio/dio.dart';
+import 'package:get/get.dart' as getx;
+
 import 'package:get_storage/get_storage.dart';
 import '../../app/data/Customer.dart';
 import '../../app/data/productModel.dart';
@@ -13,10 +17,10 @@ import '../ApiConfig.dart';
 class Api {
   GetStorage storage = GetStorage();
   final OnboardingController onboardingController =
-      Get.find<OnboardingController>();
+     getx.Get.find<OnboardingController>();
 
   Customerdata? userData;
-  dioClient.Dio? dio;
+  Dio ?dio;
 
   Future<Customerdata?> getLoginResponse() async {
     try {
@@ -35,7 +39,7 @@ class Api {
     await getLoginResponse();
 
     if (userData != null) {
-      dio = dioClient.Dio(dioClient.BaseOptions(
+      dio = Dio(BaseOptions(
         baseUrl: ApiConfig.baseurl,
         headers: ApiConfig.getHeaders(userData!.token),
       ));
@@ -45,26 +49,42 @@ class Api {
   }
 
   Future<Product> fetchProducts() async {
+    
     if (dio == null) {
       await initializeDio();
     }
-    try {
-      final response =
-          await dio?.get("https://staging.mytestserver.space/api/v1/products");
-      if (response?.statusCode == 200) {
-        var data = response?.data;
-        Product productResponse = Product.fromJson(data);
-        return productResponse;
-      } else {
-        throw Exception('Failed to load products: ${response?.statusCode}');
-      }
-    } catch (e) {
-      throw Exception('Failed to load products: $e');
-    }
+  try {
+  final response = await dio?.get("https://staging.mytestserver.space/api/v1/products");
+  
+  if (response?.statusCode == 200) {
+    var data = response?.data;
+    Product productResponse = Product.fromJson(data);
+    return productResponse;
+  } else {
+    throw Exception('Failed to load products: HTTP ${response?.statusCode}');
+  }
+} on DioError catch (e) {
+  // Dio error handling
+  if (e.type == DioErrorType.badResponse) {
+    // Handle DioError with response (e.g., 404, 500, etc.)
+    throw Exception('Failed to load products: HTTP ${e.response?.statusCode}');
+  } else if ( e.type == DioErrorType.sendTimeout || e.type == DioErrorType.receiveTimeout) {
+    // Handle timeouts
+    throw Exception('Failed to load products: Timeout error');
+  }  else {
+    // Handle other DioError types
+    throw Exception('Failed to load products: ${e.message}');
+  }
+} catch (e) {
+  // Catch any other exceptions
+  throw Exception('Failed to load products: $e');
+}
+
+
   }
 
-  Future<RxList> fetchBigSave() async {
-    RxList listOfBigSales = [].obs;
+  Future<getx.RxList> fetchBigSave() async {
+   getx. RxList listOfBigSales = [].obs;
     if (dio == null) {
       await initializeDio();
     }
@@ -85,7 +105,7 @@ class Api {
     }
   }
 
-  Future<dioClient.Response> productDetails(int id) async {
+  Future<Response> productDetails(int id) async {
     if (dio == null) {
       await initializeDio();
     }
@@ -106,7 +126,7 @@ class Api {
         print(response.data);
       }
       homeController.close();
-      Get.offNamed(Routes.AUTHENTICATION);
+     getx. Get.offNamed(Routes.AUTHENTICATION);
     } catch (e) {
       print(e.toString());
     }
@@ -116,11 +136,13 @@ class Api {
     await storage.remove("loginResponse");
   }
 
-  Future<dioClient.Response?> getCategories() async {
+  Future<Response?> getCategories() async {
     if (dio == null) await initializeDio();
     try {
       final response = await dio!
           .get('https://staging.mytestserver.space/api/v1/categories');
+         
+        
       return response;
     } catch (e) {
       print("Error fetching categories: $e");
@@ -128,7 +150,7 @@ class Api {
     }
   }
 
-  Future<dioClient.Response?> getWishlist() async {
+  Future<Response?> getWishlist() async {
     if (dio == null) await initializeDio();
     try {
       final response = await dio!
@@ -140,7 +162,7 @@ class Api {
     }
   }
 
-  Future<dioClient.Response?> addToWishlist(var productId) async {
+  Future<Response?> addToWishlist(var productId) async {
     if (dio == null) await initializeDio();
     try {
       final response = await dio!.post(
@@ -153,7 +175,7 @@ class Api {
     }
   }
 
-  Future<dioClient.Response?> removeFromWishlist(var productId) async {
+  Future<Response?> removeFromWishlist(var productId) async {
     if (dio == null) await initializeDio();
     try {
       final response = await dio!.delete(
@@ -165,16 +187,23 @@ class Api {
     }
   }
 
-  Future<dioClient.Response?> changeProfile(
-      Map<String, dynamic> formData) async {
+  Future<Response?> changeProfile(FormData formData) async {
+  formData.fields.forEach((field) {
+    print('Field: ${field.key} = ${field.value}');
+  });
+   formData.files.forEach((file) {
+    print('File of image: ${file.key} = ${file.value}');
+  });
     if (dio == null) await initializeDio();
+
     try {
       final response = await dio!.put(
+
           'https://staging.mytestserver.space/api/v1/customer/profile',
           data: formData);
       return response;
     } catch (e) {
-      if (e is dioClient.DioError) {
+      if (e is DioError) {
         print("Dio error occurred: ${e.message}");
         if (e.response != null) {
           print("Dio error response data: ${e.response?.data}");
@@ -186,7 +215,7 @@ class Api {
     }
   }
 
-  Future<dioClient.Response?> addToCart(Map<String, dynamic> cattItem) async {
+  Future<Response?> addToCart(Map<String, dynamic> cattItem) async {
     if (dio == null) await initializeDio();
     try {
       final response = await dio!.post(
@@ -197,7 +226,7 @@ class Api {
           });
       return response;
     } catch (e) {
-      if (e is dioClient.DioError) {
+      if (e is DioError) {
         print("Dio error occurred: ${e.message}");
         if (e.response != null) {
           print("Dio error response data: ${e.response?.data}");
@@ -215,6 +244,7 @@ class Api {
       final response = await dio!.get(
         'https://staging.mytestserver.space/api/v1/customer/cart',
       );
+      print(response.data);
       if (response.data != null) {
         return response;
       } else {
@@ -222,7 +252,7 @@ class Api {
         return null;
       }
     } catch (e) {
-      if (e is dioClient.DioError) {
+      if (e is DioError) {
         print("Dio error occurred: ${e.message}");
         if (e.response != null) {
           print("Dio error response data: ${e.response?.data}");
@@ -234,7 +264,7 @@ class Api {
     }
   }
 
-  Future<dioClient.Response?> deleteFromCart(var cartitemId) async {
+  Future<Response?> deleteFromCart(var cartitemId) async {
     if (dio == null) await initializeDio();
     try {
       final response = await dio!.delete(
@@ -242,7 +272,7 @@ class Api {
       );
       return response;
     } catch (e) {
-      if (e is dioClient.DioError) {
+      if (e is DioError) {
         print("Dio error occurred: ${e.message}");
         if (e.response != null) {
           print("Dio error response data: ${e.response?.data}");
@@ -254,27 +284,34 @@ class Api {
     }
   }
 
-  Future<dioClient.Response?> updateCart(Map<String, dynamic> quntity) async {
-    if (dio == null) await initializeDio();
-    try {
-      final response = await dio!.post(
-          'https://staging.mytestserver.space/api/v1/customer/cart/update',
-          data: quntity);
-      return response;
-    } catch (e) {
-      if (e is dioClient.DioError) {
-        print("Dio error occurred: ${e.message}");
-        if (e.response != null) {
-          print("Dio error response data: ${e.response?.data}");
-        }
-      } else {
-        print("Error updating profile: $e");
-      }
-      return null;
-    }
-  }
 
-  Future<dioClient.Response?> ApplyCupon(var cartitemId) async {
+
+Future<Response?> updateCart(Map<String, dynamic> quantity) async {
+  if (dio == null) await initializeDio();
+  try {
+    final response = await dio!.put(
+      'https://staging.mytestserver.space/api/v1/customer/cart/update',
+      data: quantity
+    );
+    print(response.data);
+    return response;
+  } catch (e) {
+    if (e is DioError) {
+      print("Dio error occurred: ${e.message}");
+      if (e.response != null) {
+        print("Dio error response data: ${e.response?.data}");
+      } else {
+        print("No response received from the server.");
+      }
+    } else {
+      print("Error updating cart: $e");
+    }
+    return null;
+  }
+}
+
+
+  Future<Response?> ApplyCupon(var cartitemId) async {
     if (dio == null) await initializeDio();
     try {
       final response = await dio!.post(
@@ -282,7 +319,7 @@ class Api {
       );
       return response;
     } catch (e) {
-      if (e is dioClient.DioError) {
+      if (e is DioError) {
         print("Dio error occurred: ${e.message}");
         if (e.response != null) {
           print("Dio error response data: ${e.response?.data}");
@@ -294,7 +331,7 @@ class Api {
     }
   }
 
-  Future<dioClient.Response?> deleteCupon(var cartitemId) async {
+  Future<Response?> deleteCupon(var cartitemId) async {
     if (dio == null) await initializeDio();
     try {
       final response = await dio!.delete(
@@ -302,7 +339,7 @@ class Api {
       );
       return response;
     } catch (e) {
-      if (e is dioClient.DioError) {
+      if (e is DioError) {
         print("Dio error occurred: ${e.message}");
         if (e.response != null) {
           print("Dio error response data: ${e.response?.data}");
@@ -314,7 +351,7 @@ class Api {
     }
   }
 
-  Future<dioClient.Response?> getAddresses() async {
+  Future<Response?> getAddresses() async {
     if (dio == null) await initializeDio();
     try {
       final response = await dio!.get(
@@ -322,7 +359,7 @@ class Api {
       );
       return response;
     } catch (e) {
-      if (e is dioClient.DioError) {
+      if (e is DioError) {
         print("Dio error occurred: ${e.message}");
         if (e.response != null) {
           print("Dio error response data: ${e.response?.data}");

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -12,43 +10,59 @@ import 'package:pazimo/app/modules/Components/checkout_page_text.dart';
 import 'package:pazimo/app/modules/Components/long_button.dart';
 import 'package:pazimo/app/modules/Components/popup_dialog.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
+import 'package:pazimo/theme/themedata.dart';
 
 // import '../../../../data/address.dart';
+import '../../../../../api/Api_Methods/allmethodsapi.dart';
+import '../../../../data/address.dart';
 import 'myorders.dart';
-// import '../../../Components/cart_price_text.dart';
 
-class AddressController extends GetxController {
-  // var addresses = [
-  //   Address('Home', '925 S Chugach St #APT 10, Alaska', true),
-  //   Address('Office', '2438 6th Ave, Ketchikan, Alaska', false),
-  //   Address('Apartment', '2551 Vista Dr #B301, Juneau, Alaska', false),
-  //   Address('Parent\'s House', '4821 Ridge Top Cir, Anchorage, Alaska', false),
-  // ].obs;
-
-//   void setDefault(int index) {
-//     for (var i = 0; i < addresses.length; i++) {
-//       addresses[i].isDefault = i == index;
-//     }
-//     addresses.refresh();
-//   }
-}
 
 class CheckoutView extends StatelessWidget {
   CheckoutView({super.key});
-  final AddressController addressController = Get.put(AddressController());
-
-  // RxBool isHome = true.obs;
+   final Api _api = Api();
+  deliverAddress? _address;
+  var addressof = <Datum>[].obs;
+  RxBool isDefault = false.obs;
+  var selected = <RxBool>[].obs;
 
   @override
   Widget build(BuildContext context) {
+
+    
     Size size = MediaQuery.of(context).size;
     final HomeController controller = Get.find<HomeController>();
+   Future<void> getAddresses() async {
+      try {
+        final response = await _api.getAddresses();
+        if (response?.data != null) {
+          _address = await deliverAddress.fromJson(response!.data);
+          addressof.value = _address!.data!;
 
+          selected.value =
+              addressof.map((datum) => datum.isDefault!.obs).toList();
+        } else {
+          _address = null;
+          addressof.value = [];
+        }
+      } catch (e) {
+        print(e.toString());
+      }
+    }
+
+    getAddresses();
+
+    void setDefaultvalue(int index) {
+      for (int x = 0; x < addressof.length; x++) {
+        addressof[x].isDefault = (x == index);
+        selected[x].value = (x == index);
+      }
+    }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Checkout"),
-      ),
+        title: Text("Checkout",style: GoogleFonts.poppins(color: primary_blue,fontSize: 24,fontWeight: FontWeight.w500),
+      )),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Center(
@@ -64,67 +78,74 @@ class CheckoutView extends StatelessWidget {
                   checkout_page_text(
                     title: 'Delivery Address',
                   ),
-                  Text(
-                    "Change",
+                  InkWell(
+                    onTap: (){},
+                    child: Text(
+                      "Change",
+                      style: GoogleFonts.poppins(color: primary_blue, decoration: TextDecoration.underline,),
+                    ),
                   ),
                 ],
               ),
-              // Expanded(
-              //   child: Obx(
-              //     () => ListView.builder(
-              //       itemCount: addressController.addresses.length,
-              //       itemBuilder: (context, index) {
-              //         var address = addressController.addresses[index];
-              //         return Container(
-              //           margin: EdgeInsets.only(top: 16),
-              //           decoration: BoxDecoration(
-              //               borderRadius: BorderRadius.circular(10),
-              //               border:
-              //                   Border.all(width: 1, color: Color(0xffE6E6E6))),
-              //           child: ListTile(
-              //             leading: SvgPicture.asset("assets/svg/Location.svg"),
-              //             title: Text(
-              //               address.title,
-              //               style: GoogleFonts.poppins(
-              //                   fontSize: 16,
-              //                   fontWeight: FontWeight.w600,
-              //                   color: Color(0xff115DB1)),
-              //             ),
-              //             subtitle: Text(address.address,
-              //                 style: GoogleFonts.poppins(
-              //                     fontSize: 14, color: Color(0xff808080))),
-              //             trailing: Container(
-              //               height: 20,
-              //               width: 20,
-              //               child: address.isDefault
-              //                   ? Container(
-              //                       width: 13,
-              //                       height: 13,
-              //                       decoration: BoxDecoration(
-              //                           shape: BoxShape.circle,
-              //                           color: Color(0xff115DB1)))
-              //                   : null,
-              //               padding: EdgeInsets.all(2),
-              //               decoration: BoxDecoration(
-              //                   shape: BoxShape.circle,
-              //                   border: Border.all(
-              //                     width: 1,
-              //                     color: Color(0xff115DB1),
-              //                   )),
-              //             ),
-              //             onTap: () => addressController.setDefault(index),
-              //           ),
-              //         );
-              //       },
-              //     ),
-              //   ),
-              // ),
-             
+            Expanded(
+              child: Obx(
+                () => ListView.builder(
+                  itemCount: addressof.length,
+                  itemBuilder: (context, index) {
+                    return Obx(
+                      () => Container(
+                        margin: EdgeInsets.only(top: 16),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border:
+                                Border.all(width: 1, color: Color(0xffE6E6E6))),
+                        child: ListTile(
+                          leading: SvgPicture.asset("assets/svg/Location.svg"),
+                          title: Text(
+                            "${addressof[index].city}",
+                            style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: primary_blue),
+                          ),
+                          subtitle: Text("${addressof[index].companyName}",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14, color: Color(0xff808080))),
+                          trailing: Container(
+                            height: 20,
+                            width: 20,
+                            padding: EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  width: 1,
+                                  color: primary_blue,
+                                )),
+                            child: selected[index].value
+                                ? Container(
+                                    width: 13,
+                                    height: 13,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: primary_blue))
+                                : null,
+                          ),
+                          onTap: () {
+                            setDefaultvalue(index);
+                            
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
               SizedBox(
                 height: 20,
               ),
               checkout_page_text(
-                title: 'Delivery Address',
+                title: 'Payment Methods',
               ),
               SizedBox(
                 height: 20,
@@ -146,29 +167,15 @@ class CheckoutView extends StatelessWidget {
                   width: size.width,
                   child: Column(
                     children: [
-                      cart_price_text(
-                        Sub_total: 'Sub-total',
-                        price: controller.sub_total,
-                      ),
-                      SizedBox(height: 10.h),
-                      cart_price_text(
-                        Sub_total: 'Vat(%)',
-                        price: controller.vat,
-                      ),
-                      SizedBox(height: 10.h),
-                      cart_price_text(
-                        Sub_total: 'Shipping fee',
-                        price: controller.shippingFee,
-                      ),
-                      SizedBox(height: 10.h),
                       Divider(
-                        color: Color(0Xff808080),
+                        color: Color.fromARGB(174, 128, 128, 128),
                       ),
                       SizedBox(height: 10),
                       cart_price_text(
                         Sub_total: 'Total',
-                        price: controller.total,
+                        price: controller.sub_total,
                       ),
+                     
                       SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -212,7 +219,7 @@ class CheckoutView extends StatelessWidget {
                             height: 45,
                             width: 68,
                             decoration: BoxDecoration(
-                              color: Color(0xff115DB1),
+                              color: primary_blue,
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Center(
@@ -231,7 +238,7 @@ class CheckoutView extends StatelessWidget {
               ),
               Button(
                   title: "Place Order",
-                  color: Color(0xff115DB1),
+                  color: primary_blue,
                   onPressed: () {
                     Get.dialog(
                       Center(
@@ -446,7 +453,7 @@ class CheckoutView extends StatelessWidget {
                                 ),
                                 Button(
                                     title: "Done",
-                                    color: Color(0xff115DB1),
+                                    color: primary_blue,
                                     onPressed: () {
                                       Get.back();
                                       Get.dialog(popupDialogbox(
@@ -508,7 +515,7 @@ class CheckoutView extends StatelessWidget {
   //                   Text(
   //                     title,
   //                     style: GoogleFonts.poppins(
-  //                         color: Color(0xff115DB1),
+  //                         color: primary_blue,
   //                         fontSize: 16,
   //                         fontWeight: FontWeight.w500),
   //                   ),

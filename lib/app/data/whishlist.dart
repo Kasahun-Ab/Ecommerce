@@ -62,9 +62,9 @@ class Product {
   String formattedPrice;
   String shortDescription;
   String description;
-  List<Image> images;
+  List<image> images;
   List<dynamic> videos;
-  BaseImage baseImage;
+  Baseimage baseimage;
   DateTime createdAt;
   DateTime updatedAt;
   Reviews reviews;
@@ -92,7 +92,7 @@ class Product {
     required this.description,
     required this.images,
     required this.videos,
-    required this.baseImage,
+    required this.baseimage,
     required this.createdAt,
     required this.updatedAt,
     required this.reviews,
@@ -119,9 +119,9 @@ class Product {
         formattedPrice: json["formatted_price"],
         shortDescription: json["short_description"],
         description: json["description"],
-        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        images: List<image>.from(json["images"].map((x) => image.fromJson(x))),
         videos: List<dynamic>.from(json["videos"].map((x) => x)),
-        baseImage: BaseImage.fromJson(json["base_image"]),
+        baseimage: Baseimage.fromJson(json["base_image"]),
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         reviews: Reviews.fromJson(json["reviews"]),
@@ -150,7 +150,7 @@ class Product {
         "description": description,
         "images": List<dynamic>.from(images.map((x) => x.toJson())),
         "videos": List<dynamic>.from(videos.map((x) => x)),
-        "base_image": baseImage.toJson(),
+        "base_image": baseimage.toJson(),
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "reviews": reviews.toJson(),
@@ -168,71 +168,71 @@ class Product {
       };
 }
 
-class BaseImage {
-  String? smallImageUrl;
-  String? mediumImageUrl;
-  String? largeImageUrl;
-  String? originalImageUrl;
+class Baseimage {
+  String? smallimageUrl;
+  String? mediumimageUrl;
+  String? largeimageUrl;
+  String? originalimageUrl;
 
-  BaseImage({
-    required this.smallImageUrl,
-    required this.mediumImageUrl,
-    required this.largeImageUrl,
-    required this.originalImageUrl,
+  Baseimage({
+    required this.smallimageUrl,
+    required this.mediumimageUrl,
+    required this.largeimageUrl,
+    required this.originalimageUrl,
   });
 
-  factory BaseImage.fromJson(Map<String, dynamic> json) => BaseImage(
-        smallImageUrl: json["small_image_url"],
-        mediumImageUrl: json["medium_image_url"],
-        largeImageUrl: json["large_image_url"],
-        originalImageUrl: json["original_image_url"],
+  factory Baseimage.fromJson(Map<String, dynamic> json) => Baseimage(
+        smallimageUrl: json["small_image_url"],
+        mediumimageUrl: json["medium_image_url"],
+        largeimageUrl: json["large_image_url"],
+        originalimageUrl: json["original_image_url"],
       );
 
   Map<String, dynamic> toJson() => {
-        "small_image_url": smallImageUrl,
-        "medium_image_url": mediumImageUrl,
-        "large_image_url": largeImageUrl,
-        "original_image_url": originalImageUrl,
+        "small_image_url": smallimageUrl,
+        "medium_image_url": mediumimageUrl,
+        "large_image_url": largeimageUrl,
+        "original_image_url": originalimageUrl,
       };
 }
 
-class Image {
+class image {
   int id;
   String path;
   String url;
-  String originalImageUrl;
-  String smallImageUrl;
-  String mediumImageUrl;
-  String largeImageUrl;
+  String originalimageUrl;
+  String smallimageUrl;
+  String mediumimageUrl;
+  String largeimageUrl;
 
-  Image({
+  image({
     required this.id,
     required this.path,
     required this.url,
-    required this.originalImageUrl,
-    required this.smallImageUrl,
-    required this.mediumImageUrl,
-    required this.largeImageUrl,
+    required this.originalimageUrl,
+    required this.smallimageUrl,
+    required this.mediumimageUrl,
+    required this.largeimageUrl,
   });
 
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
+  factory image.fromJson(Map<String, dynamic> json) => image(
         id: json["id"],
         path: json["path"],
         url: json["url"],
-        originalImageUrl: json["original_image_url"],
-        smallImageUrl: json["small_image_url"],
-        mediumImageUrl: json["medium_image_url"],
-        largeImageUrl: json["large_image_url"],
+        originalimageUrl: json["original_image_url"],
+        smallimageUrl: json["small_image_url"],
+        mediumimageUrl: json["medium_image_url"],
+        largeimageUrl: json["large_image_url"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "path": path,
         "url": url,
-        "original_image_url": originalImageUrl,
-        "small_image_url": smallImageUrl,
-        "medium_image_url": mediumImageUrl,
-        "large_image_url": largeImageUrl,
+        "original_image_url": originalimageUrl,
+        "small_image_url": smallimageUrl,
+        "medium_image_url": mediumimageUrl,
+        "large_image_url": largeimageUrl,
       };
 }
 

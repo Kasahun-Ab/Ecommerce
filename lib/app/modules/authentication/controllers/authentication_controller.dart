@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -21,7 +20,7 @@ class AuthenticationController extends GetxController {
     String password,
     String phone,
   ) async {
-   
+    print("love");
     try {
       final response = await _dio.post(
         '${ApiConfig.loginEndpoint}',
@@ -120,8 +119,6 @@ class AuthenticationController extends GetxController {
       // final LoginResult result = await FacebookAuth.instance.login();
       // final AccessToken accessToken = result.accessToken!;
 
-      final userData = await FacebookAuth.instance.getUserData();
-      print(userData['name']);
     } catch (e) {
       print(e.toString());
     }

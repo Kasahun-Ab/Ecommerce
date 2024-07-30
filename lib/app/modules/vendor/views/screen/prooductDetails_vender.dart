@@ -1,7 +1,5 @@
-import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -11,18 +9,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
 import 'package:pazimo/app/data/productDetails.dart';
-import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
-import 'package:pazimo/app/modules/home/views/Screen/checkout.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../../api/Api_Methods/allmethodsapi.dart';
-import '../../../../data/toCart.dart';
 import '../../../Components/Expantion_button.dart';
-import '../../../Components/icon_button.dart';
-import '../../../Components/short_button.dart';
 import '../../../home/views/Screen/review.dart';
 
 class ProductDetailView extends StatelessWidget {

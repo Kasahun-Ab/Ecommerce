@@ -1,21 +1,14 @@
-import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:pazimo/api/Api_Methods/allmethodsapi.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
-
-// import '../../../../../api/ApiConfig.dart';
-// import '../../../../data/productModel.dart';
+import 'package:pazimo/theme/themedata.dart';
 import '../../../../Shimmer/gridproductCardShimmer.dart';
 import '../../../../data/whishlist.dart';
 import 'product_details.dart';
@@ -53,14 +46,14 @@ class SavedItemsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     getWishlist();
     return Scaffold(
+      backgroundColor: primary_white,
         appBar: AppBar(
+          backgroundColor: primary_white,
           toolbarHeight: 80,
-          title: Text('Saved Items'),
+          centerTitle: true,
+          title: Text('Saved Items',style: GoogleFonts.poppins(color: primary_blue,fontSize: 24,fontWeight: FontWeight.w500),),
           actions: [
-            IconButton(
-              icon: Icon(Icons.notifications),
-              onPressed: () {},
-            ),
+            
           ],
         ),
         body: Padding(
@@ -85,7 +78,7 @@ class SavedItemsPage extends StatelessWidget {
                                   style: GoogleFonts.poppins(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
-                                      color: Color(0xff115DB1)),
+                                      color: primary_blue),
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -110,7 +103,7 @@ class SavedItemsPage extends StatelessWidget {
                                 ),
                                 itemCount: _wishlist.value.data.length,
                                 itemBuilder: (context, index) {
-                                  print(_wishlist.value.data.length);
+                                  
                                   return Container(
                                     child: Column(
                                       crossAxisAlignment:
@@ -152,7 +145,7 @@ class SavedItemsPage extends StatelessWidget {
                                                               .data[index]
                                                               .product
                                                               .images[0]
-                                                              .mediumImageUrl
+                                                              .mediumimageUrl
                                                           : "https://staging.mytestserver.space/public/themes/shop/default/build/assets/medium-product-placeholder-3b1a7b7d.webp",
                                                       placeholder: (context,
                                                               url) =>
@@ -160,7 +153,7 @@ class SavedItemsPage extends StatelessWidget {
                                                             child:
                                                                 CircularProgressIndicator(
                                                               color:
-                                                                  Color(0xff115DB1),
+                                                                  primary_blue,
                                                             ),
                                                           )),
                                                 ),

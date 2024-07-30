@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/Affiliate/bindings/affiliate_binding.dart';
 import '../modules/Affiliate/views/affiliate_view.dart';
+import '../modules/EventOrganizer/bindings/event_organizer_binding.dart';
+import '../modules/EventOrganizer/views/event_organizer_view.dart';
 import '../modules/authentication/bindings/authentication_binding.dart';
 import '../modules/authentication/views/authentication_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -41,8 +43,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.AFFILIATE,
-      page: () =>  AffiliateView(),
+      page: () => AffiliateView(),
       binding: AffiliateBinding(),
+    ),
+    GetPage(
+      name: _Paths.EVENT_ORGANIZER,
+      page: () =>  EventOrganizerView(),
+      binding: EventOrganizerBinding(),
     ),
   ];
 }

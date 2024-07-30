@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
 import 'package:pazimo/app/modules/home/views/Screen/myorderd_Or_myticketcard.dart';
 import 'package:pazimo/app/modules/home/views/Screen/myticketsDetails.dart';
+import 'package:pazimo/theme/themedata.dart';
 
 class MyTicketsPage extends StatelessWidget {
   final HomeController controller = Get.find<HomeController>();
@@ -19,7 +20,7 @@ class MyTicketsPage extends StatelessWidget {
           centerTitle: true,
           title: Text(
             'My Tickets',
-            style: GoogleFonts.poppins(fontSize: 16),
+            style: GoogleFonts.poppins(color: primary_blue, fontSize: 24,fontWeight: FontWeight.w500),
           ),
         ),
         body: Column(

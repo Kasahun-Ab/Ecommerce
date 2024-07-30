@@ -11,12 +11,13 @@ class SplashScreen extends StatelessWidget {
   final OnboardingController controller = Get.put(OnboardingController());
   @override
   Widget build(BuildContext context) {
+   
     Future.delayed(Duration(seconds: 3), () {
       controller.onborging.value == "end"
           ? (controller.userData != null && controller.userData!.token != "")
-              ? Get.offNamed(Routes.VENDOR)
+              ? Get.offNamed(Routes.HOME)
               : Get.offNamed(Routes.AUTHENTICATION)
-          : Get.off(() => OnboardingScreen());
+          :Get.off(() => OnboardingScreen());
     });
 
     return Scaffold(

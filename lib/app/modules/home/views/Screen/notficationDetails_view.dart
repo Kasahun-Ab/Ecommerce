@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pazimo/app/data/notfication.dart' ;
+import 'package:pazimo/theme/themedata.dart';
 
 
 
@@ -77,7 +78,7 @@ class NotificationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notifications', style: GoogleFonts.poppins()),
+        title: Text('Notifications', style: GoogleFonts.poppins(color: primary_blue, fontSize: 24,fontWeight: FontWeight.w500)),
       ),
       body: Obx(() {
         var uniqueDates = notificationController.getUniqueDates();

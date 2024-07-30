@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pazimo/theme/themedata.dart';
 
 // ignore: must_be_immutable
 class AuthTextField extends StatefulWidget {
@@ -57,7 +58,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
           style: GoogleFonts.poppins(
             fontSize: 16,
             fontWeight: FontWeight.w700,
-            color: Color(0xff115DB1),
+            color: primary_back,
           ),
         ),
         SizedBox(height: 8),
@@ -75,17 +76,17 @@ class _AuthTextFieldState extends State<AuthTextField> {
                   border: OutlineInputBorder(
                     borderSide:
                         BorderSide(color: Color.fromARGB(59, 85, 85, 85)),
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                   errorStyle: GoogleFonts.poppins(fontSize: 16),
                   focusedErrorBorder: OutlineInputBorder(
                     borderSide:
                         BorderSide(color: Color.fromARGB(255, 253, 19, 2)),
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                   hintText: widget.hint,
                   hintStyle: GoogleFonts.poppins(color: Colors.grey),

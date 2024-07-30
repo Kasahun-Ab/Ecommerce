@@ -1,21 +1,15 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
-import 'package:shimmer/shimmer.dart';
 
-import '../../../../../api/Api_Methods/allmethodsapi.dart';
 import '../../../../../theme/themedata.dart';
 import '../../../../Shimmer/gridproductCardShimmer.dart';
 
-import '../../../../data/productModel.dart';
 import '../../../Components/gridProductCard.dart';
 import 'categoriousDetails.dart';
-import 'product_details.dart';
 
 class Shop extends StatelessWidget {
   Shop({super.key});
@@ -36,8 +30,8 @@ class Shop extends StatelessWidget {
                 "Shop",
                 style: GoogleFonts.poppins(
                     color: primary_blue,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600),
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500),
               ),
               SizedBox(height: 10),
               Padding(

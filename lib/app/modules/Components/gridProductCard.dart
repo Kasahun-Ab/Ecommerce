@@ -63,7 +63,7 @@ Widget gridCard(List<Datum> product) {
                                               .data[index].images.length !=
                                           0
                                       ? controller.products.value.data[index]
-                                          .images[0]['medium_image_url']
+                                          .images[0].mediumImageUrl
                                       : "https://staging.mytestserver.space/public/themes/shop/default/build/assets/medium-product-placeholder-3b1a7b7d.webp",
                                   placeholder: (context, url) => Center(
                                         child: CircularProgressIndicator(

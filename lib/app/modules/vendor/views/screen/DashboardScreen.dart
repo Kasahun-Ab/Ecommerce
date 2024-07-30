@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pazimo/theme/themedata.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import 'analytics.dart';
@@ -32,6 +33,8 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ScrollControllerWidget();
     return Scaffold(
+
+      backgroundColor: primary_white,
       floatingActionButton: GetX<FabController>(
         builder: (controller) {
           return controller.isFabVisible.value
@@ -49,7 +52,13 @@ class DashboardPage extends StatelessWidget {
               : SizedBox.shrink();
         },
       ),
+      
       appBar: AppBar(
+       
+     surfaceTintColor: primary_white,
+       backgroundColor: primary_white,
+       shadowColor: const Color.fromARGB(113, 0, 0, 0),
+       elevation: 1,
         leading: Icon(
           Icons.arrow_back,
           color: Color(0xff115DB1),
@@ -486,6 +495,7 @@ class DashboardPage extends StatelessWidget {
       ),
     );
   }
+
 }
 
 class FabController extends GetxController {

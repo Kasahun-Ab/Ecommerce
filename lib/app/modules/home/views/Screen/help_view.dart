@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pazimo/theme/themedata.dart';
 
 class HelpCenter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Help Center', style: GoogleFonts.poppins()),
+        title: Text('Help Center', style: GoogleFonts.poppins(color: primary_blue, fontSize: 24,fontWeight: FontWeight.w500)),
       ),
       body: ListView(
         padding: EdgeInsets.all(16.0),
