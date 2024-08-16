@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:pazimo/theme/themedata.dart';
 
 import '../../../Components/search_textfield.dart';
-
 
 class CategoryController extends GetxController {
   var mostUsed = [
@@ -35,7 +35,9 @@ class CategoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
+        backgroundColor: primary_white,
         title: Text('Categories'),
       ),
       body: Padding(
@@ -112,7 +114,8 @@ class CategoryPage extends StatelessWidget {
                                 width: 13,
                                 height: 13,
                                 decoration: BoxDecoration(
-                                    shape: BoxShape.circle, color: Color(0xff115DB1)))
+                                    shape: BoxShape.circle,
+                                    color: Color(0xff115DB1)))
                             : null,
                         padding: EdgeInsets.all(2),
                         decoration: BoxDecoration(

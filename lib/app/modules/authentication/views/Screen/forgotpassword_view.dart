@@ -5,6 +5,7 @@ import 'package:pazimo/app/modules/Components/headersubtitle.dart';
 
 import 'package:pazimo/app/modules/authentication/views/Screen/restpassword_view.dart';
 import 'package:pazimo/app/modules/authentication/validator/validator.dart';
+import 'package:pazimo/theme/themedata.dart';
 
 import '../../../Components/Auth_textfield.dart';
 import '../../../Components/header_title.dart';
@@ -50,7 +51,7 @@ class ForgotpasswordView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 32.0),
                 child: Button(
                   title: "Send Code",
-                  color: Colors.blue,
+                  color: primary_blue,
                   onPressed: () {
                     Get.to(ResetPassword());
                   },

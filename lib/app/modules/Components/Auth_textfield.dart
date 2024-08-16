@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pazimo/theme/themedata.dart';
@@ -56,12 +57,12 @@ class _AuthTextFieldState extends State<AuthTextField> {
         Text(
           widget.label,
           style: GoogleFonts.poppins(
-            fontSize: 16,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w700,
             color: primary_back,
           ),
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 8.h),
         Obx(
           () => Column(
             children: [
@@ -76,22 +77,22 @@ class _AuthTextFieldState extends State<AuthTextField> {
                   border: OutlineInputBorder(
                     borderSide:
                         BorderSide(color: Color.fromARGB(59, 85, 85, 85)),
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(30.sp),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green),
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(30.sp),
                   ),
-                  errorStyle: GoogleFonts.poppins(fontSize: 16),
+                  errorStyle: GoogleFonts.poppins(fontSize: 16.sp),
                   focusedErrorBorder: OutlineInputBorder(
                     borderSide:
                         BorderSide(color: Color.fromARGB(255, 253, 19, 2)),
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(30.sp),
                   ),
                   hintText: widget.hint,
                   hintStyle: GoogleFonts.poppins(color: Colors.grey),
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+                  contentPadding: EdgeInsets.symmetric(
+                      horizontal: 16.0.w, vertical: 10.0.h),
                   errorMaxLines: 2,
                   suffixIcon: _first.value
                       ? null
@@ -106,8 +107,8 @@ class _AuthTextFieldState extends State<AuthTextField> {
                 Align(
                     alignment: Alignment.centerRight,
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: .0, vertical: 10),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 0.0.w, vertical: 10.h),
                       child: GestureDetector(
                         onTap: () {
                           showpassword.value = !showpassword.value;
@@ -116,14 +117,14 @@ class _AuthTextFieldState extends State<AuthTextField> {
                             ? Text(
                                 "Show password",
                                 style: GoogleFonts.poppins(
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                     color: Color(0xff115DB1),
                                     fontWeight: FontWeight.w400),
                               )
                             : Text(
                                 "Hide password",
                                 style: GoogleFonts.poppins(
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                     color: Color(0xff115DB1),
                                     fontWeight: FontWeight.w400),
                               ),

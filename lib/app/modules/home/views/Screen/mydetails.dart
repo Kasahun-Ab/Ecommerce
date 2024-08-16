@@ -1,8 +1,7 @@
-import 'dart:convert';
 
 import 'dart:io';
 
-import 'package:dio/dio.dart' ;
+import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pazimo/theme/themedata.dart';
@@ -14,11 +13,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:pazimo/app/modules/Components/gridProductCard.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
 
 import '../../../../../api/Api_Methods/allmethodsapi.dart';
-import '../../../../data/Customer.dart';
 
 class UserController extends getx.GetxController {
   HomeController controller = getx.Get.find<HomeController>();
@@ -54,7 +51,7 @@ class UserController extends getx.GetxController {
   void updateDateOfBirth(DateTime date) {
     dateOfBirth.value = date;
   }
-
+ 
   void updateGender(String gender) {
     this.gender.value = gender;
   }
@@ -89,8 +86,6 @@ class MyDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
-   
     updateProfile() async {
       if (_formKey.currentState!.validate()) {
         List<String> names = userController.fullName.value.split(' ');
@@ -104,42 +99,42 @@ class MyDetailsPage extends StatelessWidget {
               .toString(),
           "phone": "0${userController.phoneNumber.value.toString()}",
           "email": userController.email.value.toString(),
-
         };
- MultipartFile? multipartFile;
-    if (userController.imageFile.value!=null) {
-      multipartFile = await MultipartFile.fromFile(userController.imageFile.value!.path, filename: 'upload.jpg');
-    }
+        MultipartFile? multipartFile;
+        if (userController.imageFile.value != null) {
+          multipartFile = await MultipartFile.fromFile(
+              userController.imageFile.value!.path,
+              filename: 'upload.jpg');
+        }
 
-FormData formData =new FormData.fromMap({
-
-      ...userData,
-       'image': multipartFile,
-      // 'image': await MultipartFile.fromFile(userController.imageFile.value!.path, filename: 'upload.jpg'),
-    });
-  //    formData.fields.forEach((field) {
-  //   print('Field: ${field.key} = ${field.value}');
-  // });
+        FormData formData = new FormData.fromMap({
+          ...userData,
+          'image': multipartFile,
+          // 'image': await MultipartFile.fromFile(userController.imageFile.value!.path, filename: 'upload.jpg'),
+        });
+        //    formData.fields.forEach((field) {
+        //   print('Field: ${field.key} = ${field.value}');
+        // });
         final response = await _api.changeProfile(formData);
-EasyLoading.dismiss();
+        EasyLoading.dismiss();
         // if (response!.statusCode == 200) {
         //   user.Data data = await user.Data.fromJson(response.data['data']);
 
-          // Customerdata customer = Customerdata(
-          //     data: data, message: '', token: controller.userData!.token);
+        // Customerdata customer = Customerdata(
+        //     data: data, message: '', token: controller.userData!.token);
 
-          // String _customerData = CustomerdataToJson(customer);
+        // String _customerData = CustomerdataToJson(customer);
 
-          // // await _getStorage.write('loginResponse', _customerData);
+        // // await _getStorage.write('loginResponse', _customerData);
 
-          // final storedData = await _getStorage.read('loginResponse');
-          // print(storedData);
-          // if (storedData != null &&
-          //     json.encode(storedData) == json.encode(_customerData)) {
-          //   controller.userData = await controller.getLoginResponse();
-          //   userController.Intialization();
-          //   EasyLoading.dismiss();
-          // }
+        // final storedData = await _getStorage.read('loginResponse');
+        // print(storedData);
+        // if (storedData != null &&
+        //     json.encode(storedData) == json.encode(_customerData)) {
+        //   controller.userData = await controller.getLoginResponse();
+        //   userController.Intialization();
+        //   EasyLoading.dismiss();
+        // }
         // }
       }
     }
@@ -153,7 +148,6 @@ EasyLoading.dismiss();
             pinned: true,
             floating: true,
             snap: true,
-         
             centerTitle: true,
             backgroundColor: primary_white,
             title: Text(
@@ -187,7 +181,8 @@ EasyLoading.dismiss();
                           getx.Obx(
                             () => Stack(
                               children: [
-                                getImage(userController.imageFile.value != null),
+                                getImage(
+                                    userController.imageFile.value != null),
                                 Positioned(
                                   bottom: 0,
                                   right: 0,
@@ -278,7 +273,7 @@ EasyLoading.dismiss();
                             ),
                           ),
                           SizedBox(height: 4),
-                         getx. Obx(() => TextFormField(
+                          getx.Obx(() => TextFormField(
                                 controller: TextEditingController(
                                   text: DateFormat('MM/dd/yyyy')
                                       .format(userController.dateOfBirth.value),
@@ -306,13 +301,16 @@ EasyLoading.dismiss();
                                 onTap: () async {
                                   DateTime? pickedDate = await showDatePicker(
                                     context: context,
-                                    initialDate: userController.dateOfBirth.value,
+                                    initialDate:
+                                        userController.dateOfBirth.value,
                                     firstDate: DateTime(1900),
                                     lastDate: DateTime.now(),
                                   );
                                   if (pickedDate != null &&
-                                      pickedDate != userController.dateOfBirth.value) {
-                                    userController.updateDateOfBirth(pickedDate);
+                                      pickedDate !=
+                                          userController.dateOfBirth.value) {
+                                    userController
+                                        .updateDateOfBirth(pickedDate);
                                   }
                                 },
                                 validator: (value) {
@@ -337,7 +335,7 @@ EasyLoading.dismiss();
                             ),
                           ),
                           SizedBox(height: 4),
-                         getx. Obx(() => Container(
+                          getx.Obx(() => Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     color: Color(0xffE6E6E6),
@@ -360,7 +358,8 @@ EasyLoading.dismiss();
                                     'Male',
                                     'Female',
                                     'Other'
-                                  ].map<DropdownMenuItem<String>>((String value) {
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
                                       child: Text(value),
@@ -389,24 +388,28 @@ EasyLoading.dismiss();
                             ),
                           ),
                           SizedBox(height: 4),
-                         getx. Obx(() => IntlPhoneField(
+                          getx.Obx(() => IntlPhoneField(
                                 readOnly: true,
-                                style: GoogleFonts.poppins(color: Color(0xff115DB1)),
+                                style: GoogleFonts.poppins(
+                                    color: Color(0xff115DB1)),
                                 decoration: InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
                                     vertical: 4,
                                   ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide(color: Color(0xffE6E6E6)),
+                                    borderSide:
+                                        BorderSide(color: Color(0xffE6E6E6)),
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide(color: Color(0xffE6E6E6)),
+                                    borderSide:
+                                        BorderSide(color: Color(0xffE6E6E6)),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide(color: Color(0xffE6E6E6)),
+                                    borderSide:
+                                        BorderSide(color: Color(0xffE6E6E6)),
                                   ),
                                 ),
                                 initialCountryCode: 'ET',

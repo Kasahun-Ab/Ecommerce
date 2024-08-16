@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../theme/themedata.dart';
+
 class BusinessDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+backgroundColor: primary_white,
       appBar: AppBar(
+        backgroundColor: primary_white,
         title: Text(
           'Business Detail',
           style: TextStyle(color: Colors.blue),
         ),
         centerTitle: true,
         iconTheme: IconThemeData(color: Colors.blue),
-        backgroundColor: Colors.white,
+        
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

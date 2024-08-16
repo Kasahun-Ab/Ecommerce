@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pazimo/theme/themedata.dart';
 
-class Button extends StatelessWidget {
+class SigninSocialButton extends StatelessWidget {
   final String title;
   final Color color;
   final VoidCallback onPressed;
@@ -12,8 +13,8 @@ class Button extends StatelessWidget {
   final String iconSource;
   final Color textColor;
   final bool hasIcon;
-
-  Button({
+  final bool isapple;
+  SigninSocialButton({
     Key? key,
     required this.title,
     required this.color,
@@ -23,6 +24,7 @@ class Button extends StatelessWidget {
     this.iconSource = '',
     this.textColor = Colors.white,
     required this.hasIcon,
+    required this.isapple
   }) : super(key: key);
 
   @override
@@ -30,34 +32,35 @@ class Button extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: hasBorder ? Colors.white : color, // Background color
-        // onPrimary: hasBorder ? color : textColor, // Text color
+        backgroundColor: hasBorder ? Colors.white : color, // background color
         side: hasBorder
             ? BorderSide(
                 width: 1.w,
-                color: color,
+                color: primary_back,
               )
-            : BorderSide.none, // Border color
+            : BorderSide.none, // border color
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.sp),
         ),
-        minimumSize: Size(MediaQuery.of(context).size.width, 55.h),
-        padding: EdgeInsets.zero, // Remove internal padding
+        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.h),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           iconDirectionIsRight
               ? Container()
-              : SvgPicture.asset(iconSource,
-                  width: 24.w), // Adjust icon size as needed
-          SizedBox(width: 10.w),
+              : SvgPicture.asset(
+                  width: 30.w,
+                  iconSource,
+                  color: isapple?textColor:null,
+                ),
+          SizedBox(width: 5.w),
           Text(
             title,
             style: GoogleFonts.poppins(
               color: hasBorder ? color : textColor,
-              fontWeight: FontWeight.w400,
-              fontSize: 16.sp,
+              fontWeight: FontWeight.w500,
+              fontSize: 17.sp,
             ),
           ),
           SizedBox(width: 10.w),

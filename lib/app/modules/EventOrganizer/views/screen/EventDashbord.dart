@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pazimo/theme/themedata.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../Affiliate/views/screen/AffiliateDashbord.dart';
 
-class Dashbord extends StatelessWidget{
-
+class Dashbord extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,27 +19,35 @@ class Dashbord extends StatelessWidget{
         shadowColor: Color.fromARGB(255, 255, 255, 255),
         elevation: 1,
         backgroundColor: primary_white,
-      
-        title:  Text('Dashbord',style: GoogleFonts.poppins(
-          fontSize: 24,
-          color: primary_blue,
-          fontWeight: FontWeight.w500
-        ),),
+        title: Text(
+          'Dashbord',
+          style: GoogleFonts.poppins(
+              fontSize: 24, color: primary_blue, fontWeight: FontWeight.w500),
+        ),
         centerTitle: true,
       ),
-      body:  SingleChildScrollView(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-          Text("Analytics",style: GoogleFonts.poppins(fontSize: 20,fontWeight: FontWeight.w500),),
-          IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward,color: primary_blue,))
-        ],),
-
-        Row(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Analytics",
+                  style: GoogleFonts.poppins(
+                      fontSize: 20, fontWeight: FontWeight.w500),
+                ),
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.arrow_forward,
+                      color: primary_blue,
+                    ))
+              ],
+            ),
+            Row(
               children: [
                 _buildAnalyticsContainer(
                   icon: Icons.attach_money,
@@ -81,36 +87,62 @@ class Dashbord extends StatelessWidget{
               ],
             ),
             SizedBox(height: 20),
-            Text("Scan your tickets here",style: GoogleFonts.poppins(fontSize: 13 , color: Color(0xff4D4D4D), fontWeight: FontWeight.w400),)
-        ,SizedBox(height: 10),
-        ElevatedButton(
-          style:ElevatedButton.styleFrom(
-            backgroundColor: primary_white,
-              shadowColor: Colors.black, // shadow color
-    elevation: 5,
-     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10), // border radius
-    ), ),
-          onPressed: (){}, child: Padding(
-            padding: const EdgeInsets.symmetric(vertical:  8.0),
-            child: Row(
+            Text(
+              "Scan your tickets here",
+              style: GoogleFonts.poppins(
+                  fontSize: 13,
+                  color: Color(0xff4D4D4D),
+                  fontWeight: FontWeight.w400),
+            ),
+            SizedBox(height: 10),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: primary_white,
+                  shadowColor: Colors.black, // shadow color
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10), // border radius
+                  ),
+                ),
+                onPressed: () {},
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Ticket \nscanner",
+                        style: GoogleFonts.poppins(
+                          color: primary_back,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 24,
+                        ),
+                      ),
+                      Image.asset("assets/images/scanner 2.png")
+                    ],
+                  ),
+                )),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-            Text("Ticket \nscanner",style: GoogleFonts.poppins(
-              color: primary_back,
-              fontWeight: FontWeight.w600, fontSize: 24,),)
-                   , Image.asset("assets/images/scanner 2.png")
-                    ],),
-          )),
-          SizedBox(height: 20,),
-          Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-          Text("Tickets",style: GoogleFonts.poppins(fontSize: 20,fontWeight: FontWeight.w500),),
-          Text("See all Scans",style: GoogleFonts.poppins( color: primary_blue),)
-        ],),
-        SizedBox(height: 10,),
-         Row(
+                Text(
+                  "Tickets",
+                  style: GoogleFonts.poppins(
+                      fontSize: 20, fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  "See all Scans",
+                  style: GoogleFonts.poppins(color: primary_blue),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildTimeFilter('1W'),
@@ -121,67 +153,69 @@ class Dashbord extends StatelessWidget{
               ],
             ),
             SizedBox(height: 20),
-            Center(child: _buildOrderDetailsContainer(),),
-            SizedBox(child:  Container(
-              margin: EdgeInsets.symmetric(vertical: 20),
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      orderText("Order no.", "#202402220-0002322"),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            "ETB 78,000",
-                            style: GoogleFonts.poppins(
-                                color: Color(0xff115DB1),
-                                fontWeight: FontWeight.w700,
-                                fontSize: 23),
-                          ),
-                          Text(
-                            "paid",
-                            style: GoogleFonts.poppins(
-                                color: Colors.green,
-                                fontWeight: FontWeight.w500),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                  orderText("Customer Name ", "Abebe Chala"),
-                  SizedBox(height: 10),
-                  orderText("Delivery Status", "Pending"),
-                  SizedBox(height: 10),
-                  orderText("Product", "Iphone 15 pro max"),
-                  SizedBox(height: 10),
-                  orderText("Order date", "2 April 2024 04:25 PM"),
-                ],
-              ),
+            Center(
+              child: _buildOrderDetailsContainer(),
             ),
-      )
-
-        ],
-        
+            SizedBox(
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: 20),
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        orderText("Order no.", "#202402220-0002322"),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              "ETB 78,000",
+                              style: GoogleFonts.poppins(
+                                  color: Color(0xff115DB1),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 23),
+                            ),
+                            Text(
+                              "paid",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    orderText("Customer Name ", "Abebe Chala"),
+                    SizedBox(height: 10),
+                    orderText("Delivery Status", "Pending"),
+                    SizedBox(height: 10),
+                    orderText("Product", "Iphone 15 pro max"),
+                    SizedBox(height: 10),
+                    orderText("Order date", "2 April 2024 04:25 PM"),
+                  ],
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
   }
+
   Column orderText(String upper, String lower) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -198,12 +232,14 @@ class Dashbord extends StatelessWidget{
     );
   }
 
-Widget _buildTimeFilter(String data){
-return Container(
-  color: Colors.black12,
-  padding: EdgeInsets.all(5),
-  child: Center(child: Text(data),));
-}
+  Widget _buildTimeFilter(String data) {
+    return Container(
+        color: Colors.black12,
+        padding: EdgeInsets.all(5),
+        child: Center(
+          child: Text(data),
+        ));
+  }
 
   Widget _buildOrderDetailsContainer() {
     List<ChartData> getChartData() {
@@ -305,7 +341,6 @@ return Container(
       ),
     );
   }
-
 
   Widget _buildAnalyticsContainer({
     required IconData icon,

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pazimo/app/modules/onbording/controllers/onbording_controller.dart';
+import '../../../../../theme/themedata.dart';
 import '../../../Components/long_button.dart';
 // import '../controllers/onbording_controller.dart';
 
@@ -31,6 +32,7 @@ class OnboardingScreen1 extends StatelessWidget {
     final onboardingController = Get.find<OnboardingController>();
 
     return Scaffold(
+      backgroundColor: primary_white,
       body: SafeArea(
         child: Stack(
           children: [

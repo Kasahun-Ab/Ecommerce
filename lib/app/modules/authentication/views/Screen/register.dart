@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pazimo/app/modules/Components/socialMediaButton.dart';
 import 'package:pazimo/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:pazimo/app/modules/authentication/views/Screen/otp_view.dart';
 import 'package:pazimo/theme/themedata.dart';
@@ -30,12 +32,12 @@ class RegisterView extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 16.0.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                height: 30.h,
               ),
               HeaderTitle(
                 title: 'Create an account',
@@ -43,8 +45,8 @@ class RegisterView extends StatelessWidget {
               HeaderSubtitle(
                 title: '',
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: 15.h,
               ),
               Obx(
                 () => Form(
@@ -61,8 +63,8 @@ class RegisterView extends StatelessWidget {
                         obscureText: false,
                         enabled: !isLoading.value,
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: 10.h,
                       ),
                       AuthTextField(
                         formKey: GlobalKey<FormState>(),
@@ -74,8 +76,8 @@ class RegisterView extends StatelessWidget {
                         textInputType: TextInputType.text,
                         enabled: !isLoading.value,
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: 10.h,
                       ),
                       AuthTextField(
                         formKey: GlobalKey<FormState>(),
@@ -87,20 +89,20 @@ class RegisterView extends StatelessWidget {
                         textInputType: TextInputType.visiblePassword,
                         enabled: !isLoading.value,
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: 10.h,
                       ),
                       RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
                           text: 'By signing up you agree to our ',
                           style: GoogleFonts.poppins(
-                              fontSize: 16, color: primary_blue),
+                              fontSize: 16.sp, color: primary_blue),
                           children: [
                             TextSpan(
                               text: 'Terms',
                               style: GoogleFonts.poppins(
-                                fontSize: 16,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w600,
                                 color: primary_blue,
                                 decoration: TextDecoration.underline,
@@ -113,13 +115,13 @@ class RegisterView extends StatelessWidget {
                             TextSpan(
                               text: ', ',
                               style: GoogleFonts.poppins(
-                                  fontSize: 16, color: primary_blue),
+                                  fontSize: 16.sp, color: primary_blue),
                             ),
                             TextSpan(
                               text: 'Privacy Policy',
                               style: GoogleFonts.poppins(
                                 color: primary_blue,
-                                fontSize: 16,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w600,
                                 decoration: TextDecoration.underline,
                               ),
@@ -130,12 +132,12 @@ class RegisterView extends StatelessWidget {
                             TextSpan(
                               text: ', and ',
                               style: GoogleFonts.poppins(
-                                  fontSize: 16, color: primary_blue),
+                                  fontSize: 16.sp, color: primary_blue),
                             ),
                             TextSpan(
                               text: 'Cookie Use',
                               style: GoogleFonts.poppins(
-                                fontSize: 16,
+                                fontSize: 16.sp,
                                 color: primary_blue,
                               ),
                             ),
@@ -177,7 +179,7 @@ class RegisterView extends StatelessWidget {
                               ? Text('Create an Account ',
                                   style: GoogleFonts.poppins(
                                       color: Colors.white,
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       fontWeight: FontWeight.w600))
                               : CupertinoActivityIndicator(
                                   color: Colors.white,
@@ -185,68 +187,68 @@ class RegisterView extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: primary_blue,
                             padding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
+                                vertical: 10.h, horizontal: 10.w),
                             textStyle: GoogleFonts.poppins(fontSize: 16),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
+                              borderRadius: BorderRadius.circular(30.r),
                             ),
-                            minimumSize: Size(double.infinity, 48),
+                            minimumSize: Size(double.infinity, 48.h),
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: 10.h,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width / 2.6,
+                            width: MediaQuery.of(context).size.width / 2.6.w,
                             height: 1,
                             color: const Color.fromARGB(127, 158, 158, 158),
                           ),
                           Text(
                             "Or",
-                            style: GoogleFonts.poppins(fontSize: 16),
+                            style: GoogleFonts.poppins(fontSize: 16.sp),
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width / 2.6,
+                            width: MediaQuery.of(context).size.width / 2.6.w,
                             height: 1,
                             color: const Color.fromARGB(127, 158, 158, 158),
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: 10.h,
                       ),
-                     
-Row (
-   mainAxisAlignment: MainAxisAlignment.spaceAround,
-  children: [
-   Button(
-                        title: 'Sign Up',
-                        color: primary_blue,
-                        onPressed: () async {
-                          controller.signInGoogle();
-                        },
-                        hasBorder: true,
-                        iconDirectionIsRight: false,
-                        iconSource: 'assets/svg/google_icons.svg',
-                        hasIcon: true,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SigninSocialButton(
+                            title: 'Sign Up',
+                            color: primary_blue,
+                            onPressed: () async {
+                              controller.signInGoogle();
+                            },
+                            hasBorder: true,
+                            iconDirectionIsRight: false,
+                            iconSource: 'assets/svg/google_icons.svg',
+                            hasIcon: true,
+                            isapple: false,
+                          ),
+                          SigninSocialButton(
+                              title: 'Sign Up',
+                              color: primary_back,
+                              onPressed: () async {
+                                controller.signInGoogle();
+                              },
+                              hasBorder: false,
+                              iconDirectionIsRight: false,
+                              iconSource: 'assets/svg/apple.svg',
+                              hasIcon: true,
+                              isapple: true),
+                        ],
                       ),
-                       Button(
-                        title: 'Sign Up',
-                        color: primary_blue,
-                        onPressed: () async {
-                          controller.signInGoogle();
-                        },
-                        hasBorder: true,
-                        iconDirectionIsRight: false,
-                        iconSource: 'assets/svg/google_icons.svg',
-                        hasIcon: true,
-                      ),
-],),
-
                       const SizedBox(
                         height: 15,
                       ),

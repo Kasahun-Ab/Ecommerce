@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../theme/themedata.dart';
 import '../../../Components/search_textfield.dart';
 import 'ProductEdit.dart';
 import 'prooductDetails_vender.dart';
@@ -9,8 +10,9 @@ class ProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: primary_white,
       appBar: AppBar(
+        backgroundColor: primary_white,
         centerTitle: true,
         title: Text(
           'Products',

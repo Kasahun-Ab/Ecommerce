@@ -14,6 +14,7 @@ import 'package:pazimo/app/data/productDetails.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../../api/Api_Methods/allmethodsapi.dart';
+import '../../../../../theme/themedata.dart';
 import '../../../Components/Expantion_button.dart';
 import '../../../home/views/Screen/review.dart';
 
@@ -113,7 +114,9 @@ class ProductDetailView extends StatelessWidget {
     details();
     Map<String, dynamic> detailsToAdd = {};
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
+        backgroundColor: primary_white,
         // toolbarHeight: 80,
         centerTitle: true,
         title: Text(

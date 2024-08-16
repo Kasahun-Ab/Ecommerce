@@ -16,11 +16,14 @@ class MyTicketsPage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: primary_white,
         appBar: AppBar(
+          backgroundColor: primary_white,
           centerTitle: true,
           title: Text(
             'My Tickets',
-            style: GoogleFonts.poppins(color: primary_blue, fontSize: 24,fontWeight: FontWeight.w500),
+            style: GoogleFonts.poppins(
+                color: primary_blue, fontSize: 24, fontWeight: FontWeight.w500),
           ),
         ),
         body: Column(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pazimo/app/modules/home/views/Screen/search_view.dart';
 
@@ -13,24 +14,24 @@ class search extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 45,
+      height: 55.h,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(50),
-        border: Border.all(color: Colors.black, width: 1),
+        borderRadius: BorderRadius.circular(50.sp),
+        border: Border.all(color: primary_back, width: 1.w),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.all(4.0),
+            padding: EdgeInsets.all(4.0.w),
             child: Container(
-              width: 30,
-              height: 30,
+              width: 30.w,
+              height: 30.h,
               child: Image.asset(
                 "assets/images/logo.png",
-                width: 30,
-                height: 30,
+                width: 30.w,
+                height: 30.h,
               ),
             ),
           ),
@@ -39,7 +40,7 @@ class search extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: EdgeInsets.symmetric(horizontal: 8.0.w),
               child: TextField(
                 onTap: () {
                   FocusScope.of(context).requestFocus(FocusNode());
@@ -54,10 +55,10 @@ class search extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0.w),
             child: Container(
-              width: 53,
-              height: 32,
+              width: 53.w,
+              height: 32.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(17),
                 color: primary_blue,
@@ -65,7 +66,7 @@ class search extends StatelessWidget {
               ),
               child: Icon(
                 Icons.search,
-                size: 28,
+                size: 28.sp,
                 color: Colors.white,
                 shadows: [
                   Shadow(

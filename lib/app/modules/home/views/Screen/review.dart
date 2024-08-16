@@ -15,8 +15,9 @@ class ReviewsPage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     RxBool isOpen = true.obs;
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: primary_white,
         centerTitle: true,
         title: Text(
           "Reviews",

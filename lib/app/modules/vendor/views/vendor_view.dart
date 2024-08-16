@@ -27,16 +27,14 @@ class VendorView extends GetView<VendorController> {
     ];
 
     return SafeArea(
-    
         child: Obx(() => Scaffold(
-          
-
+            backgroundColor: primary_white,
             body: pages[_selectedIndex.value],
             bottomNavigationBar: BottomAppBar(
-              shadowColor: primary_back,
-              elevation: 10,
-              surfaceTintColor: primary_white,
-              color: primary_white,
+                shadowColor: primary_back,
+                elevation: 10,
+                surfaceTintColor: primary_white,
+                color: primary_white,
                 shape: CircularNotchedRectangle(),
                 notchMargin: 6.0,
                 child: Container(

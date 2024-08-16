@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pazimo/app/modules/Components/Auth_textfield.dart';
 import 'package:pazimo/app/modules/authentication/validator/validator.dart';
+import 'package:pazimo/theme/themedata.dart';
 
 import '../../../Components/header_title.dart';
 import '../../../Components/headersubtitle.dart';
@@ -22,7 +24,7 @@ class ResetPassword extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -30,11 +32,11 @@ class ResetPassword extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     HeaderTitle(title: "Reset Password"),
-                    SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     HeaderSubtitle(
                         title:
                             "Set the new password for your account so you can login and access all the features"),
-                    SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     AuthTextField(
                       formKey: _formKey,
                       label: "Password",
@@ -42,7 +44,8 @@ class ResetPassword extends StatelessWidget {
                       validator: (value) => validator[1](value),
                       controller: _passwordController,
                       obscureText: true,
-                      textInputType: TextInputType.visiblePassword, enabled: true,
+                      textInputType: TextInputType.visiblePassword,
+                      enabled: true,
                     ),
                     SizedBox(height: 10),
                     AuthTextField(
@@ -52,7 +55,8 @@ class ResetPassword extends StatelessWidget {
                       validator: (value) => validator[1](value),
                       controller: _confirmPasswordController,
                       obscureText: true,
-                      textInputType: TextInputType.visiblePassword, enabled: true,
+                      textInputType: TextInputType.visiblePassword,
+                      enabled: true,
                     ),
                   ],
                 ),
@@ -60,7 +64,7 @@ class ResetPassword extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 32.0),
                   child: Button(
                     title: "Continue",
-                    color: Colors.blue,
+                    color: primary_blue,
                     onPressed: () {
                       Get.dialog(
                         popupDialogbox(
@@ -78,7 +82,7 @@ class ResetPassword extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 30.h,
                 )
               ],
             ),

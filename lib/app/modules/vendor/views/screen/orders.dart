@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../theme/themedata.dart';
+
 class OrdersPage extends StatefulWidget {
   @override
   _OrdersPageState createState() => _OrdersPageState();
@@ -12,7 +14,9 @@ class _OrdersPageState extends State<OrdersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
+        backgroundColor: primary_white,
         title: Text(
           'Orders',
           style: TextStyle(color: Color(0xff115DB1)), // Text color

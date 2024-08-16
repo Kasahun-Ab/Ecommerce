@@ -16,7 +16,9 @@ class myticketsDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
+        backgroundColor: primary_white,
         title: Text(
           'My Ticket',
           style: GoogleFonts.poppins(color: primary_blue, fontSize: 24,fontWeight: FontWeight.w500),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:pazimo/theme/themedata.dart';
 
 class AddressController extends GetxController {
   var selectedNickname = ''.obs;
@@ -32,7 +33,9 @@ class NewAddressScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:primary_white,
       appBar: AppBar(
+         backgroundColor:primary_white,
         centerTitle: true,
         title: Text(
           'New Address',

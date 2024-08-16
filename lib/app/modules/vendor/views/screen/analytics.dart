@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../../../../theme/themedata.dart';
 import 'orders.dart';
 // import 'orders.dart';
 // Import your orders.dart page
@@ -192,7 +193,9 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
+        backgroundColor: primary_white,
         title: Text(
           'Analytics',
           style: TextStyle(color: Color(0xff115DB1)), // Text color

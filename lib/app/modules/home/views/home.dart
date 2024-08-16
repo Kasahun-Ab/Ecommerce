@@ -21,7 +21,7 @@ import 'Screen/saved_items_view.dart';
 import 'Screen/shop.dart';
 
 // ignore: must_be_immutable
-class HomePage extends GetView<HomeController>  {
+class HomePage extends GetView<HomeController> {
   HomePage({Key? key}) : super(key: key);
 
   final HomeController controller = Get.put(HomeController());
@@ -38,7 +38,6 @@ class HomePage extends GetView<HomeController>  {
     print(x);
   }
 
-  
   @override
   Widget build(BuildContext context) {
     List<Widget> Page = [
@@ -62,16 +61,15 @@ class HomePage extends GetView<HomeController>  {
         backgroundColor: primary_white,
         body: Page[controller.selectedIndex.value],
         bottomNavigationBar: BottomAppBar(
-
           shadowColor: const Color.fromARGB(255, 0, 0, 0),
-          elevation: 10,
-       height: 85 ,   
+          elevation: 100,
+          height: 85,
           color: primary_white,
-        
-     
           child: Column(
             children: [
-              SizedBox(height: 5,),
+              SizedBox(
+                height: 5,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
@@ -97,7 +95,7 @@ class HomePage extends GetView<HomeController>  {
                           width: 50.w,
                           child: SvgPicture.asset(
                             height: 22,
-                           color: Colors.black,
+                            color: Colors.black,
                             iconSource[1],
                           ),
                         ),
@@ -113,30 +111,34 @@ class HomePage extends GetView<HomeController>  {
                     ),
                   ),
                   InkWell(
-                    onTap: () =>controller.startShakeAnimation(),
-                   
-                      
-              
+                      onTap: () {
+                        controller.startShakeAnimation();
+                        controller.selectedIndex.value = 2;
+                      },
+
                       // controller.selectedIndex.value = 2,
-                    
-                    child: AnimatedBuilder(
-                      animation: controller.animation,
-                      builder: (BuildContext context, Widget? child) { 
-                        return Container( 
-                          
-              
+
+                      child: AnimatedBuilder(
+                        animation: controller.animation,
+                        builder: (BuildContext context, Widget? child) {
+                          return Container(
                             child: Transform.translate(
-                               offset: Offset(controller.animation.value * ((controller.animation.value % 2 == 0) ? 1 : -1), 0),   
-                                child: Center(child: Image.asset(width: 120.w,height: 35.h, fit: BoxFit.fitHeight, iconSource[2])),
-                            
-                              
-                          ),
-                           
-                                    ); },
-                    
-                    )
-                
-                  ),
+                              offset: Offset(
+                                  controller.animation.value *
+                                      ((controller.animation.value % 2 == 0)
+                                          ? 1
+                                          : -1),
+                                  0),
+                              child: Center(
+                                  child: Image.asset(
+                                      width: 120.w,
+                                      height: 35.h,
+                                      fit: BoxFit.fitHeight,
+                                      iconSource[2])),
+                            ),
+                          );
+                        },
+                      )),
                   InkWell(
                     onTap: () => {
                       controller.selectedIndex.value = 3,
@@ -194,7 +196,6 @@ class HomePage extends GetView<HomeController>  {
   Widget bottomnaveBarItem(String iconSource, int index, String label) {
     return Obx(
       () => Container(
-        
         width: 50.w,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

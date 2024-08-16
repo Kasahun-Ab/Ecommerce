@@ -24,6 +24,7 @@ class CartView extends StatelessWidget {
   Cart? _cart;
   @override
   Widget build(BuildContext context) {
+   
     getCart() async { 
       items.value = [];
       isloading.value = true;

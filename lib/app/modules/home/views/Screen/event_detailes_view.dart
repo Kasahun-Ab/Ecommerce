@@ -8,6 +8,8 @@ import 'package:pazimo/app/modules/Components/icon_button.dart';
 import 'package:pazimo/app/modules/Components/short_button.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
 
+import '../../../../../theme/themedata.dart';
+
 // ignore: must_be_immutable
 class EventDetailPage extends StatelessWidget {
   EventDetailPage({required this.eventName});
@@ -27,7 +29,9 @@ class EventDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       backgroundColor: primary_white,
       appBar: AppBar(
+         backgroundColor: primary_white,
         title: Text(
           'Event details',
           style: GoogleFonts.poppins(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pazimo/theme/themedata.dart';
 
 class HeaderSubtitle extends StatelessWidget {
   final String title;
@@ -13,7 +15,7 @@ class HeaderSubtitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: GoogleFonts.poppins(fontSize: 16, color: Colors.black45),
+      style: GoogleFonts.poppins(fontSize: 16.sp, color: primary_blue),
     );
   }
 }

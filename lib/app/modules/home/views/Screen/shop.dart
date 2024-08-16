@@ -9,6 +9,7 @@ import '../../../../../theme/themedata.dart';
 import '../../../../Shimmer/gridproductCardShimmer.dart';
 
 import '../../../Components/gridProductCard.dart';
+import '../../../Components/search_textfield.dart';
 import 'categoriousDetails.dart';
 
 class Shop extends StatelessWidget {
@@ -25,27 +26,27 @@ class Shop extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Text(
                 "Shop",
                 style: GoogleFonts.poppins(
                     color: primary_blue,
-                    fontSize: 24,
+                    fontSize: 24.sp,
                     fontWeight: FontWeight.w500),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: SearchBar(),
+                padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                child: search(),
               ),
               SizedBox(height: 15),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                 child: Container(
                   width: double.infinity,
                   height: 120.h,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(5.sp),
                       image: DecorationImage(
                           fit: BoxFit.fill,
                           image: AssetImage("assets/images/banner.png"))),
@@ -53,14 +54,14 @@ class Shop extends StatelessWidget {
               ),
               SizedBox(height: 15),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.0.sp),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       "Categories",
                       style: GoogleFonts.poppins(
-                          fontSize: 16, fontWeight: FontWeight.w600),
+                          fontSize: 16.sp, fontWeight: FontWeight.w600),
                     ),
                     InkWell(
                       onTap: () {
@@ -69,22 +70,22 @@ class Shop extends StatelessWidget {
                       child: Text(
                         "See all",
                         style: GoogleFonts.poppins(
-                            fontSize: 16, color: Color(0xff115DB1)),
+                            fontSize: 16.sp, color: Color(0xff115DB1)),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Container(
-                height: 30,
+                height: 40.h,
                 child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                     scrollDirection: Axis.horizontal,
                     itemCount: controller.categories.length,
                     itemBuilder: ((context, index) {
                       return Container(
-                        margin: EdgeInsets.only(right: 15),
+                        margin: EdgeInsets.only(right: 15.w),
                         child: InkWell(
                           onTap: () {
                             selectedCatigories.value =
@@ -93,11 +94,11 @@ class Shop extends StatelessWidget {
                           child: Obx(
                             () => Container(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 6),
+                                    horizontal: 15.w, vertical: 6.h),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(30),
                                   border: Border.all(
-                                      width: 1,
+                                      width: 1.w,
                                       color: selectedCatigories.value ==
                                               controller.categories[index].name
                                           ? Colors.transparent
@@ -111,7 +112,7 @@ class Shop extends StatelessWidget {
                                   child: Text(
                                     controller.categories[index].name,
                                     style: TextStyle(
-                                        fontSize: 13,
+                                        fontSize: 13.sp,
                                         color: selectedCatigories.value ==
                                                 controller
                                                     .categories[index].name
@@ -124,15 +125,15 @@ class Shop extends StatelessWidget {
                       );
                     })),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Obx(() {
                 if (controller.isLoading.isFalse) {
                   return gridproductCardShimmer();
                 } else {
                   return Container(
                     width: double.infinity,
-                    height:
-                        140 * controller.products.value.data.length.toDouble(),
+                    height: 140 *
+                        controller.products.value.data.length.toDouble().h,
                     child: gridCard(controller.products.value.data),
                   );
                 }
@@ -259,52 +260,52 @@ class Shop extends StatelessWidget {
   // }
 }
 
-class SearchBar extends StatelessWidget {
-  const SearchBar({super.key});
+// class SearchBar extends StatelessWidget {
+//   const SearchBar({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          border: Border.all(width: 1, color: Colors.black),
-          borderRadius: BorderRadius.circular(40)),
-      child: Row(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 16),
-            // child: Image.asset("assets/images/logo.png"),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 10),
-            child: Text(
-              "|",
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-          Expanded(
-              child: TextField(
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(top: 4, bottom: 4, left: 10),
-              hintText: 'Search...',
-              border: InputBorder.none,
-            ),
-          )),
-          Container(
-            margin: EdgeInsets.only(right: 10),
-            decoration: BoxDecoration(
-                color: Color(0xff115DB1),
-                borderRadius: BorderRadius.circular(30)),
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
-            child: SvgPicture.asset(
-              "assets/svg/search.svg",
-              color: Colors.white,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: BoxDecoration(
+//           border: Border.all(width: 1, color: Colors.black),
+//           borderRadius: BorderRadius.circular(40)),
+//       child: Row(
+//         children: [
+//           Padding(
+//             padding: EdgeInsets.only(left: 16),
+//             // child: Image.asset("assets/images/logo.png"),
+//           ),
+//           Padding(
+//             padding: EdgeInsets.only(left: 10),
+//             child: Text(
+//               "|",
+//               style: TextStyle(fontSize: 20),
+//             ),
+//           ),
+//           Expanded(
+//               child: TextField(
+//             decoration: InputDecoration(
+//               contentPadding: EdgeInsets.only(top: 4, bottom: 4, left: 10),
+//               hintText: 'Search...',
+//               border: InputBorder.none,
+//             ),
+//           )),
+//           Container(
+//             margin: EdgeInsets.only(right: 10),
+//             decoration: BoxDecoration(
+//                 color: Color(0xff115DB1),
+//                 borderRadius: BorderRadius.circular(30)),
+//             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+//             child: SvgPicture.asset(
+//               "assets/svg/search.svg",
+//               color: Colors.white,
+//             ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 // Widget buildShimmerList() {
 //   return ;

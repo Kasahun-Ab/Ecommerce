@@ -22,8 +22,6 @@ import 'product_details.dart';
 
 // ignore: must_be_immutable
 class HomeView extends StatelessWidget {
-
-  
   HomeView({super.key});
   final HomeController controller = Get.find<HomeController>();
 
@@ -57,7 +55,7 @@ class HomeView extends StatelessWidget {
                           Text(
                             "Good morning,",
                             style: GoogleFonts.poppins(
-                                fontSize: 15,
+                                fontSize: 15.sp,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xff999999)),
                           ),
@@ -67,11 +65,10 @@ class HomeView extends StatelessWidget {
                           Text(
                               "${controller.userData?.data.firstName} ${controller.userData?.data.lastName} 👋",
                               style: GoogleFonts.poppins(
-                                  fontSize: 17,
+                                  fontSize: 17.sp,
                                   fontWeight: FontWeight.w600,
                                   color: Color(0xff333333)))
                         ],
-                        
                       ),
                       Center(child: SvgPicture.asset("assets/svg/Bell.svg"))
                     ],
@@ -82,7 +79,7 @@ class HomeView extends StatelessWidget {
                 height: 15.h,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: search(),
               ),
               SizedBox(
@@ -97,27 +94,34 @@ class HomeView extends StatelessWidget {
                         itemCount: controller.categories.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: InkWell(
+                            padding: EdgeInsets.only(left: 20.0.w),
+                            child: GestureDetector(
                               onTap: () async {
                                 Get.to(() => Categories());
                               },
                               child: Column(
                                 children: [
                                   CircleAvatar(
-                                    radius: 25,
+                                    radius: 25.sp,
                                     backgroundImage:
                                         AssetImage("assets/images/laptop.png"),
                                     backgroundColor: Colors.transparent,
                                   ),
                                   SizedBox(
-                                    height: 5,
+                                    height: 5.h,
                                   ),
-                                  Text(
-                                    controller.categories[index].name,
-                                    style: GoogleFonts.poppins(
-                                      color: Color(0xff333333),
-                                      fontSize: 14,
+                                  Container(
+                                    width: 60.w,
+                                    child: Center(
+                                      child: Text(
+                                        maxLines: 1,
+                                        overflow: TextOverflow.fade,
+                                        controller.categories[index].name,
+                                        style: GoogleFonts.poppins(
+                                          color: Color(0xff333333),
+                                          fontSize: 14.sp,
+                                        ),
+                                      ),
                                     ),
                                   )
                                 ],
@@ -128,14 +132,14 @@ class HomeView extends StatelessWidget {
                       ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: controller.iscategories.isTrue
                     ? bannerShimmer()
                     : Container(
                         width: double.infinity,
                         height: 120.h,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
+                            borderRadius: BorderRadius.circular(5.sp),
                             image: DecorationImage(
                                 fit: BoxFit.fill,
                                 image: AssetImage("assets/images/banner.png"))),
@@ -145,11 +149,12 @@ class HomeView extends StatelessWidget {
                 height: 20.h,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: CardTitle_with_icon(
                   title: 'Recommended for You',
                   subtitle: 'Top brand’s, price slashed',
-                  tap: () {}, iconshow: false,
+                  tap: () {},
+                  iconshow: false,
                 ),
               ),
               SizedBox(
@@ -169,7 +174,8 @@ class HomeView extends StatelessWidget {
                   subtitle: "Limited time offers",
                   tap: () {
                     controller.selectedIndex.value = 5;
-                  }, iconshow: true,
+                  },
+                  iconshow: true,
                 ),
               ),
               SizedBox(
@@ -284,7 +290,7 @@ class HomeView extends StatelessWidget {
     List<Datum> product,
   ) {
     return ListView.builder(
-      padding: const EdgeInsets.only(left: 16),
+      padding: EdgeInsets.only(left: 16.w),
       scrollDirection: Axis.horizontal,
       itemCount: product.length,
       itemBuilder: (context, index) {
@@ -294,7 +300,7 @@ class HomeView extends StatelessWidget {
         return Obx(
           () => Container(
             width: 165.w,
-            padding: const EdgeInsets.only(right: 16.0),
+            padding: EdgeInsets.only(right: 16.0.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

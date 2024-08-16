@@ -1,12 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pazimo/app/data/notfication.dart' ;
+import 'package:pazimo/app/data/notfication.dart';
 import 'package:pazimo/theme/themedata.dart';
-
-
-
 
 class NotificationController extends GetxController {
   var notifications = <Notificationa>[].obs;
@@ -55,30 +51,39 @@ class NotificationController extends GetxController {
   }
 
   List<Notificationa> getNotificationsByDate(DateTime date) {
-    return notifications.where((notification) =>
-        notification.date.year == date.year &&
-        notification.date.month == date.month &&
-        notification.date.day == date.day).toList();
+    return notifications
+        .where((notification) =>
+            notification.date.year == date.year &&
+            notification.date.month == date.month &&
+            notification.date.day == date.day)
+        .toList();
   }
 
   List<DateTime> getUniqueDates() {
-    return notifications.map((notification) => DateTime(
-        notification.date.year,
-        notification.date.month,
-        notification.date.day)).toSet().toList()..sort((a, b) => b.compareTo(a));
+    return notifications
+        .map((notification) => DateTime(notification.date.year,
+            notification.date.month, notification.date.day))
+        .toSet()
+        .toList()
+      ..sort((a, b) => b.compareTo(a));
   }
 }
 
-
-
 class NotificationsScreen extends StatelessWidget {
-  final NotificationController notificationController = Get.put(NotificationController());
+  final NotificationController notificationController =
+      Get.put(NotificationController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
-        title: Text('Notifications', style: GoogleFonts.poppins(color: primary_blue, fontSize: 24,fontWeight: FontWeight.w500)),
+        backgroundColor: primary_white,
+        title: Text('Notifications',
+            style: GoogleFonts.poppins(
+                color: primary_blue,
+                fontSize: 24,
+                fontWeight: FontWeight.w500)),
       ),
       body: Obx(() {
         var uniqueDates = notificationController.getUniqueDates();
@@ -87,8 +92,10 @@ class NotificationsScreen extends StatelessWidget {
           itemCount: uniqueDates.length,
           itemBuilder: (context, index) {
             var date = uniqueDates[index];
-            var notifications = notificationController.getNotificationsByDate(date);
-            return NotificationSection(date: date, notifications: notifications);
+            var notifications =
+                notificationController.getNotificationsByDate(date);
+            return NotificationSection(
+                date: date, notifications: notifications);
           },
         );
       }),
@@ -112,7 +119,9 @@ class NotificationSection extends StatelessWidget {
           style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 8),
-        ...notifications.map((notification) => NotificationTile(notification: notification)).toList(),
+        ...notifications
+            .map((notification) => NotificationTile(notification: notification))
+            .toList(),
         SizedBox(height: 16),
       ],
     );
@@ -120,9 +129,13 @@ class NotificationSection extends StatelessWidget {
 
   String formatDate(DateTime date) {
     final now = DateTime.now();
-    if (date.year == now.year && date.month == now.month && date.day == now.day) {
+    if (date.year == now.year &&
+        date.month == now.month &&
+        date.day == now.day) {
       return 'Today';
-    } else if (date.year == now.year && date.month == now.month && date.day == now.day - 1) {
+    } else if (date.year == now.year &&
+        date.month == now.month &&
+        date.day == now.day - 1) {
       return 'Yesterday';
     } else {
       return '${date.year}-${date.month}-${date.day}';
@@ -139,7 +152,8 @@ class NotificationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Image.asset(notification.icon, width: 40, height: 40),
-      title: Text(notification.title, style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
+      title: Text(notification.title,
+          style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
       subtitle: Text(notification.description, style: GoogleFonts.poppins()),
     );
   }

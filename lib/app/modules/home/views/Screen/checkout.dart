@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:pazimo/app/modules/Components/cart_price_list_text.dart';
 import 'package:pazimo/app/modules/Components/checkout_page_text.dart';
 // import 'package:pazimo/app/modules/Components/deliveradresslist.dart';
+
 import 'package:pazimo/app/modules/Components/long_button.dart';
 import 'package:pazimo/app/modules/Components/popup_dialog.dart';
 import 'package:pazimo/app/modules/home/controllers/home_controller.dart';
@@ -17,22 +18,19 @@ import '../../../../../api/Api_Methods/allmethodsapi.dart';
 import '../../../../data/address.dart';
 import 'myorders.dart';
 
-
 class CheckoutView extends StatelessWidget {
   CheckoutView({super.key});
-   final Api _api = Api();
+  final Api _api = Api();
   deliverAddress? _address;
   var addressof = <Datum>[].obs;
   RxBool isDefault = false.obs;
   var selected = <RxBool>[].obs;
-
+  TextEditingController _cuponController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-
-    
     Size size = MediaQuery.of(context).size;
     final HomeController controller = Get.find<HomeController>();
-   Future<void> getAddresses() async {
+    Future<void> getAddresses() async {
       try {
         final response = await _api.getAddresses();
         if (response?.data != null) {
@@ -58,11 +56,17 @@ class CheckoutView extends StatelessWidget {
         selected[x].value = (x == index);
       }
     }
+
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
-        centerTitle: true,
-        title: Text("Checkout",style: GoogleFonts.poppins(color: primary_blue,fontSize: 24,fontWeight: FontWeight.w500),
-      )),
+          backgroundColor: primary_white,
+          centerTitle: true,
+          title: Text(
+            "Checkout",
+            style: GoogleFonts.poppins(
+                color: primary_blue, fontSize: 24, fontWeight: FontWeight.w500),
+          )),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Center(
@@ -79,68 +83,71 @@ class CheckoutView extends StatelessWidget {
                     title: 'Delivery Address',
                   ),
                   InkWell(
-                    onTap: (){},
+                    onTap: () {},
                     child: Text(
                       "Change",
-                      style: GoogleFonts.poppins(color: primary_blue, decoration: TextDecoration.underline,),
+                      style: GoogleFonts.poppins(
+                        color: primary_blue,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ],
               ),
-            Expanded(
-              child: Obx(
-                () => ListView.builder(
-                  itemCount: addressof.length,
-                  itemBuilder: (context, index) {
-                    return Obx(
-                      () => Container(
-                        margin: EdgeInsets.only(top: 16),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border:
-                                Border.all(width: 1, color: Color(0xffE6E6E6))),
-                        child: ListTile(
-                          leading: SvgPicture.asset("assets/svg/Location.svg"),
-                          title: Text(
-                            "${addressof[index].city}",
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: primary_blue),
-                          ),
-                          subtitle: Text("${addressof[index].companyName}",
+              Expanded(
+                child: Obx(
+                  () => ListView.builder(
+                    itemCount: addressof.length,
+                    itemBuilder: (context, index) {
+                      return Obx(
+                        () => Container(
+                          margin: EdgeInsets.only(top: 16),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                  width: 1, color: Color(0xffE6E6E6))),
+                          child: ListTile(
+                            leading:
+                                SvgPicture.asset("assets/svg/Location.svg"),
+                            title: Text(
+                              "${addressof[index].city}",
                               style: GoogleFonts.poppins(
-                                  fontSize: 14, color: Color(0xff808080))),
-                          trailing: Container(
-                            height: 20,
-                            width: 20,
-                            padding: EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  width: 1,
-                                  color: primary_blue,
-                                )),
-                            child: selected[index].value
-                                ? Container(
-                                    width: 13,
-                                    height: 13,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: primary_blue))
-                                : null,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: primary_blue),
+                            ),
+                            subtitle: Text("${addressof[index].companyName}",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 14, color: Color(0xff808080))),
+                            trailing: Container(
+                              height: 20,
+                              width: 20,
+                              padding: EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    width: 1,
+                                    color: primary_blue,
+                                  )),
+                              child: selected[index].value
+                                  ? Container(
+                                      width: 13,
+                                      height: 13,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: primary_blue))
+                                  : null,
+                            ),
+                            onTap: () {
+                              setDefaultvalue(index);
+                            },
                           ),
-                          onTap: () {
-                            setDefaultvalue(index);
-                            
-                          },
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
               SizedBox(
                 height: 20,
               ),
@@ -175,7 +182,6 @@ class CheckoutView extends StatelessWidget {
                         Sub_total: 'Total',
                         price: controller.sub_total,
                       ),
-                     
                       SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -196,6 +202,7 @@ class CheckoutView extends StatelessWidget {
                                   SvgPicture.asset("assets/svg/Vector.svg"),
                                   Expanded(
                                     child: TextField(
+                                        controller: _cuponController,
                                         decoration: InputDecoration(
                                             hintText: "Promo code",
                                             hintStyle: GoogleFonts.poppins(
@@ -215,18 +222,31 @@ class CheckoutView extends StatelessWidget {
                           SizedBox(
                             width: 5,
                           ),
-                          Container(
-                            height: 45,
-                            width: 68,
-                            decoration: BoxDecoration(
-                              color: primary_blue,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "add",
-                                style: GoogleFonts.poppins(color: Colors.white),
+                          TextButton(
+                            onPressed: () async {
+                              var _rresponse;
+
+                              try {
+                                var response = await _api.ApplyCupon(
+                                    _cuponController.text);
+                                _rresponse = response;
+                              } catch (e) {
+                                print(e);
+                              }
+                              print("hello response$_rresponse");
+                              _cuponController.clear();
+                            },
+                            // : null,
+                            style: TextButton.styleFrom(
+                              backgroundColor: primary_blue,
+                              minimumSize: Size(68, 45),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
+                            ),
+                            child: Text(
+                              "add",
+                              style: GoogleFonts.poppins(color: Colors.white),
                             ),
                           )
                         ],
@@ -470,12 +490,10 @@ class CheckoutView extends StatelessWidget {
                                     hasIcon: false)
                               ],
                             ),
-                          
                           ),
                         ),
                       ),
                     );
-                  
                   },
                   hasBorder: false,
                   iconDirectionIsRight: true,
@@ -489,70 +507,4 @@ class CheckoutView extends StatelessWidget {
       ),
     );
   }
-
-  // Widget deliverAdressList(
-  //   String title,
-  //   String address,
-  // ) {
-
-  //   return InkWell(
-  //     onTap: () {
-  //       title == 'home' ? isHome.value = true : isHome.value = false;
-  //     },
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       children: [
-  //         Padding(
-  //           padding: const EdgeInsets.symmetric(vertical: 10.0),
-  //           child: Row(
-  //             mainAxisAlignment: MainAxisAlignment.start,
-  //             children: [
-  //               SvgPicture.asset('assets/svg/Location.svg'),
-  //               SizedBox(width: 10.w),
-  //               Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   Text(
-  //                     title,
-  //                     style: GoogleFonts.poppins(
-  //                         color: primary_blue,
-  //                         fontSize: 16,
-  //                         fontWeight: FontWeight.w500),
-  //                   ),
-  //                   Text(
-  //                     address,
-  //                     style: GoogleFonts.poppins(
-  //                         color: Color(0Xff808080), fontSize: 14),
-  //                   ),
-  //                 ],
-  //               )
-  //             ],
-  //           ),
-  //         ),
-  //         Obx(
-  //           () => Container(
-  //             height: 20,
-  //             width: 20,
-  //             decoration: BoxDecoration(
-  //                 border: Border.all(width: 2),
-  //                 shape: BoxShape.circle,
-  //                 color: Colors.white),
-  //             child: Center(
-  //               child: isHome.value
-  //                   ? Container(
-  //                       height: 12,
-  //                       width: 12,
-  //                       decoration: BoxDecoration(
-  //                           // border: Border.all(width: 2),
-  //                           shape: BoxShape.circle,
-  //                           color: const Color.fromARGB(255, 0, 0, 0)),
-  //                     )
-  //                   : Container(),
-  //             ),
-  //           ),
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
 }

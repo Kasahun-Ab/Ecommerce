@@ -7,15 +7,17 @@ import 'package:pazimo/app/modules/Components/CardTitle_with%20Icon.dart';
 import 'package:pazimo/app/modules/Components/search_textfield.dart';
 import 'package:pazimo/app/modules/home/views/Screen/event_detailes_view.dart';
 
+import '../../../../../theme/themedata.dart';
+
 class EventView extends StatelessWidget {
   EventView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(235, 255, 255, 255),
+     backgroundColor: primary_white,
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(235, 255, 255, 255),
+      backgroundColor: primary_white,
         title: search(),
       ),
       body: Padding(

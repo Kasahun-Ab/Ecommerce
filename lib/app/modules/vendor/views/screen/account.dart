@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../theme/themedata.dart';
+
 class BusinessDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
+        backgroundColor: primary_white,
         title: Text('Business Details',
             style: GoogleFonts.poppins(color: Color(0xff115DB1))),
         leading: IconButton(

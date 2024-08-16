@@ -37,7 +37,9 @@ class _VendorPageState extends State<VendorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
+        backgroundColor: primary_white,
         title: Text(
           'Become a Vendor',
           style: GoogleFonts.poppins(color: primary_blue),

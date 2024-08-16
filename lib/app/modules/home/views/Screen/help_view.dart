@@ -7,8 +7,14 @@ class HelpCenter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
-        title: Text('Help Center', style: GoogleFonts.poppins(color: primary_blue, fontSize: 24,fontWeight: FontWeight.w500)),
+        backgroundColor: primary_white,
+        title: Text('Help Center',
+            style: GoogleFonts.poppins(
+                color: primary_blue,
+                fontSize: 24,
+                fontWeight: FontWeight.w500)),
       ),
       body: ListView(
         padding: EdgeInsets.all(16.0),

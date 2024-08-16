@@ -6,6 +6,8 @@ import '../modules/EventOrganizer/bindings/event_organizer_binding.dart';
 import '../modules/EventOrganizer/views/event_organizer_view.dart';
 import '../modules/authentication/bindings/authentication_binding.dart';
 import '../modules/authentication/views/authentication_view.dart';
+import '../modules/delivery/bindings/delivery_binding.dart';
+import '../modules/delivery/views/delivery_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home.dart';
 import '../modules/onbording/bindings/onbording_binding.dart';
@@ -48,8 +50,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.EVENT_ORGANIZER,
-      page: () =>  EventOrganizerView(),
+      page: () => EventOrganizerView(),
       binding: EventOrganizerBinding(),
+    ),
+    GetPage(
+      name: _Paths.DELIVERY,
+      page: () => const DeliveryView(),
+      binding: DeliveryBinding(),
     ),
   ];
 }

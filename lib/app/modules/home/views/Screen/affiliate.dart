@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../theme/themedata.dart';
+
 class AffiliatePage extends StatefulWidget {
   @override
   _AffiliatePageState createState() => _AffiliatePageState();
@@ -27,12 +29,14 @@ class _AffiliatePageState extends State<AffiliatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
+        backgroundColor: primary_white,
         title: Text(
           'Become an Affiliate',
-          style: GoogleFonts.poppins(color: Color(0xff115DB1)),
+          style: GoogleFonts.poppins(color: primary_blue),
         ),
-        iconTheme: IconThemeData(color: Color(0xff115DB1)),
+        iconTheme: IconThemeData(color: primary_blue),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -145,7 +149,7 @@ class _AffiliatePageState extends State<AffiliatePage> {
                         child: Text('Submit',
                             style: GoogleFonts.poppins(color: Colors.white)),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff115DB1),
+                          backgroundColor: primary_blue,
                           padding: EdgeInsets.symmetric(vertical: 16),
                           textStyle: GoogleFonts.poppins(fontSize: 16),
                           shape: RoundedRectangleBorder(

@@ -6,6 +6,8 @@ import 'package:pazimo/app/modules/onbording/controllers/onbording_controller.da
 import 'package:pazimo/app/modules/onbording/views/SplashScreen.dart';
 import 'package:pazimo/app/routes/app_pages.dart';
 
+import '../../../../../theme/themedata.dart';
+
 class SplashScreen extends StatelessWidget {
   SplashScreen({Key? key}) : super(key: key);
   final OnboardingController controller = Get.put(OnboardingController());
@@ -21,6 +23,7 @@ class SplashScreen extends StatelessWidget {
     });
 
     return Scaffold(
+      backgroundColor: primary_white,
       body: SafeArea(
         child: Stack(
           children: [

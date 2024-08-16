@@ -33,7 +33,6 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ScrollControllerWidget();
     return Scaffold(
-
       backgroundColor: primary_white,
       floatingActionButton: GetX<FabController>(
         builder: (controller) {
@@ -52,13 +51,11 @@ class DashboardPage extends StatelessWidget {
               : SizedBox.shrink();
         },
       ),
-      
       appBar: AppBar(
-       
-     surfaceTintColor: primary_white,
-       backgroundColor: primary_white,
-       shadowColor: const Color.fromARGB(113, 0, 0, 0),
-       elevation: 1,
+        surfaceTintColor: primary_white,
+        backgroundColor: primary_white,
+        shadowColor: const Color.fromARGB(113, 0, 0, 0),
+        elevation: 1,
         leading: Icon(
           Icons.arrow_back,
           color: Color(0xff115DB1),
@@ -495,7 +492,6 @@ class DashboardPage extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class FabController extends GetxController {

@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../theme/themedata.dart';
 import '../../../Components/long_button.dart';
 import '../../../Components/popup_dialog.dart';
 
@@ -15,7 +16,9 @@ class WithdrawPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
+        backgroundColor: primary_white,
         leading: GestureDetector(
           child: Icon(Icons.arrow_back),
         ),

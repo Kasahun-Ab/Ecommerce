@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pazimo/app/modules/home/views/Screen/affiliate.dart';
 import 'package:pazimo/app/modules/home/views/Screen/vendor.dart';
 
+import '../../../../../theme/themedata.dart';
+
 // ignore: must_be_immutable
 class ConditionsPage extends StatelessWidget {
   String title;
@@ -12,7 +14,9 @@ class ConditionsPage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: primary_white,
         appBar: AppBar(
+          backgroundColor: primary_white,
           title: Text(
             'Terms of use',
             style: GoogleFonts.poppins(
@@ -169,7 +173,8 @@ class ConditionsPage extends StatelessWidget {
                       width: 150.0,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff115DB1), // Background color
+                          backgroundColor:
+                              Color(0xff115DB1), // Background color
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
                           ),

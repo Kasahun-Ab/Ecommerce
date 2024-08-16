@@ -50,9 +50,15 @@ class AddressPage extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar( 
+      backgroundColor: primary_white,
+      appBar: AppBar(
+        backgroundColor: primary_white,
         centerTitle: true,
-        title: Text('Address', style: GoogleFonts.poppins(color: primary_blue,fontSize: 24,fontWeight:FontWeight.w500)),
+        title: Text('Address',
+            style: GoogleFonts.poppins(
+                color: primary_blue,
+                fontSize: 24,
+                fontWeight: FontWeight.w500)),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),

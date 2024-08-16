@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../../theme/themedata.dart';
 import 'vender_catigories.dart';
 
 class ImagePickerController extends GetxController {
@@ -50,7 +51,9 @@ class ProductEdit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primary_white,
       appBar: AppBar(
+        backgroundColor: primary_white,
         title: Text('My products'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

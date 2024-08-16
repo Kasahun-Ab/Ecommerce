@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../../api/ApiConfig.dart';
 
 class AuthenticationController extends GetxController {
@@ -31,7 +32,7 @@ class AuthenticationController extends GetxController {
         },
       );
 
-   print(response);
+      print(response);
       return response;
     } on DioError catch (e) {
       Map<String, dynamic> errorMessage;
@@ -110,6 +111,18 @@ class AuthenticationController extends GetxController {
     }
   }
 
+  Future<void> signinApple() async {
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+      print(credential);
+    } catch (error) {}
+  }
+
   Future<void> signOut() async {
     await googleSignIn.signOut();
   }
@@ -118,7 +131,6 @@ class AuthenticationController extends GetxController {
     try {
       // final LoginResult result = await FacebookAuth.instance.login();
       // final AccessToken accessToken = result.accessToken!;
-
     } catch (e) {
       print(e.toString());
     }
