@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +10,7 @@ import 'package:pazimo/app/modules/home/views/Screen/account_view.dart';
 import 'package:pazimo/app/modules/home/views/Screen/event_view.dart';
 import 'package:pazimo/app/modules/home/views/Screen/home_view.dart';
 import 'package:pazimo/app/modules/home/views/Screen/mydetails.dart';
+import 'package:badges/badges.dart' as badges;
 
 import '../../../../theme/themedata.dart';
 import 'Screen/Deals.dart';
@@ -28,7 +31,7 @@ class HomePage extends GetView<HomeController> {
 
   final List<String> iconSource = [
     'assets/svg/home.svg',
-    'assets/svg/bag 1.svg',
+    'assets/svg/bag_2.svg',
     'assets/images/center_icon.png',
     'assets/svg/cart.svg',
     'assets/svg/profile.svg'
@@ -140,40 +143,35 @@ class HomePage extends GetView<HomeController> {
                         },
                       )),
                   InkWell(
-                    onTap: () => {
-                      controller.selectedIndex.value = 3,
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      child: Stack(
-                        fit: StackFit.loose,
-                        children: [
-                          bottomnaveBarItem(
+                      onTap: () => {
+                            controller.selectedIndex.value = 3,
+                          },
+                      child: Container(
+                        padding: EdgeInsets.all(5),
+                        child: badges.Badge(
+                          position:
+                              badges.BadgePosition.custom(top: -15, end: 0),
+                          showBadge: controller.cartBage.value >= 1,
+                          ignorePointer: false,
+                          badgeAnimation: badges.BadgeAnimation.scale(
+                            animationDuration: Duration(seconds: 1),
+                            colorChangeAnimationDuration: Duration(seconds: 1),
+                            loopAnimation: false,
+                            curve: Curves.fastOutSlowIn,
+                            colorChangeAnimationCurve: Curves.easeInCubic,
+                          ),
+                          badgeContent: Text(
+                            '${controller.cartBage.value}',
+                            style: GoogleFonts.poppins(color: primary_white),
+                          ),
+                          child: bottomnaveBarItem(
                             iconSource[3],
                             3,
                             label[2],
                           ),
-                          controller.carts.length < 1
-                              ? Container()
-                              : Positioned(
-                                  right: 0,
-                                  child: CircleAvatar(
-                                    radius: 10,
-                                    backgroundColor: Colors.red,
-                                    child: Center(
-                                      child: Text(
-                                        '${controller.carts.length}',
-                                        style: TextStyle(
-                                            fontSize: 13.sp,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ),
-                                  ))
-                        ],
-                      ),
-                    ),
-                  ),
+                        ),
+                   
+                      )),
                   InkWell(
                     onTap: () => {
                       controller.selectedIndex.value = 4,

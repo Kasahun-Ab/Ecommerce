@@ -312,8 +312,8 @@ class EventDetailPage extends StatelessWidget {
                                       // controller.addtoCart(detailsToAdd);
                                     }
                                   : () => {
-                                        isAdded.value = false,
-                                        controller.removeFromCart(detailsToAdd),
+                                        // isAdded.value = false,
+                                        // controller.removeFromCart(detailsToAdd),
                                       },
                               color: Color(0xff115DB1)),
                         ),

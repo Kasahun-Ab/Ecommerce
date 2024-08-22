@@ -43,8 +43,8 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   ).obs;
 
   RxMap<String, dynamic> productDetailData = <String, dynamic>{}.obs;
-
-  RxList<Map<String, dynamic>> carts = <Map<String, dynamic>>[].obs;
+ RxInt cartBage=0.obs;
+  // RxList<Map<String, dynamic>> carts = <Map<String, dynamic>>[].obs;
 
   RxList<Map<String, dynamic>> Saved = <Map<String, dynamic>>[].obs;
 
@@ -58,13 +58,13 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
     endValue.value = end;
   }
 
-  void addtoCart(Map<String, dynamic> details) {
-    carts.add(details);
-  }
+  // void addtoCart(Map<String, dynamic> details) {
+  //   carts.add(details);
+  // }
 
-  void removeFromCart(Map<String, dynamic> details) {
-    carts.remove(details);
-  }
+  // void removeFromCart(Map<String, dynamic> details) {
+  //   carts.remove(details);
+  // }
 
   calculateSubTotal(List<Map<String, dynamic>> carts) {
     double total = 0.0;

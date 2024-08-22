@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -19,6 +18,7 @@ import 'package:pazimo/theme/themedata.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../../api/Api_Methods/allmethodsapi.dart';
+import '../../../../data/Cart.dart' as cart;
 import '../../../Components/Expantion_button.dart';
 import '../../../Components/icon_button.dart';
 import '../../../Components/short_button.dart';
@@ -53,6 +53,7 @@ class ProductDetailView extends StatelessWidget {
     downloadableLinks: [],
     downloadableSamples: [],
   ).obs;
+  cart.Cart? _cart;
   RxDouble totalPrice = 0.0.obs;
 
   Future<void> details() async {
@@ -90,13 +91,15 @@ class ProductDetailView extends StatelessWidget {
       appBar: AppBar(
         surfaceTintColor: primary_white,
         backgroundColor: primary_white,
-          shadowColor: Colors.black,
-        elevation:1,
+        shadowColor: Colors.black,
+        elevation: 1,
         centerTitle: true,
         title: Text(
           "Product details",
           style: GoogleFonts.poppins(
-              fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xff115DB1)),
+              fontSize: 24,
+              fontWeight: FontWeight.w400,
+              color: Color(0xff115DB1)),
         ),
       ),
       body: Obx(
@@ -302,37 +305,6 @@ class ProductDetailView extends StatelessWidget {
                                   SizedBox(
                                     height: 10.h,
                                   ),
-
-                                  // ? Container(
-                                  //     height: 40.h, // Provide a fixed height
-                                  //     child: ListView.builder(
-                                  //       itemCount: controller
-                                  //           .products[productIndex.value]
-                                  //           .sizes
-                                  //           .length,
-                                  //       scrollDirection: Axis.horizontal,
-                                  //       itemBuilder: (context, index) {
-                                  //         return Padding(
-                                  //           padding:
-                                  //               const EdgeInsets.only(right: 8.0),
-                                  //           child: Obx(
-                                  //             () => SelectedBox(
-                                  //                 controller
-                                  //                     .products[productIndex.value]
-                                  //                     .sizes[index],
-                                  //                 selectedIndex.value == index
-                                  //                     ? Color(0XFFD9D9D9)
-                                  //                     : Color(0XFF999999),
-                                  //                 selectedIndex.value == index
-                                  //                     ? Colors.black
-                                  //                     : Colors.white,
-                                  //                 index,
-                                  //                 selectedIndex),
-                                  //           ),
-                                  //         );
-                                  //       },
-                                  //     ))
-                                  // : Container(),
                                   SizedBox(
                                     height: 15.h,
                                   ),
@@ -345,8 +317,6 @@ class ProductDetailView extends StatelessWidget {
                                   SizedBox(
                                     height: 10.h,
                                   ),
-                                 
-                             
                                 ],
                               ),
                               SizedBox(
@@ -424,15 +394,15 @@ class ProductDetailView extends StatelessWidget {
                       ),
                       Container(
                         height: 120,
-                        
                         padding: EdgeInsets.symmetric(
                             vertical: 15,
                             horizontal: ScreenUtil().setWidth(16)),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                           border: Border(
-                            top: BorderSide(color: Color.fromARGB(53, 0, 0, 0),width: 1)
-                           ),
+                            border: Border(
+                                top: BorderSide(
+                                    color: Color.fromARGB(53, 0, 0, 0),
+                                    width: 1)),
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(5),
@@ -517,70 +487,54 @@ class ProductDetailView extends StatelessWidget {
                                         ? "Add to cart"
                                         : "Remove from cart",
                                     onTap: isAdded.value == false
-                                        ? () async{
+                                        ? () async {
                                             EasyLoading.show(
-                                                          status: 'loading...');
-                                           
-                                         final response= await   _api.addToCart({
-                                              "product_id":product.value.id,
-                                              "quantity":itemNumber.value
+                                                status: 'loading...');
+
+                                            final response = await _api
+                                                .addToCart({
+                                              "product_id": product.value.id,
+                                              "quantity": itemNumber.value
                                             });
-                                          print(response!.data);
-                                           if(response.statusCode==200){
+
+                                            if (response?.statusCode == 200) {
+                                              _cart = await cart.Cart.fromJson(
+                                                  response!.data);
+                                              controller.cartBage.value =
+                                                  _cart!.data!.itemsQty!;
                                               EasyLoading.dismiss();
-                                           }
-
+                                            }
                                             isAdded.value = true;
-                                            detailsToAdd = {
-                                              "id": product.value.id,
-                                              "name": product.value.name,
-                                              'price': double.parse(
-                                                      product.value.price)
-                                                  .obs,
-                                              'image': product.value.images!
-                                                          .length ==
-                                                      0
-                                                  ? "https://via.placeholder.com/150"
-                                                  : product.value.images![0],
-                                              "itemNumber": itemNumber,
-                                              "total_price": totalPrice,
-                                              "color": "",
-                                              "size": ""
-                                            };
-
-                                            controller.addtoCart(detailsToAdd);
                                             Get.snackbar(
                                                 colorText: Colors.white,
                                                 backgroundColor: Colors.green,
                                                 "successfully",
                                                 "added to cart");
                                           }
-                                        : () async{
-                                              isAdded.value = false;
-                                              controller
-                                                  .removeFromCart(detailsToAdd);
-EasyLoading.show(
-                                                                status:
-                                                                    'loading...');
-                                                            try {
-                                                              final response = await _api
-                                                                  .deleteFromCart(product.value.id);
-                                                                  
-                                                              if (response!
-                                                                      .statusCode ==
-                                                                  200) {
-                                                               
-                                                                  EasyLoading
-                                                                      .dismiss();
-                                                                } else {
-                                                                 
-                                                              }
-                                                            } catch (e) {
-                                                            
-                                                              EasyLoading
-                                                                  .dismiss();
-                                                            }
-                                            },
+                                        : () async {
+                                            isAdded.value = false;
+
+                                            EasyLoading.show(
+                                                status: 'loading...');
+                                            try {
+                                              final response =
+                                                  await _api.deleteFromCart(
+                                                      product.value.id);
+
+                                              if (response!.statusCode == 200) {
+                                                _cart =
+                                                    await cart.Cart.fromJson(
+                                                        response.data);
+                                                controller.cartBage.value =
+                                                    _cart!.data!.itemsQty!;
+                                                EasyLoading.dismiss();
+                                              } else {
+                                                EasyLoading.dismiss();
+                                              }
+                                            } catch (e) {
+                                              EasyLoading.dismiss();
+                                            }
+                                          },
                                     color: Color(0xff115DB1),
                                   ),
                                 ),

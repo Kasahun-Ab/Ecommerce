@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -24,54 +23,49 @@ class CartView extends StatelessWidget {
   Cart? _cart;
   @override
   Widget build(BuildContext context) {
-   
-    getCart() async { 
+    getCart() async {
       items.value = [];
       isloading.value = true;
-     
+
       try {
         final response = await _api.getCart();
-   
-        if (response.statusCode == 200) {
-        
-          if (response.data != null) {
-         
-            _cart = await Cart.fromJson(response.data);
-           
-            items.value = _cart!.data!.items!;
-     
-            isloading.value = false;
 
+        if (response.statusCode == 200) {
+          if (response.data != null) {
+            _cart = await Cart.fromJson(response.data);
+            controller.cartBage.value = _cart!.data!.itemsQty!;
+            items.value = _cart!.data!.items!;
+
+            isloading.value = false;
           } else {
-           
             _cart = null;
             items.value = [];
+            controller.cartBage.value = 0;
             isloading.value = false;
           }
         }
         isloading.value = false;
       } catch (e) {
-       print(e);
+        print(e);
         isloading.value = false;
       }
     }
 
     getCart();
 
-  
     return Scaffold(
       backgroundColor: primary_white,
       appBar: AppBar(
         backgroundColor: primary_white,
-       
         centerTitle: true,
         title: Text(
           "My Cart",
-          style: GoogleFonts.poppins(color: primary_blue,fontSize: 24.sp,fontWeight: FontWeight.w500),
+          style: GoogleFonts.poppins(
+              color: primary_blue,
+              fontSize: 24.sp,
+              fontWeight: FontWeight.w500),
         ),
-        actions: [
-     
-        ],
+        actions: [],
       ),
       body: Obx(
         () => isloading.isTrue
@@ -91,7 +85,9 @@ class CartView extends StatelessWidget {
                                     RxDouble price = 0.0.obs;
                                     Rx<int?> quantity =
                                         items[index].quantity.obs;
-                                     price = double.parse(items[index].product!.price!)
+
+                                    price = double.parse(
+                                            items[index].product!.price!)
                                         .obs;
 
                                     return Container(
@@ -106,7 +102,6 @@ class CartView extends StatelessWidget {
                                       padding: EdgeInsets.all(8),
                                       child: Row(
                                         children: [
-
                                           Container(
                                             height: 83.h,
                                             width: 79.w,
@@ -154,13 +149,15 @@ class CartView extends StatelessWidget {
                                                                     .start,
                                                             children: [
                                                               Container(
-                                                              width:170,
-                                                              
+                                                                width: 170,
                                                                 child: Text(
-                                                                    "Name:${items[index].product!.name}",style: GoogleFonts.poppins(
-                                                                    ),
-                                                                    overflow: TextOverflow.fade,
-                                                                    ),
+                                                                  "Name:${items[index].product!.name}",
+                                                                  style: GoogleFonts
+                                                                      .poppins(),
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .fade,
+                                                                ),
                                                               ),
                                                               Text(
                                                                   "Size: ${100}"),
@@ -176,6 +173,7 @@ class CartView extends StatelessWidget {
                                                                   .deleteFromCart(
                                                                       items[index]
                                                                           .id);
+
                                                               if (response!
                                                                       .statusCode ==
                                                                   200) {
@@ -186,24 +184,38 @@ class CartView extends StatelessWidget {
                                                                       .fromJson(
                                                                           response
                                                                               .data);
+
                                                                   items.value =
                                                                       _cart!
                                                                           .data!
                                                                           .items!;
+                                                                  controller
+                                                                          .cartBage
+                                                                          .value =
+                                                                      _cart!
+                                                                          .data!
+                                                                          .itemsQty!;
                                                                   isloading
                                                                           .value =
                                                                       false;
+
                                                                   EasyLoading
                                                                       .dismiss();
                                                                 } else {
                                                                   items.value =
                                                                       [];
+                                                                  // controller
+                                                                  //     .cartBage
+                                                                  //     .value = 0;
                                                                   EasyLoading
                                                                       .dismiss();
                                                                 }
                                                               }
                                                             } catch (e) {
                                                               items.value = [];
+                                                              controller
+                                                                  .cartBage
+                                                                  .value = 0;
                                                               EasyLoading
                                                                   .dismiss();
                                                             }
@@ -227,7 +239,7 @@ class CartView extends StatelessWidget {
                                                                     .start,
                                                             children: [
                                                               Obx(() => Text(
-                                                                  "ETB \$ ${price}")),
+                                                                  "ETB \$  ${price}")),
                                                             ]),
                                                         Row(
                                                           mainAxisAlignment:
@@ -237,24 +249,33 @@ class CartView extends StatelessWidget {
                                                             Iconbutton(
                                                               onTap: () async {
                                                                 if (quantity
-                                                                        .value ==1)
-                                                                        { } 
-                                                                else {
+                                                                        .value ==
+                                                                    1) {
+                                                                } else {
                                                                   quantity.value =
-                                                                      (quantity.value! -
+                                                                      (quantity
+                                                                              .value! -
                                                                           1);
-                                                                    final response =
+                                                                  final response =
                                                                       await _api
-                                                                          .updateCart(
-                                                                            {
-                                                                              "qty": {
-                                                                          "${items[index].id}":
-                                                                          quantity.value
+                                                                          .updateCart({
+                                                                    "qty": {
+                                                                      "${items[index].id}":
+                                                                          quantity
+                                                                              .value
                                                                     }
-                                                                    
-                                                                             }
-                                                                          );
+                                                                  });
 
+                                                                  _cart = await Cart
+                                                                      .fromJson(
+                                                                          response!
+                                                                              .data);
+                                                                  controller
+                                                                          .cartBage
+                                                                          .value =
+                                                                      _cart!
+                                                                          .data!
+                                                                          .itemsQty!;
                                                                 }
                                                               },
                                                               icon:
@@ -271,20 +292,27 @@ class CartView extends StatelessWidget {
                                                             ),
                                                             //icons to add
                                                             Iconbutton(
-                                                              onTap: () async{
-                                                                     quantity.value =
-                                                                      quantity.value! +
-                                                                          1;
-                                                                    final response =
-                                                                      await _api
-                                                                          .updateCart({
-                                                                    "qty": {
-                                                                      "${items[index].id}":
-                                                                          " ${quantity.value}"
-                                                                    }
-                                                                  });
-
-                                                                  
+                                                              onTap: () async {
+                                                                quantity.value =
+                                                                    quantity.value! +
+                                                                        1;
+                                                                final response =
+                                                                    await _api
+                                                                        .updateCart({
+                                                                  "qty": {
+                                                                    "${items[index].id}":
+                                                                        " ${quantity.value}"
+                                                                  }
+                                                                });
+                                                                _cart = await Cart
+                                                                    .fromJson(
+                                                                        response!
+                                                                            .data);
+                                                                controller
+                                                                        .cartBage
+                                                                        .value =
+                                                                    _cart!.data!
+                                                                        .itemsQty!;
                                                               },
                                                               icon: Icons.add,
                                                             )
@@ -295,7 +323,9 @@ class CartView extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                         RSizedBox(width: 10,)
+                                          RSizedBox(
+                                            width: 10,
+                                          )
                                         ],
                                       ),
                                     );
@@ -330,8 +360,6 @@ class CartView extends StatelessWidget {
                             width: double.infinity,
                             child: Column(
                               children: [
-
-
                                 Divider(
                                   color: Color(0Xff808080),
                                 ),
