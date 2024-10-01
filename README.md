@@ -1,4 +1,4 @@
-# eCommerce Flutter App
+# Ecommerce Flutter App with Getx
 
 An eCommerce mobile application built using the **Flutter** framework. The app uses **Dio** for API requests and **GetX** for state management and navigation.
 
